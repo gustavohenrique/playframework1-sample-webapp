@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<homebank v="0.5">
+<properties title="Gustavo" car_category="0" auto_nbdays="0"/>
+<account key="1" flags="0" pos="1" type="1" name="Citibank" number="25739904721" bankname="" initial="900.5" minimum="0" cheque1="0" cheque2="0"/>
+<account key="4" flags="0" pos="4" type="2" name="Itau" number="54099-1" bankname="" initial="99.5" minimum="0" cheque1="0" cheque2="0"/>
+<account key="3" flags="0" pos="3" type="3" name="Banco do Brasil" number="17521-9" bankname="" initial="0" minimum="0" cheque1="0" cheque2="0"/>
+<pay key="1" name="Wallmart"/>
+<pay key="2" name="Cinemark"/>
+<pay key="3" name="Hering"/>
+<pay key="4" name="Ricardo Eletro"/>
+<pay key="5" name="Americanas"/>
+<pay key="6" name="Cacau Show"/>
+<pay key="7" name="Hortifruti"/>
+<pay key="8" name="My Company"/>
+<pay key="10" name="Lanchao &amp; Cia"/>
+<pay key="11" name="Buzios Tur"/>
+<cat key="3" parent="0" flags="0" name="Food"/>
+<cat key="2" parent="0" flags="0" name="Helth"/>
+<cat key="11" parent="0" flags="0" name="Travel"/>
+<cat key="25" parent="0" flags="0" name="Car"/>
+<cat key="23" parent="0" flags="0" name="Investment"/>
+<cat key="22" parent="0" flags="0" name="Clothes"/>
+<cat key="21" parent="0" flags="0" name="Salary"/>
+<cat key="1" parent="0" flags="0" name="Education"/>
+<cat key="19" parent="0" flags="0" name="Internet"/>
+<cat key="10" parent="1" flags="0" name="Book"/>
+<!--
+<tag key="103" name="itaucard"/>
+<tag key="102" name="cinema"/>
+<tag key="100" name="horaextra"/>
+<tag key="99" name="farmacia"/>
+<tag key="97" name="cartorio"/>
+<tag key="93" name="cinema,"/>
+<tag key="92" name="computador"/>
+<tag key="91" name="acm"/>
+<tag key="2" name="supermercado"/>
+<fav amount="-106.25" account="1" dst_account="0" paymode="8" flags="164" payee="48" category="27" wording="ACM" nextdate="734354" every="1" unit="2" limit="4"/>
+<fav amount="-712.89999999999998" account="1" dst_account="0" paymode="8" flags="164" payee="3" category="3" wording="Aluguel" nextdate="734354" every="1" unit="2" limit="4"/>
+<fav amount="-199.90000000000001" account="1" dst_account="0" paymode="8" flags="164" payee="5" category="5" wording="Faculdade" nextdate="734354" every="1" unit="2" limit="4"/>
+<fav amount="-59.899999999999999" account="1" dst_account="0" paymode="8" flags="164" payee="4" category="4" wording="Internet Virtua" nextdate="734359" every="1" unit="2" limit="5"/>
+<fav amount="-40.469999999999999" account="1" dst_account="0" paymode="8" flags="164" payee="25" category="14" wording="Luz" nextdate="734360" every="1" unit="2" limit="5"/>
+<fav amount="-300" account="1" dst_account="0" paymode="4" flags="36" payee="28" category="23" wording="Previdencia Privada" nextdate="734360" every="1" unit="2" limit="1"/>
+<fav amount="-204" account="1" dst_account="0" paymode="8" flags="36" payee="1" category="1" wording="Vivo" nextdate="734352" every="1" unit="2" limit="1"/>
+-->
+<ope date="734138" amount="-46.469999999999999" account="1" dst_account="0" paymode="9" flags="3" payee="1" category="10" wording="Buy book Clean Code" info="" tags="book"/>
+<ope date="734138" amount="-53.53" account="1" dst_account="0" paymode="9" flags="3" payee="6" category="3" wording="Buy chocolate" info="" tags=""/>
+<ope date="734142" amount="-708.89999999999998" account="1" dst_account="0" paymode="8" flags="1" payee="11" category="11" wording="Travel to Buzios city in Rio de Janeiro" info="" tags=""/>
+<ope date="734142" amount="-91.1" account="2" dst_account="0" paymode="8" flags="1" payee="10" category="3" wording="Hamburguer with friends of #horaextra community" info="" tags=""/>
+<ope date="734142" amount="2000" account="1" dst_account="0" paymode="9" flags="3" payee="8" category="21" wording="My salary" info="" tags=""/>
+</homebank>

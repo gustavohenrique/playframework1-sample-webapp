@@ -1,0 +1,7 @@
+*.class
+*~
+*.swp
+*.bkp
+tmp
+test-result
+*classes*

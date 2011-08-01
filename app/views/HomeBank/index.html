@@ -1,0 +1,24 @@
+#{extends 'main.html'/}
+
+#{set title:'HomeBank Importer'/}
+
+#{form @upload(), id:'uploadForm', enctype:'multipart/form-data'}
+
+    #{ifErrors}
+        <p class="error">
+            Please correct these errors.
+        </p>
+    #{/ifErrors}
+   
+    #{ifError 'file'}
+        #{errors}
+            <li>${error}</li>
+        #{/errors}
+    #{/ifError}
+   
+    <p>
+       <label>File:</label>
+       <input type="file" id="file" name="file" />
+       <input type="submit" value="Import file" />
+    </p>
+#{/form}
