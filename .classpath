@@ -2,8 +2,11 @@
 <classpath>
 	<classpathentry excluding="views/**" kind="src" path="app"/>
 	<classpathentry kind="src" path="test"/>
+	
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/opt/play/framework/play-1.2.2.jar" sourcepath="/opt/play/framework/src"/>
+	<classpathentry kind="lib" path="/opt/play/framework/play-1.2.2.jar" sourcepath="/opt/play/framework/src" />
+	<classpathentry kind="lib" path="/home/gu/www/java/poupaniquel/lib/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/home/gu/www/java/poupaniquel/lib/xpp3_min-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/memcached-2.4.2.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/hibernate-core-3.6.1.Final.jar">
 		<attributes>
@@ -21,7 +24,7 @@
 	<classpathentry kind="lib" path="/opt/play/framework/lib/ivy-2.2.0.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/jsr107cache-1.0.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/c3p0-0.9.1.2.jar"/>
-	<classpathentry kind="lib" path="/opt/play/framework/lib/xstream-1.3.jar" sourcepath="/home/gu/.m2/repository/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1-sources.jar"/>
+	<classpathentry kind="lib" path="/opt/play/framework/lib/xstream-1.3.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/bcprov-jdk15-1.45.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/jta-1.1.jar"/>
@@ -36,7 +39,7 @@
 	<classpathentry kind="lib" path="/opt/play/framework/lib/javax.inject-1.0.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/ezmorph-1.0.3.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/gson-1.7.1.jar"/>
-	<classpathentry kind="lib" path="/opt/play/framework/lib/junit-4.8.1.jar" sourcepath="/home/gu/.m2/repository/junit/junit/4.8.1/junit-4.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="/opt/play/framework/lib/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/jj-textile.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/mysql-connector-java-5.1.13.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/commons-lang-2.6.jar"/>
@@ -77,6 +80,6 @@
 	<classpathentry kind="lib" path="/opt/play/framework/lib/netty-3.2.4.Final.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/commons-javaflow-1066591.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="lib/xpp3_min-1.1.4c.jar"/>
+	
 	<classpathentry kind="output" path="eclipse/classes"/>
 </classpath>

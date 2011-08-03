@@ -7,6 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import models.Account;
+import models.Category;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.groovy.tools.shell.commands.ShowCommand;
@@ -14,6 +19,7 @@ import org.codehaus.groovy.tools.shell.commands.ShowCommand;
 import play.Play;
 import play.mvc.Controller;
 import play.data.validation.Error;
+import play.db.jpa.GenericModel.JPAQuery;
 
 public class HomeBank extends Controller {
 
@@ -29,8 +35,11 @@ public class HomeBank extends Controller {
 			InputStream xmlFile = new FileInputStream(file);
 			
 			models.HomeBank homeBank = new HomeBankImporter().fromXml(xmlFile);
-			String version = homeBank.getVersion();
-			render(version);
+			List<Account> accounts = saveAccountsInDB(homeBank.getAccounts());
+			//List<Category> categories = saveCategoriesInDB(homeBank.getCategories());
+			
+			//render(accounts, categories);
+			render(accounts);
 		}
 		catch (FileNotFoundException e1) {
 			e1.printStackTrace();
@@ -40,4 +49,22 @@ public class HomeBank extends Controller {
 		}
         render("HomeBank/index.html");
     }
+
+    private static List<Account> saveAccountsInDB(List<Account> accounts) {
+		for (Account account : accounts) {
+			//if (!(Account.find("byName", account.getName()).fetch().size() > 0)) {
+				account.save();
+			//}
+		}
+		return accounts;
+	}
+    
+    private static List<Category> saveCategoriesInDB(List<Category> categories) {
+		for (Category category : categories) {
+			if (!(Category.find("byName", category.getName()).fetch().size() > 0)) {
+				category.save();
+			}
+		}
+		return categories;
+	}
 }

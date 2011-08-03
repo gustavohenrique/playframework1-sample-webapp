@@ -2,4 +2,10 @@
 
 #{set title:'HomeBank Importer'/}
 
-The homebank version is: ${version}
+<h1>Accounts</h1>
+<ul>
+#{list items:accounts, as:account}
+  <li>${account}</li>
+#{/list}
+${name}
+</ul>
