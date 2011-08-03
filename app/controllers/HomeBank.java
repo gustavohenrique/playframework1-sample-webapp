@@ -12,6 +12,7 @@ import java.util.List;
 
 import models.Account;
 import models.Category;
+import models.Payee;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.groovy.tools.shell.commands.ShowCommand;
@@ -20,6 +21,7 @@ import play.Play;
 import play.mvc.Controller;
 import play.data.validation.Error;
 import play.db.jpa.GenericModel.JPAQuery;
+import play.db.jpa.JPABase;
 
 public class HomeBank extends Controller {
 
@@ -30,16 +32,16 @@ public class HomeBank extends Controller {
     public static void upload(File file) {
     	//validation.required(file);
     	Error error = validation.required(file).message("Select a file to import").error;
-    	
-		try {
+
+    	try {
 			InputStream xmlFile = new FileInputStream(file);
-			
 			models.HomeBank homeBank = new HomeBankImporter().fromXml(xmlFile);
 			List<Account> accounts = saveAccountsInDB(homeBank.getAccounts());
-			//List<Category> categories = saveCategoriesInDB(homeBank.getCategories());
+			List<Category> categories = saveCategoriesInDB(homeBank.getCategories());
+			List<Payee> payees = savePayeesInDB(homeBank.getPayees());
 			
 			//render(accounts, categories);
-			render(accounts);
+			index();
 		}
 		catch (FileNotFoundException e1) {
 			e1.printStackTrace();
@@ -49,12 +51,21 @@ public class HomeBank extends Controller {
 		}
         render("HomeBank/index.html");
     }
+    
+    private static List<Payee> savePayeesInDB(List<Payee> payees) {
+    	for (Payee payee : payees) {
+			if (!(Payee.find("byName", payee.getName()).fetch().size() > 0)) {
+				payee.save();
+			}
+		}
+		return payees;
+	}
 
-    private static List<Account> saveAccountsInDB(List<Account> accounts) {
+	private static List<Account> saveAccountsInDB(List<Account> accounts) {
 		for (Account account : accounts) {
-			//if (!(Account.find("byName", account.getName()).fetch().size() > 0)) {
+			if (!(Account.find("byName", account.getName()).fetch().size() > 0)) {
 				account.save();
-			//}
+			}
 		}
 		return accounts;
 	}

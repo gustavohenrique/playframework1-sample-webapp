@@ -21,4 +21,19 @@
        <input type="file" id="file" name="file" />
        <input type="submit" value="Import file" />
     </p>
+    
+    <h2>Accounts added</h2>
+    #{list items:accounts, as:'account'}
+       <li>${account.name}</li>
+    #{/}
+    
+    <h2>Categories added</h2>
+    #{list items:categories, as:'category'}
+       <li>${category.name}</li>
+    #{/}
+    
+    <h2>Payees added</h2>
+    #{list items:payees, as:'payee'}
+       <li>${payee.name}</li>
+    #{/}
 #{/form}

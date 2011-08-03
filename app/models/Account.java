@@ -3,7 +3,9 @@ package models;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.UniqueConstraint;
 
+import play.data.validation.CheckWith;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -17,6 +19,7 @@ public class Account extends Model {
 	@MaxSize(50)
 	private String name;
 	
+	@MaxSize(20)
 	private String number;
 	
 	private BigDecimal initial;
