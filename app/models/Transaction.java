@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.db.jpa.Transactional;
 
 @Entity
 public class Transaction extends Model {

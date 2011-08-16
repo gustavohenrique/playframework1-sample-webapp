@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import models.Account;
 import models.Category;
@@ -14,11 +16,14 @@ import models.HomeBank;
 import models.Payee;
 import models.Transaction;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.JulianChronology;
 import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
 import play.vfs.VirtualFile;
+import sun.util.calendar.JulianCalendar;
 
 public class HomeBankImporterTest extends UnitTest {
 	
@@ -30,7 +35,7 @@ public class HomeBankImporterTest extends UnitTest {
 		HomeBankImporter importer = new HomeBankImporter();
 		homeBank = importer.fromXml(file);
 	}
-
+	
 	@Test
 	public void testGetHomeBankVersion() {
 		assertEquals("0.5", homeBank.getVersion());
@@ -74,15 +79,17 @@ public class HomeBankImporterTest extends UnitTest {
 		List<Transaction> transactions = homeBank.getTransactions();
 		assertEquals(5, transactions.size());
 		
-		Transaction transaction = transactions.get(0);
+		Transaction transaction = transactions.get(4);
 		assertEquals(new BigDecimal("-46.47"), transaction.getAmount());
 		assertEquals("Buy book Clean Code", transaction.getDescription());
 		assertEquals(1, transaction.getAccount().getKey());
 		assertEquals(1, transaction.getPayee().getKey());
 		assertEquals(10, transaction.getCategory().getKey());
-		
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(734138l);
-		assertEquals(calendar, transaction.getDate());
+
+		Calendar calendar = Calendar.getInstance();// 2011-07-25 = 734343
+		calendar.set(2011, calendar.JULY, 25, 0, 0, 0);
+		long milliseconds = calendar.getTime().getTime();
+		assertEquals(milliseconds, transaction.getDate().getTime().getTime());
 	}
+
 }

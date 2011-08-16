@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -22,13 +23,15 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class HomeBankImporter {
 
-	
 	public HomeBank fromXml(InputStream file) throws Exception {
 		XStream xstream = new XStream();
 		xstream.alias("homebank", HomeBank.class);
 		xstream.registerConverter(new HomeBankConverter());
 
 		HomeBank homeBank = (HomeBank) xstream.fromXML(file);
+		for (Transaction transaction : homeBank.getTransactions()) {
+			
+		}
 		return homeBank;
 	}
 	
@@ -106,8 +109,7 @@ public class HomeBankImporter {
 			BigDecimal amount = new BigDecimal(reader.getAttribute("amount"));
 			transaction.setAmount(amount.setScale(2, BigDecimal.ROUND_UP));
 			
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(Long.valueOf(reader.getAttribute("date")));
+			GregorianCalendar calendar = convertFromJulianToGregorian(reader.getAttribute("date"));
 			transaction.setDate(calendar);
 			
 			int categoryKey = Integer.valueOf(reader.getAttribute("category"));
@@ -127,6 +129,16 @@ public class HomeBankImporter {
 			
 			homeBank.addTransaction(transaction);
 		}
+
+		private GregorianCalendar convertFromJulianToGregorian(String julian) {
+			int julianDate = Integer.valueOf(julian);
+			
+			GregorianCalendar calendar = new GregorianCalendar();
+			calendar.set(1, Calendar.JANUARY, 1, 0, 0, 0);
+			calendar.add(Calendar.DAY_OF_MONTH, julianDate + 1);
+			return calendar;
+		}
+
 	}
 	
 }
