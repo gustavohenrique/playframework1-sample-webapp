@@ -42,9 +42,9 @@
 <fav amount="-300" account="1" dst_account="0" paymode="4" flags="36" payee="28" category="23" wording="Previdencia Privada" nextdate="734360" every="1" unit="2" limit="1"/>
 <fav amount="-204" account="1" dst_account="0" paymode="8" flags="36" payee="1" category="1" wording="Vivo" nextdate="734352" every="1" unit="2" limit="1"/>
 -->
-<ope date="734138" amount="-46.469999999999999" account="1" dst_account="0" paymode="9" flags="3" payee="1" category="10" wording="Buy book Clean Code" info="" tags="book"/>
 <ope date="734138" amount="-53.53" account="1" dst_account="0" paymode="9" flags="3" payee="6" category="3" wording="Buy chocolate" info="" tags=""/>
 <ope date="734142" amount="-708.89999999999998" account="1" dst_account="0" paymode="8" flags="1" payee="11" category="11" wording="Travel to Buzios city in Rio de Janeiro" info="" tags=""/>
 <ope date="734142" amount="-91.1" account="2" dst_account="0" paymode="8" flags="1" payee="10" category="3" wording="Hamburguer with friends of #horaextra community" info="" tags=""/>
 <ope date="734142" amount="2000" account="1" dst_account="0" paymode="9" flags="3" payee="8" category="21" wording="My salary" info="" tags=""/>
+<ope date="734343" amount="-46.469999999999999" account="1" dst_account="0" paymode="9" flags="3" payee="1" category="10" wording="Buy book Clean Code" info="" tags="book"/>
 </homebank>

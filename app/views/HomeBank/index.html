@@ -36,4 +36,11 @@
     #{list items:payees, as:'payee'}
        <li>${payee.name}</li>
     #{/}
+    
+    <h2>Transactions added</h2>
+    #{list items:transactions, as:'transaction'}
+       <li>${transaction.description} | ${transaction?.account?.name} | ${transaction.payee.name} | ${transaction.category.name}
+       ${transaction.date.time.format('dd/MM/yyyy')}
+       </li>
+    #{/}
 #{/form}
