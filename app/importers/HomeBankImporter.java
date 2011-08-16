@@ -28,7 +28,15 @@ public class HomeBankImporter {
 		xstream.alias("homebank", HomeBank.class);
 		xstream.registerConverter(new HomeBankConverter());
 
+<<<<<<< HEAD
 		return (HomeBank) xstream.fromXML(file);
+=======
+		HomeBank homeBank = (HomeBank) xstream.fromXML(file);
+		for (Transaction transaction : homeBank.getTransactions()) {
+			
+		}
+		return homeBank;
+>>>>>>> 49bbecf68d2a7f17973c27b2db6ddb91b87068b2
 	}
 	
 	class HomeBankConverter implements Converter {
