@@ -27,7 +27,7 @@ import sun.util.calendar.JulianCalendar;
 
 public class HomeBankImporterTest extends UnitTest {
 	
-	HomeBank homeBank;
+	private HomeBank homeBank;
 	
 	@Before
 	public void onSetUp() throws Exception {
