@@ -4,7 +4,7 @@ Ext.define('PoupaNiquel.model.Transaction', {
  
     proxy: {
         type: 'ajax',
-        url: 'data/recentsongs.json',
+        url: '/homebank/transactions',
         reader: {
             type: 'json',
             root: 'results'

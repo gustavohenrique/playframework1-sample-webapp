@@ -27,6 +27,10 @@ import play.db.jpa.JPABase;
 public class HomeBank extends Controller {
 
     public static void index() {
+    	render();
+    }
+    
+    public static void list() {
     	List<JPABase> accounts = Account.findAll();
     	List<JPABase> categories = Category.findAll();
     	List<JPABase> payees = Payee.findAll();
