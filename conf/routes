@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /homebank(.*)$                               HomeBank.index
+GET     /homebank                               HomeBank.index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
