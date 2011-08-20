@@ -1,0 +1,47 @@
+.ie-shadow {
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 102px; /* match target width */
+    height: 102px; /* match target height */
+    z-index: 1; 
+    background: #000;
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3', MakeShadow='true', ShadowOpacity='0.40');
+}
+
+#page-header h1 {
+    behavior: url(ie-css3.htc);
+}
+
+    #page-subheader {
+        position:relative;
+    }
+    
+    #page-subheader h2 {
+        position:relative;
+        z-index: 999;
+        text-shadow: 0 1px 0 #fff;
+        behavior: url(ie-css3.htc);
+    }
+
+input.button, button.button {
+    margin-right: 4px;
+    padding: 5px 1px;
+}
+.message, .panel, .accordion h2, .pane {
+    zoom: 1;
+}
+
+#main-nav #quick-links span {
+    right: 10px;
+}
+
+#main-nav #quick-links ul li a {
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff');
+}
+
+/* Tables */
+table.paginate {
+    border-collapse: collapse;
+}

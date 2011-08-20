@@ -39,14 +39,9 @@ public class HomeBank extends Controller {
         render(accounts, categories, payees, transactions);
     }
     
-    public static void transactions() {
-    	List<JPABase> transactions = Transaction.findAll();
-    	renderJSON(transactions);
-    }
-
     public static void upload(File file) {
     	//validation.required(file);
-    	Error error = validation.required(file).message("Select a file to import").error;
+    	validation.required(file).message("Select a file to import");
 
     	try {
 			InputStream xmlFile = new FileInputStream(file);

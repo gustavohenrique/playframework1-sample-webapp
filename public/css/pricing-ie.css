@@ -1,0 +1,33 @@
+.pricing-table header {    
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2d91c3', endColorstr='#1d507d');
+}
+
+.pricing-table header .popular {
+    bottom: -14px; left: -13px;
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678, sizingMethod='auto expand')
+        progid:DXImageTransform.Microsoft.Shadow(color='#444444', Direction=127, Strength=3)
+        progid:DXImageTransform.Microsoft.gradient(startColorstr=#C2E8FB, endColorstr=#95C7E1);
+    width: 120px;
+}
+    
+    .pricing-table article:hover .popular,
+    .pricing-table article.selected .popular {
+        bottom: -13px; left: -13px;
+    }
+
+.pricing-table section {    
+    border-left: 1px solid #B0B0B0;
+}
+
+.pricing-table article:hover section,
+.pricing-table article:hover footer, 
+.pricing-table article.selected section,
+.pricing-table article.selected footer {
+    border-left: 1px solid #B0B0B0;
+    border-right: 1px solid #B0B0B0;
+}
+
+.pricing-table footer {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E9E9E9, endColorstr=#C4C4C4);
+    border-left: 1px solid #B0B0B0;
+}
