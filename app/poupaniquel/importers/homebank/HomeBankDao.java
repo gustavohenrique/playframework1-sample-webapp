@@ -1,4 +1,4 @@
-package poupaniquel.homebank;
+package poupaniquel.importers.homebank;
 
 import java.util.List;
 

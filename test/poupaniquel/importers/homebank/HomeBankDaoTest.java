@@ -1,4 +1,4 @@
-package poupaniquel.homebank;
+package poupaniquel.importers.homebank;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -13,6 +13,7 @@ import models.Transaction;
 import org.junit.Test;
 
 import play.test.UnitTest;
+import poupaniquel.importers.homebank.HomeBankDao;
 
 public class HomeBankDaoTest extends UnitTest {
 

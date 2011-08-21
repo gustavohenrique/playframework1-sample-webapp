@@ -49,13 +49,16 @@
            <h1>Poupa N&iacute;quel</h1>
            <div id="main-nav">
                <ul class="clearfix">
-                   <li class="active"><a href="dashboard.html">Dashboard</a></li>
-                   <li><a href="tables.html">Transactions</a></li>
-                   <li><a href="tables.html">Categories</a></li>
-                   <li><a href="styles.html">Payess</a></li>
-                   <li><a href="tables.html">Schedule</a></li>
-                   <li><a href="forms.html">Reports</a></li>
-                   <li><a href="forms.html">Simulation</a></li>
+                   <li #{if title == 'Dashboard'}class="active"#{/if}><a href="dashboard.html">Dashboard</a></li>
+                   <li #{if title == 'Accounts'}class="active"#{/if}><a href="tables.html">Accounts</a></li>
+                   <li #{if title == 'Categories'}class="active"#{/if}><a href="tables.html">Categories</a></li>
+                   <li #{if title == 'Payees'}class="active"#{/if}><a href="styles.html">Payess</a></li>
+                   <li #{if title == 'Transactions'}class="active"#{/if}><a href="tables.html">Transactions</a></li>
+                   <li #{if title == 'Schedule'}class="active"#{/if}><a href="tables.html">Schedule</a></li>
+                   <li #{if title == 'Reports'}class="active"#{/if}><a href="forms.html">Reports</a></li>
+                   <li #{if title == 'Simulation'}class="active"#{/if}><a href="forms.html">Simulation</a></li>
+                   <li #{if title == 'Importers'}class="active"#{/if}><a href="forms.html">Importers</a></li>
+                   
                    <li id="quick-links">
                        <a href="#">Quick Actions<span>&darr;</span></a>
                        <ul>
@@ -80,11 +83,13 @@
        </div>
    </section>
    
+   <!--
    <footer id="page-footer">
        <div id="footer-inner">
            <p class="wrapper"><span style="float: right;"><a href="#">Documentation</a> | <a href="#">Feedback</a></span>Last account activity from 127.0.0.1 - <a href="#">Details</a></p>
        </div>
    </footer>
+   --> 
 
 </body>
 </html>

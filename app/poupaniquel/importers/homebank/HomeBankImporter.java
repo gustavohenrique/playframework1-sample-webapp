@@ -1,4 +1,4 @@
-package poupaniquel.homebank;
+package poupaniquel.importers.homebank;
 
 import java.io.InputStream;
 import java.lang.reflect.Method;

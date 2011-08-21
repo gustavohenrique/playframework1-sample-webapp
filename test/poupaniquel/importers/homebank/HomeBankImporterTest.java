@@ -1,4 +1,4 @@
-package poupaniquel.homebank;
+package poupaniquel.importers.homebank;
 
 
 import java.io.File;
@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import play.test.UnitTest;
 import play.vfs.VirtualFile;
-import poupaniquel.homebank.HomeBankImporter;
+import poupaniquel.importers.homebank.HomeBankImporter;
 import sun.util.calendar.JulianCalendar;
 
 public class HomeBankImporterTest extends UnitTest {
