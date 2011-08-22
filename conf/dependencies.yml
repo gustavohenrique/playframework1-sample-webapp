@@ -3,3 +3,4 @@
 require:
     - play
     - xpp3 -> xpp3_min 1.1.4c
+#    - play -> logisimayml 1.5

@@ -122,6 +122,8 @@ public class HomeBankImporter {
 			payee.setKey(payeeKey);
 			transaction.setPayee(payee);
 			
+			transaction.setPayment(reader.getAttribute("paymode"));
+			
 			homeBank.addTransaction(transaction);
 		}
 

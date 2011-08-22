@@ -37,7 +37,12 @@ public class HomeBankDao {
 
 	
 	private static boolean notRegisteredInDb(Transaction transaction) {
-		return Transaction.count("description = ? and amount = ? and date = ?", transaction.getDescription(), transaction.getAmount(), transaction.getDate()) == 0;
+		try {
+			return Transaction.count("description = ? and amount = ? and date = ?", transaction.getDescription(), transaction.getAmount(), transaction.getDate()) == 0;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	private static List<Payee> savePayeesInDB(List<Payee> payees) {

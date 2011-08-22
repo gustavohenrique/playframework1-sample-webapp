@@ -1,19 +1,16 @@
 package poupaniquel.importers.homebank;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
 
 import models.Account;
 import models.Category;
 import models.HomeBank;
 import models.Payee;
-import models.Payment;
 import models.Transaction;
 
 import org.junit.Test;
 
 import play.test.UnitTest;
-import poupaniquel.importers.homebank.HomeBankDao;
 
 public class HomeBankDaoTest extends UnitTest {
 
@@ -31,18 +28,13 @@ public class HomeBankDaoTest extends UnitTest {
 		Payee payee = new Payee();
 		payee.setKey(1);
 		payee.setName("Net");
-		
-		Payment payment = new Payment();
-		payment.setKey(1);
-		payment.setName("CreditCard");
-		
-		
+
 		Transaction transaction = new Transaction();
 		transaction.setAmount(BigDecimal.TEN);
 		transaction.setDescription("Internet service provider");
 		transaction.setCategory(category);
 		transaction.setPayee(payee);
-		transaction.setPayment(payment);
+		transaction.setPayment("4");
 		
 		HomeBank homeBank = new HomeBank();
 		homeBank.setVersion("0.5");

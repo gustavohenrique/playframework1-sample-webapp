@@ -85,6 +85,7 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(1, transaction.getAccount().getKey());
 		assertEquals(1, transaction.getPayee().getKey());
 		assertEquals(10, transaction.getCategory().getKey());
+		assertEquals("9", transaction.getPayment());
 
 		Calendar calendar = Calendar.getInstance();// 2011-07-25 = 734343
 		calendar.set(2011, calendar.JULY, 25, 0, 0, 0);

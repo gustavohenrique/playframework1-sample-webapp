@@ -31,7 +31,7 @@ public class Importers extends Controller {
 				render(homeBank);
 			}
 			catch (Exception e) {
-				validation.addError("", "Error reading the uploaded file. Check if is a valid file.", "");
+				validation.addError("", "Error reading the uploaded file. " + e.getMessage(), "");
 			}
     	}
     	validation.keep();

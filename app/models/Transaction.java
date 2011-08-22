@@ -35,8 +35,7 @@ public class Transaction extends Model {
 	@OneToOne(optional=true)
 	private Category category;
 	
-	@OneToOne(optional=true)
-	private Payment payment;
+	private String payment;
 	
 	public String getDescription() {
 		return description;
@@ -86,11 +85,11 @@ public class Transaction extends Model {
 		this.category = category;
 	}
 	
-	public Payment getPayment() {
+	public String getPayment() {
 		return payment;
 	}
 
-	public void setPayment(Payment payment) {
+	public void setPayment(String payment) {
 		this.payment = payment;
 	}
 }
