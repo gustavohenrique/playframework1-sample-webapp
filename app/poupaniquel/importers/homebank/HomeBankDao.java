@@ -20,14 +20,21 @@ public class HomeBankDao {
 	private static List<Transaction> saveTransactionsInDB(List<Transaction> transactions) {
     	for (Transaction transaction : transactions) {
     		if (notRegisteredInDb(transaction)) {
-    			Account account = Account.find("byKey", transaction.getAccount().getKey()).first();
-    			transaction.setAccount(account);
     			
-    			Category category = Category.find("byKey", transaction.getCategory().getKey()).first();
-    			transaction.setCategory(category);
+    			if (transaction.getAccount() != null) {
+	    			Account account = Account.find("byKey", transaction.getAccount().getKey()).first();
+	    			transaction.setAccount(account);
+    			}
     			
-    			Payee payee = Payee.find("byKey", transaction.getPayee().getKey()).first();
-    			transaction.setPayee(payee);
+    			if (transaction.getCategory() != null) {
+	    			Category category = Category.find("byKey", transaction.getCategory().getKey()).first();
+	    			transaction.setCategory(category);
+    			}
+    			
+    			if (transaction.getPayee() != null) {
+	    			Payee payee = Payee.find("byKey", transaction.getPayee().getKey()).first();
+	    			transaction.setPayee(payee);
+    			}
     			
     			transaction.save();
     		}

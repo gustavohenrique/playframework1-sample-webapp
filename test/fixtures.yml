@@ -1,0 +1,144 @@
+# you describe your data using the YAML notation here
+# and then load them using Fixtures.load("data.yml")
+
+# User(bob):
+#   email: bob@gmail.com
+#   password: secret
+#   fullname: Bob
+
+Account(citibank):
+    key: 1
+    name: Citibank
+    number: 25739904721
+    bankname: 
+    initital: 900.5
+
+Category(food):
+    key: 3
+    name: Food
+
+Category(helth):
+    key: 2
+    name: Helth
+
+Category(travel):
+    key: 11
+    name: Travel
+
+Category(investiment):
+    key: 23
+    name: Investment
+
+Category(clothes):
+    key: 22
+    name: Clothes
+
+Category(salary):
+    key: 21
+    name: Salary
+
+Category(education):
+    key: 1
+    name: Education
+
+Category(internet):
+    key: 19
+    name: Internet
+
+Category(book):
+    key: 10
+    name: Book
+
+Category(others):
+    key: 11
+    name: Others
+
+Payee(wallmart):
+    name: Wallmart
+
+Payee(cinemark):
+    name: Cinemark
+
+Payee(hering):
+    name: Hering
+
+Payee(ricardo):
+    name: Ricardo Eletro
+
+Payee(americanas):
+    name: Americanas
+
+Payee(cacau):
+    name: Cacau Show
+
+Payee(hortifruti):
+    name: Hortifruti
+
+Payee(net):
+    name: Net Virtua
+
+Payee(mycompany):
+    name: My Company
+
+Transaction(t1):
+    description: Compra do mes
+    date: 2011-08-01
+    amount: -1000.0
+    payment: 4
+    account: citibank
+    payee: wallmart
+    category: food
+
+Transaction(t2):
+    description: Salario
+    date: 2011-08-05
+    amount: 5000.0
+    payment: 3
+    account: citibank
+    payee: mycompany
+    category: salary
+
+Transaction(t3):
+    description: Mensalidade internet
+    date: 2011-08-06
+    amount: -100.0
+    payment: 5
+    account: citibank
+    payee: net
+    category: internet
+
+Transaction(t4):
+    description: Almoco
+    date: 2011-08-07
+    amount: -10.0
+    payment: 4
+    account: citibank
+    payee: 
+    category: food
+
+Transaction(t5):
+    description: Chocolate
+    date: 2011-08-07
+    amount: -50.0
+    payment: 5
+    account: citibank
+    payee: cacau
+    category: food
+
+Transaction(t6):
+    description: Compras
+    date: 2011-08-08
+    amount: -100.0
+    payment: 5
+    account: citibank
+    payee: hortifruti
+    category: food
+
+Transaction(t7):
+    description: TV LED
+    date: 2011-08-10
+    amount: -2000.0
+    payment: 5
+    account: citibank
+    payee: americanas
+    category: others

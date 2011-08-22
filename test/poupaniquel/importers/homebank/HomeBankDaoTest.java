@@ -32,6 +32,7 @@ public class HomeBankDaoTest extends UnitTest {
 		Transaction transaction = new Transaction();
 		transaction.setAmount(BigDecimal.TEN);
 		transaction.setDescription("Internet service provider");
+		transaction.setAccount(account);
 		transaction.setCategory(category);
 		transaction.setPayee(payee);
 		transaction.setPayment("4");
@@ -41,12 +42,20 @@ public class HomeBankDaoTest extends UnitTest {
 		homeBank.addAccount(account);
 		homeBank.addCategory(category);
 		homeBank.addPayee(payee);
+		homeBank.addTransaction(transaction);
 		
 		try {
 			new HomeBankDao().persist(homeBank);
+			
+			Transaction persistedTransaction = Transaction.findById(1l);
+			assertEquals(account.getName(), persistedTransaction.getAccount().getName());
+			assertEquals(category.getName(), persistedTransaction.getCategory().getName());
+			assertEquals(payee.getName(), persistedTransaction.getPayee().getName());
+			assertEquals(transaction.getDescription(), persistedTransaction.getDescription());
 		}
 		catch (Exception e) {
 			fail();
 		}
 	}
+	
 }
