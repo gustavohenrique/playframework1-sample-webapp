@@ -10,7 +10,12 @@ Account(citibank):
     key: 1
     name: Citibank
     number: 25739904721
-    bankname: 
+    initital: 900.0
+
+Account(itau):
+    key: 2
+    name: Itau
+    number: 6254
     initital: 900.5
 
 Category(food):
@@ -82,7 +87,7 @@ Payee(mycompany):
 
 Transaction(t1):
     description: Compra do mes
-    date: 2011-08-01
+    transactionDate: 2011-08-01
     amount: -1000.0
     payment: 4
     account: citibank
@@ -91,7 +96,7 @@ Transaction(t1):
 
 Transaction(t2):
     description: Salario
-    date: 2011-08-05
+    transactionDate: 2011-08-02
     amount: 5000.0
     payment: 3
     account: citibank
@@ -100,7 +105,7 @@ Transaction(t2):
 
 Transaction(t3):
     description: Mensalidade internet
-    date: 2011-08-06
+    transactionDate: 2011-08-03
     amount: -100.0
     payment: 5
     account: citibank
@@ -109,7 +114,7 @@ Transaction(t3):
 
 Transaction(t4):
     description: Almoco
-    date: 2011-08-07
+    transactionDate: 2011-08-04
     amount: -10.0
     payment: 4
     account: citibank
@@ -118,7 +123,7 @@ Transaction(t4):
 
 Transaction(t5):
     description: Chocolate
-    date: 2011-08-07
+    transactionDate: 2011-08-05
     amount: -50.0
     payment: 5
     account: citibank
@@ -127,7 +132,7 @@ Transaction(t5):
 
 Transaction(t6):
     description: Compras
-    date: 2011-08-08
+    transactionDate: 2011-08-06
     amount: -100.0
     payment: 5
     account: citibank
@@ -135,10 +140,28 @@ Transaction(t6):
     category: food
 
 Transaction(t7):
+    description: Freela
+    transactionDate: 2011-08-07
+    amount: 1500.0
+    payment: 5
+    account: itau
+    payee: 
+    category: salary
+
+Transaction(t8):
     description: TV LED
-    date: 2011-08-10
+    transactionDate: 2011-08-08
     amount: -2000.0
     payment: 5
     account: citibank
+    payee: americanas
+    category: others
+
+Transaction(t9):
+    description: Notebook
+    transactionDate: 2011-08-09
+    amount: -3000.0
+    payment: 5
+    account: itau
     payee: americanas
     category: others

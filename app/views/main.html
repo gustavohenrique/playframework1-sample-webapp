@@ -53,11 +53,11 @@
                    <li #{if title == 'Accounts'}class="active"#{/if}><a href="tables.html">Accounts</a></li>
                    <li #{if title == 'Categories'}class="active"#{/if}><a href="tables.html">Categories</a></li>
                    <li #{if title == 'Payees'}class="active"#{/if}><a href="styles.html">Payess</a></li>
-                   <li #{if title == 'Transactions'}class="active"#{/if}><a href="tables.html">Transactions</a></li>
+                   <li #{if title == 'Transactions'}class="active"#{/if}>#{a @Transactions.list()}Transactions#{/a}</li>
                    <li #{if title == 'Schedule'}class="active"#{/if}><a href="tables.html">Schedule</a></li>
                    <li #{if title == 'Reports'}class="active"#{/if}><a href="forms.html">Reports</a></li>
                    <li #{if title == 'Simulation'}class="active"#{/if}><a href="forms.html">Simulation</a></li>
-                   <li #{if title == 'Importers'}class="active"#{/if}><a href="forms.html">Importers</a></li>
+                   <li #{if title == 'Importers'}class="active"#{/if}>#{a @Importers.index()}Importers#{/a}</li>
                    
                    <li id="quick-links">
                        <a href="#">Quick Actions<span>&darr;</span></a>

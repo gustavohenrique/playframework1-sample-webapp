@@ -1,7 +1,7 @@
 package models;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import play.db.jpa.Transactional;
+
 
 @Entity
 public class Transaction extends Model {
@@ -21,10 +21,13 @@ public class Transaction extends Model {
 	private String description;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar date;
+	private Date transactionDate;
 	
 	@Required
 	private BigDecimal amount;
+	
+	@Transient
+	private BigDecimal balance;
 	
 	@OneToOne
 	private Account account;
@@ -37,6 +40,13 @@ public class Transaction extends Model {
 	
 	private String payment;
 	
+	public Transaction() {}
+	
+	public Transaction(String description, String amount) {
+		this.description = description;
+		this.amount = new BigDecimal(amount);
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -45,12 +55,12 @@ public class Transaction extends Model {
 		this.description = description;
 	}
 	
-	public Calendar getDate() {
-		return date;
+	public Date getTransactionDate() {
+		return transactionDate;
 	}
 	
-	public void setDate(Calendar date) {
-		this.date = date;
+	public void setTransactionDate(Date date) {
+		this.transactionDate = date;
 	}
 	
 	public BigDecimal getAmount() {
@@ -91,5 +101,13 @@ public class Transaction extends Model {
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 }

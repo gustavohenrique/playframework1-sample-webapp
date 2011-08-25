@@ -1,5 +1,6 @@
 package poupaniquel.importers.homebank;
 
+import java.util.Date;
 import java.util.List;
 
 import models.Account;
@@ -45,7 +46,8 @@ public class HomeBankDao {
 	
 	private static boolean notRegisteredInDb(Transaction transaction) {
 		try {
-			return Transaction.count("description = ? and amount = ? and date = ?", transaction.getDescription(), transaction.getAmount(), transaction.getDate()) == 0;
+			Date date = transaction.getTransactionDate();
+			return Transaction.count("description = ? and amount = ? and transactionDate = ?", transaction.getDescription(), transaction.getAmount(), date) == 0;
 		}
 		catch (Exception e) {
 			return false;

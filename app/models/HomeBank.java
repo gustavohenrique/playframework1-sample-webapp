@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class HomeBank {
@@ -63,9 +64,10 @@ public class HomeBank {
             public int compare(Object o1, Object o2) {  
             	Transaction a1 = (Transaction) o1;
             	Transaction a2 = (Transaction) o2;
-                return a1.getDate().before(a2.getDate()) ? -1 : (a1.getDate().after(a2.getDate()) ? +1 : 0);
+                return a1.getTransactionDate().before(a2.getTransactionDate()) ? -1 : (a1.getTransactionDate().after(a2.getTransactionDate()) ? +1 : 0);
             }  
         });
+		
 		return transactions;
 	}
 	

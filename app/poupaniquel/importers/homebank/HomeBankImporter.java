@@ -105,7 +105,7 @@ public class HomeBankImporter {
 			transaction.setAmount(amount.setScale(2, BigDecimal.ROUND_UP));
 			
 			GregorianCalendar calendar = convertFromJulianToGregorian(reader.getAttribute("date"));
-			transaction.setDate(calendar);
+			transaction.setTransactionDate(calendar.getTime());
 			
 			int categoryKey = Integer.valueOf(reader.getAttribute("category"));
 			Category category = new Category();

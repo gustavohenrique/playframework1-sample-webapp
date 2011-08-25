@@ -18,7 +18,7 @@ $(document).ready(function(){
 
 	<div class="columns leading">
 	    <div class="grid_6 first">
-	        <h3>Show transactions from</h3>
+	        <h3>Show transactions from ${account.name}</h3>
 	        <hr />
 	        <table class="sortable full transactions">
 	            <thead>
@@ -27,16 +27,18 @@ $(document).ready(function(){
 	                    <th>Payee</th>
 	                    <th>Description</th>
 	                    <th>Amount</th>
+	                    <th>Balance</th>
 	                    <th>Category</th>
 	                </tr>
 	            </thead>
 	            <tbody>
 	                #{list items:transactions, as:'transaction'}
 	                <tr>
-	                    <td>${transaction?.date?.time.format('dd/MM/yyyy')}</td>
+	                    <td>${transaction?.transactionDate?.format('dd/MM/yyyy')}</td>
 	                    <td>${transaction?.payee?.name}</td>
 	                    <td>${transaction?.description}</td>
 	                    <td>${transaction?.amount}</td>
+	                    <td>${transaction?.balance}</td>
 	                    <td>${transaction?.category?.name}</td>
 	                </tr>
 				    #{/}
