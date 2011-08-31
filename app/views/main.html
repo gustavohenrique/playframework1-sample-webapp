@@ -1,95 +1,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" media="screen" href="@{'/public/css/reset.css'}" />
-<link rel="stylesheet" media="screen" href="@{'/public/css/style.css'}" />
-<link rel="stylesheet" media="screen" href="@{'/public/css/messages.css'}" />
-<link rel="stylesheet" media="screen" href="@{'/public/css/forms.css'}" />
-<link rel="stylesheet" media="screen" href="@{'/public/css/tables.css'}" />
-<link rel="stylesheet" media="screen" href="@{'/public/css/visualize.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/js/extjs/resources/css/ext-all.css'}" />
 
-<script src="@{'/public/js/jquery-1.5.2.min.js'}"></script>
-
-<script src="@{'/public/js/html5.js'}"></script>
-
-<!-- jquerytools -->
-<script src="@{'/public/js/jquery.tools.min.js'}"></script>
-#{get 'customScript' /}
-
-<!--[if lte IE 9]>
-<link rel="stylesheet" media="screen" href="@{'/public/css/ie.css'}" />
-<script type="text/javascript" src="@{'/public/js/ie.js'}"></script>
-<script type="text/javascript" src="@{'/public/js/excanvas.js'}"></script>
-<![endif]-->
-<!--[if IE 8]>
-<link rel="stylesheet" media="screen" href="@{'/public/css/ie8.css'}" />
-<![endif]-->
-
-<script type="text/javascript" src="@{'/public/js/global.js'}"></script>
-
+<script src="@{'/public/js/extjs/ext-debug.js'}"></script>
+<script src="@{'/public/js/app/app.js'}"></script>
 
 <title>PoupaNiquel</title>
 
 </head>
 
 <body>
-
-<div id="wrapper">
-   <header id="page-header">
-       <div class="wrapper">
-           <div id="util-nav">
-               <ul>
-                   <li>Logged in as admin:</li>
-                   <li><a href="#">Profile</a></li>
-                   <li><a href="#">Account</a></li>
-                   <li><a href="#">Help</a></li>
-                   <li><a href="#">Logout</a></li>
-               </ul>
-           </div>
-           <h1>Poupa N&iacute;quel</h1>
-           <div id="main-nav">
-               <ul class="clearfix">
-                   <li #{if title == 'Dashboard'}class="active"#{/if}><a href="dashboard.html">Dashboard</a></li>
-                   <li #{if title == 'Accounts'}class="active"#{/if}><a href="tables.html">Accounts</a></li>
-                   <li #{if title == 'Categories'}class="active"#{/if}><a href="tables.html">Categories</a></li>
-                   <li #{if title == 'Payees'}class="active"#{/if}><a href="styles.html">Payess</a></li>
-                   <li #{if title == 'Transactions'}class="active"#{/if}>#{a @Transactions.list()}Transactions#{/a}</li>
-                   <li #{if title == 'Schedule'}class="active"#{/if}><a href="tables.html">Schedule</a></li>
-                   <li #{if title == 'Reports'}class="active"#{/if}><a href="forms.html">Reports</a></li>
-                   <li #{if title == 'Simulation'}class="active"#{/if}><a href="forms.html">Simulation</a></li>
-                   <li #{if title == 'Importers'}class="active"#{/if}>#{a @Importers.index()}Importers#{/a}</li>
-                   
-                   <li id="quick-links">
-                       <a href="#">Quick Actions<span>&darr;</span></a>
-                       <ul>
-                           <li><a href="#">New Transaction</a></li>
-                           <li><a href="#">Accounts Payable</a></li>
-                       </ul>
-                   </li>
-               </ul>
-           </div>
-       </div>
-       <div id="page-subheader">
-           <div class="wrapper">
-               <h2>#{get 'title' /}</h2>
-               <input placeholder="Search..." type="text" name="q" value="" />
-           </div>
-       </div>
-   </header>
-   
-   <section id="content">
-       <div class="wrapper">
-           #{doLayout/}
-       </div>
-   </section>
-   
-   <!--
-   <footer id="page-footer">
-       <div id="footer-inner">
-           <p class="wrapper"><span style="float: right;"><a href="#">Documentation</a> | <a href="#">Feedback</a></span>Last account activity from 127.0.0.1 - <a href="#">Details</a></p>
-       </div>
-   </footer>
-   --> 
-
+#{doLayout/}
 </body>
 </html>
