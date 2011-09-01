@@ -1,32 +1,23 @@
 Ext.Loader.setConfig({enabled:true});
+Ext.Loader.setPath('Ext.ux', '/public/js/extjs/ux');
 Ext.application({
     name: 'PoupaNiquel',
     appFolder: '/public/js/app',
     autoCreateViewport: false,
 
-    controllers: ['Top',],
+    controllers: ['Filter',],
     
     launch: function() {
         viewport = Ext.create('Ext.container.Viewport', {
-        	requires: ['PoupaNiquel.view.TopPanel'],
             layout: 'border',
             items: [{
-            	region: 'north',
-            	height: 100,
-				xtype:'toppanel',	
-            }, {
                 region: 'center',
                 autoScroll: true,
                 border: false,
                 autoScroll: true,
             }, {
-            	region: 'east',
-				title: 'Filter',
-				minWidth: 200,
-				width: 250,
-				split: true,
-				border: false,
-				frame: false,
+            	region: 'west',
+				xtype: 'filterPanel'
             }]
         });
     }
