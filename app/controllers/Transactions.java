@@ -1,6 +1,8 @@
 package controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.Account;
 import models.Transaction;
@@ -14,4 +16,13 @@ public class Transactions extends Controller {
     	List<Transaction> transactions = new TransactionHelper().getByAccount(account);
     	render(account, transactions);
     }
+	
+	public static void accounts() {
+		Map map = new HashMap<String, Object>();
+		List<Account> accounts = Account.findAll();
+		map.put("success", "true");
+		map.put("data", accounts);
+		
+		renderJSON(map);
+	}
 }
