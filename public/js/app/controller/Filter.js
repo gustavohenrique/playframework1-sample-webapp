@@ -7,5 +7,14 @@ Ext.define('PoupaNiquel.controller.Filter', {
     models: ['Account'],
     
     init: function() {
+    	this.control({
+	      'button[id=btnLimpar]': {
+	        click: this.teste
+	      },
+    	})
     },
+    
+    teste: function() {
+    	alert('o botao foi clicado');
+    }
 });

@@ -128,10 +128,8 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
         }]
     })],
     buttons: [{
+    	id: 'btnLimpar',
         text: 'Limpar',
-        handler: function() {
-            Ext.getCmp('frmFiltro').getForm().reset();
-        }
     }, {
         text: 'Filtrar',
         handler: function() {
