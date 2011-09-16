@@ -12,17 +12,27 @@ import poupaniquel.helpers.TransactionHelper;
 public class Transactions extends Controller {
 
 	public static void list() {
-		Account account = Account.all().first();
+		render();
+	}
+	
+	public static void filter(Integer accountId) {
+		Account account = Account.find("key", accountId).first();
     	List<Transaction> transactions = new TransactionHelper().getByAccount(account);
-    	render(account, transactions);
+    	
+    	Map result = new HashMap<String, Object>();
+    	result.put("success", "true");
+		result.put("data", transactions);
+    	
+		renderJSON(result);
     }
 	
 	public static void accounts() {
-		Map map = new HashMap<String, Object>();
 		List<Account> accounts = Account.findAll();
-		map.put("success", "true");
-		map.put("data", accounts);
+
+		Map result = new HashMap<String, Object>();
+		result.put("success", "true");
+		result.put("data", accounts);
 		
-		renderJSON(map);
+		renderJSON(result);
 	}
 }

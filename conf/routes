@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                                       Transactions.list
+GET     /transactions/filter/{accountId}        Transactions.filter
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
