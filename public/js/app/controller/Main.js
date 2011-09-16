@@ -3,8 +3,8 @@ Ext.define('PoupaNiquel.controller.Main', {
     extend: 'Ext.app.Controller',
 
     views: ['TopPanel', 'TransactionPanel', 'FilterPanel', 'TransactionGrid'],
-    stores: ['Accounts'],
-    models: ['Account'],
+    stores: ['Accounts', 'Transactions'],
+    models: ['Account', 'Transaction'],
    
     
     init: function() {
