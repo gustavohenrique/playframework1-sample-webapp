@@ -12,22 +12,26 @@ Ext.define('PoupaNiquel.view.TopPanel' ,{
     	text: 'Help',
     }],
     bbar: [{
-    	iconCls: 'transactions-icon',
     	cls:'x-btn-text-icon',
     	scale: 'large',
-    	action: 'transactions'
-    }, {
+    	action: 'transactions',
     	iconCls: 'transactions-icon',
-    	cls:'x-btn-text-icon',
-    	scale: 'large'
+    	text: 'Transactions'
     }, {
-    	iconCls: 'transactions-icon',
     	cls:'x-btn-text-icon',
-    	scale: 'large'
+    	scale: 'large',
+    	iconCls: 'accounts-icon',
+    	text: 'Accounts'
     }, {
-    	iconCls: 'transactions-icon',
     	cls:'x-btn-text-icon',
-    	scale: 'large'
+    	scale: 'large',
+    	iconCls: 'categories-icon',
+    	text: 'Categories'
+    }, {
+    	cls:'x-btn-text-icon',
+    	scale: 'large',
+    	iconCls: 'payees-icon',
+    	text: 'Payees'
     }],
 
     initComponent: function() {
