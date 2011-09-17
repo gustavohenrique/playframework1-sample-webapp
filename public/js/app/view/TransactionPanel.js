@@ -5,16 +5,6 @@ Ext.define('PoupaNiquel.view.TransactionPanel' ,{
     layout: 'border',
     height:'100%',
 
-    items: [{
-    	region: 'west',
-		xtype: 'filterpanel',
-		title: 'Filter',
-	}, {
-		region: 'center',
-		xtype: 'transactiongrid',
-		title: 'Transactions',
-	}],
-
     initComponent: function() {
         return this.callParent(arguments);
     }

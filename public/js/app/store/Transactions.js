@@ -3,7 +3,7 @@ Ext.define('PoupaNiquel.store.Transactions', {
     model: 'PoupaNiquel.model.Transaction',
     
     storeId: 'Transactions',
-    autoLoad: true,
+    autoLoad: false,
     pageSize: 31,
     
     proxy: {

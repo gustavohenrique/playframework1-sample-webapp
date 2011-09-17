@@ -15,8 +15,8 @@ public class Transactions extends Controller {
 		render();
 	}
 	
-	public static void filter(Integer accountId) {
-		Account account = Account.find("key", accountId).first();
+	public static void filter(Long accountId) {
+		Account account = Account.findById(accountId);
     	List<Transaction> transactions = new TransactionHelper().getByAccount(account);
     	
     	Map result = new HashMap<String, Object>();

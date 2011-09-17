@@ -11,14 +11,15 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     split: true,
     border: false,
     frame: false,
-    bodyStyle: 'padding:10px;background:white',
+//    plain: true,
+//    bodyStyle: 'padding:10px;background:white',
+    bodyPadding: 10,
     collapsible: true,
     autoScroll: true,
     layout: 'anchor',
-//    xtype: 'form',
     labelWidth: 5,
     defaultType: 'textfield',
-    defaults: { width: 220 },
+    defaults: { anchor: '100%' },
     items: [{
         xtype: 'datefield',
         format: 'd/m/Y',
@@ -126,19 +127,7 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
             }
         }]
     }],
-    buttons: [{
-        text: 'Limpar',
-    }, {
-        text: 'Filtrar',
-        handler: function() {
-            var form = Ext.getCmp('frmFiltro').getForm();
-            var store = Ext.getCmp('gridLancamento').getStore();
-            if (form.isValid())
-                store.reload({ params: form.getValues() });
-            else
-                Ext.Msg.alert('Erro','Preencha corretamente o formulário');
-        }
-    }],
+    
      
     initComponent: function() {
         return this.callParent(arguments);

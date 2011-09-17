@@ -2,13 +2,14 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
 	extend: 'Ext.grid.Panel',
     alias: 'widget.transactiongrid',
     
-    store: 'Transactions',
+    border: true,
     
-    stateful: true,
-    stateId: 'stateGrid',
     columns: [{
+    	xtype: 'rownumberer',
+    	width: 30,
+    },{
         text     : 'Date',
-        sortable : false,
+        sortable : true,
         dataIndex: 'transactionDate',
         renderer : Ext.util.Format.dateRenderer('d/m/Y'),
     }, {
@@ -38,7 +39,6 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
 
     
     initComponent: function() {
-    	this.store.proxy.extraParams.accountId = 1;
         return this.callParent(arguments);
     }
 });

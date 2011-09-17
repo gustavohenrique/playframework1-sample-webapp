@@ -16,24 +16,40 @@ Ext.define('PoupaNiquel.controller.Main', {
     },
     
     openTransactionsPanel: function() {
-    	var id = 'transactionsTabPanel';
-    	if (Ext.ComponentManager.get(id) == null) {
+
+    	if (Ext.ComponentManager.get('transactionsTabPanel') == null) {
+    		tabpanelItems = new Array();
+    		
+    		accountStore = this.getAccountsStore();
+    		
+	    	accountStore.each(function(record) {
+	    		transactionStore = Ext.create('PoupaNiquel.store.Transactions');
+	    		transactionStore.proxy.extraParams.accountId = record.data.id;
+	    		transactionStore.load();
+	    		
+	    		transactionPanel = Ext.widget('transactionpanel');
+	    		transactionPanel.setTitle(record.data.name);
+	    		transactionPanel.add({
+    		    	region: 'west', xtype: 'filterpanel', title: 'Filter',
+    				buttons: [{ text: 'Clean'}, { text: 'Filter' }],
+    			});
+	    		
+	    		transactionPanel.add({
+    				region: 'center', xtype: 'transactiongrid', title: 'Transactions', store: transactionStore
+	    		});
+	    		
+	    		tabpanelItems.push(transactionPanel);
+	    	});
+	    	
 	    	tabpanel = Ext.create('Ext.tab.Panel', {
 	    		xtype: 'tabpanel',
-	    		id: id,
+	    		id: 'transactionsTabPanel',
 	    		activeTab: 0,
 	    		height:'100%',
+	    		frame: false,
+	    		items: tabpanelItems,
 	    	});
 
-	    	this.getAccountsStore().each(function(record) {
-	    		tabpanel.add([{
-	    			xtype: 'transactionpanel',
-	    			title: record.data.name,
-//	    			style: 'padding: 15px;',
-	    		}]);
-	    	});
-
-	    	tabpanel.setActiveTab(0);
 	    	viewport = Ext.ComponentManager.get('viewportCenter');
 	    	viewport.add(tabpanel);
     	}
