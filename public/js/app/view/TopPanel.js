@@ -5,10 +5,6 @@ Ext.define('PoupaNiquel.view.TopPanel' ,{
 	tbar: [{
     	text: 'File',
     }, {
-    	text: 'Edit',
-    }, {
-    	text: 'View',
-    }, {
     	text: 'Help',
     }],
     bbar: [{

@@ -19,7 +19,6 @@ Ext.application({
                 autoScroll: true,
                 border: false,
                 autoScroll: true,
-                style: 'padding: 15px; background: white',
             }, {
             	region: 'north',
             	height: 73,
