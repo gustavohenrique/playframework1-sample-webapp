@@ -1,10 +1,12 @@
 package poupaniquel.helpers;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Query;
 
@@ -34,16 +36,17 @@ public class TransactionHelper {
 
 	public List<Transaction> getByAccount(Account account) {
 		
-		String sql = "SELECT t.* FROM transactions t WHERE account_id='" + account.getId() + "' ";
+		String sql = "SELECT t FROM transactions t WHERE account_id='" + account.getId() + "' AND transactionDate >= '" + formatDate(start) + "' AND transactionDate <= '" + formatDate(end) + "' ";
 		
 		if (isNotNull(payee)) {
 			sql += "AND payee_id = '" + payee.getId() + "' ";
 		}
+		
 		if (isNotNull(category)) {
 			sql += "AND category_id = '" + category.getId() + "' ";
 		}
 		
-		Query query = JPA.em().createNativeQuery(sql);
+		Query query = JPA.em().createQuery(sql);
 		List<Transaction> all = query.getResultList(); 
 		
 		List<Transaction> transactionsWithBalance = new ArrayList<Transaction>();
@@ -56,14 +59,16 @@ public class TransactionHelper {
 			balance = balance.add(amount);
 			transaction.setBalance(balance);
 			
-			if (isTransactionBetweenInterval(transaction, start, end)) {
-				transactionsWithBalance.add(transaction);
-			}
+			transactionsWithBalance.add(transaction);
 		}
 		
 		return transactionsWithBalance;
 	}
 
+	private String formatDate(Date date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		return dateFormat.format(date);
+	}
 	
 	private boolean isTransactionBetweenInterval(Transaction transaction, Date start, Date end) {
 		return (daysBetween(start, transaction.getTransactionDate()) && daysBetween(transaction.getTransactionDate(), end));
