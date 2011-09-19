@@ -17,21 +17,22 @@ public class Transactions extends Controller {
 	public static void filter(Long accountId) {
 		Account account = Account.findById(accountId);
 
-    	List<Transaction> transactions = Transaction.filter(account);
+    	List<Transaction> transactions = Transaction.filterByAccount(account);
     	
-    	Map result = new HashMap<String, Object>();
-    	result.put("success", "true");
-		result.put("data", transactions);
-    	
-		renderJSON(result);
+    	returnJson(transactions);
     }
 	
 	public static void accounts() {
 		List<Account> accounts = Account.findAll();
-
+		
+		returnJson(accounts);
+	}
+	
+	
+	private static void returnJson(Object object) {
 		Map result = new HashMap<String, Object>();
 		result.put("success", "true");
-		result.put("data", accounts);
+		result.put("data", object);
 		
 		renderJSON(result);
 	}

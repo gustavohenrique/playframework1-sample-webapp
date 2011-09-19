@@ -118,23 +118,27 @@ public class Transaction extends Model {
 		this.balance = balance;
 	}
 	
-	public static List<Transaction> filter(Account account) {
-		return filterBy(account, null, null, null, null);
+	public static List<Transaction> filterByAccount(Account account) {
+		return filter(account, null, null, null, null);
 	}
 	
-	public static List<Transaction> filter(Account account, Date start, Date end) {
-		return filterBy(account, start, end, null, null);
+	public static List<Transaction> filterByDateInterval(Account account, Date start, Date end) {
+		return filter(account, start, end, null, null);
 	}
 	
-	public static List<Transaction> filter(Account account, Payee payee) {
-		return filterBy(account, null, null, payee, null);
+	public static List<Transaction> filterByPayee(Account account, Payee payee) {
+		return filter(account, null, null, payee, null);
 	}
 	
-	public static List<Transaction> filter(Account account, Category category) {
-		return filterBy(account, null, null, null, category);
+	public static List<Transaction> filterByCategory(Account account, Category category) {
+		return filter(account, null, null, null, category);
 	}
 	
-	private static List<Transaction> filterBy(Account account, Date start, Date end, Payee payee, Category category) {
+	public static List<Transaction> filter(Account account, Date start, Date end, Payee payee, Category category) {
+		
+		if (account == null) {
+			return null;
+		}
 		
 		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE account_id='" + account.getId() + "' ");
 

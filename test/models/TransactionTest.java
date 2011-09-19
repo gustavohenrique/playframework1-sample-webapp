@@ -21,9 +21,15 @@ public class TransactionTest extends UnitTest {
 	}
 	
 	@Test
-	public void testGetTransactionsWithCalculatedBalance() {
+	public void testShouldReturnNullIfNotSentAccount() {
+		List<Transaction> transactions = Transaction.filter(null, null, null, null, null);
+		assertNull(transactions);
+	}
+	
+	@Test
+	public void testGetTransactionsWithCalculatedBalanceByAccount() {
 		
-		List<Transaction> transactions = Transaction.filter(citibank);
+		List<Transaction> transactions = Transaction.filterByAccount(citibank);
 	
 		assertEquals("-1000.00", transactions.get(0).getBalance().toString());
 		assertEquals("4000.00", transactions.get(1).getBalance().toString());
@@ -35,14 +41,14 @@ public class TransactionTest extends UnitTest {
 	}
 	
 	@Test
-	public void testGetTransactionsWithCalculatedBalanceOnDateInterval() {
+	public void testGetTransactionsByDateInterval() {
 		Calendar start = Calendar.getInstance();
 		start.set(2011, Calendar.AUGUST, 5);
 		
 		Calendar end = Calendar.getInstance();
 		end.set(2011, Calendar.AUGUST, 8);
 		
-		List<Transaction> transactions = Transaction.filter(citibank, start.getTime(), end.getTime());
+		List<Transaction> transactions = Transaction.filterByDateInterval(citibank, start.getTime(), end.getTime());
 		
 		assertEquals(2, transactions.size());
 //      Verificar bug do play que adiciona 1 dia na data da fixture		
@@ -51,18 +57,18 @@ public class TransactionTest extends UnitTest {
 	}
 	
 	@Test
-	public void testGetTransactionsFilteredByPayee() {
+	public void testGetTransactionsByPayee() {
 		Payee americanas = Payee.find("byName", "Americanas").first();
 		
-		List<Transaction> transactions = Transaction.filter(citibank, americanas);
+		List<Transaction> transactions = Transaction.filterByPayee(citibank, americanas);
 	
 		assertEquals("-2000.00", transactions.get(0).getBalance().toString());
 	}
 	
 	@Test
-	public void testGetTransactionsFilteredByCategory() {
+	public void testGetTransactionsByCategory() {
 		Category food = Category.find("byName", "Food").first();
-		List<Transaction> transactions = Transaction.filter(citibank, food);
+		List<Transaction> transactions = Transaction.filterByCategory(citibank, food);
 	
 		assertEquals(4, transactions.size());
 	}
