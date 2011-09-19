@@ -14,7 +14,7 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 
-@Entity
+@Entity(name="transactions")
 public class Transaction extends Model {
 
 	@MaxSize(250)

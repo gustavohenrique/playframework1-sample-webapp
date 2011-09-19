@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import models.Account;
+import models.Category;
+import models.Payee;
 import models.Transaction;
 
 import org.junit.Before;
@@ -31,7 +33,8 @@ public class TransactionHelperTest extends UnitTest {
 	@Test
 	public void testGetTransactionsWithCalculatedBalance() {
 		
-		List<Transaction> transactions = new TransactionHelper().getByAccount(citibank);
+		TransactionHelper helper = new TransactionHelper();
+		List<Transaction> transactions = helper.getByAccount(citibank);
 	
 		assertEquals("-1000.00", transactions.get(0).getBalance().toString());
 		assertEquals("4000.00", transactions.get(1).getBalance().toString());
@@ -50,10 +53,38 @@ public class TransactionHelperTest extends UnitTest {
 		Calendar end = Calendar.getInstance();
 		end.set(2011, Calendar.AUGUST, 8);
 		
-		List<Transaction> transactions = new TransactionHelper().between(start.getTime(), end.getTime()).getByAccount(citibank);
+		TransactionHelper helper = new TransactionHelper();
+		helper.setStart(start.getTime());
+		helper.setEnd(end.getTime());
+		
+		List<Transaction> transactions = helper.getByAccount(citibank);
 	
 		assertEquals("3740.00", transactions.get(0).getBalance().toString());
 		assertEquals("1740.00", transactions.get(1).getBalance().toString());
+	}
+	
+	@Test
+	public void testGetTransactionsFilteredByPayee() {
+		Payee americanas = Payee.find("byName", "Americanas").first();
+		
+		TransactionHelper helper = new TransactionHelper();
+		helper.setPayee(americanas);
+		
+		List<Transaction> transactions = helper.getByAccount(citibank);
+	
+		assertEquals("-2000.00", transactions.get(0).getBalance().toString());
+	}
+	
+	@Test
+	public void testGetTransactionsFilteredByCategory() {
+		Category food = Category.find("byName", "food").first();
+		
+		TransactionHelper helper = new TransactionHelper();
+		helper.setCategory(food);
+		
+		List<Transaction> transactions = helper.getByAccount(citibank);
+	
+		assertEquals(4, transactions.size());
 	}
 	
 }

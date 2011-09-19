@@ -2,22 +2,49 @@ package poupaniquel.helpers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Query;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
+import play.db.jpa.JPA;
+
 import models.Account;
+import models.Category;
+import models.Payee;
 import models.Transaction;
 
 public class TransactionHelper {
 	
-	private Date start = null;
-	private Date end = null;
+	private Date start;
+	private Date end;
+	private Payee payee;
+	private Category category;
+	
+	public TransactionHelper() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(1984, Calendar.JANUARY, 1);
+		start = calendar.getTime();
+		end = Calendar.getInstance().getTime();
+	}
 
 	public List<Transaction> getByAccount(Account account) {
-		List<Transaction> all = Transaction.find("byAccount", account).fetch();
+		
+		String sql = "SELECT t.* FROM transactions t WHERE account_id='" + account.getId() + "' ";
+		
+		if (isNotNull(payee)) {
+			sql += "AND payee_id = '" + payee.getId() + "' ";
+		}
+		if (isNotNull(category)) {
+			sql += "AND category_id = '" + category.getId() + "' ";
+		}
+		
+		Query query = JPA.em().createNativeQuery(sql);
+		List<Transaction> all = query.getResultList(); 
 		
 		List<Transaction> transactionsWithBalance = new ArrayList<Transaction>();
 		
@@ -37,28 +64,36 @@ public class TransactionHelper {
 		return transactionsWithBalance;
 	}
 
-	public TransactionHelper between(Date date1, Date date2) {
-		start = date1;
-		end = date2;
-		return this;
-	}
 	
 	private boolean isTransactionBetweenInterval(Transaction transaction, Date start, Date end) {
 		return (daysBetween(start, transaction.getTransactionDate()) && daysBetween(transaction.getTransactionDate(), end));
 	}
 	
 	private boolean daysBetween(Date start, Date end) {
-		if (! isNull(start) && ! isNull(end)) {
-			DateTime d1 = new DateTime(start.getYear(), start.getMonth() + 1, start.getDate(), 0, 0, 0, 0);
-			DateTime d2 = new DateTime(end.getYear(), end.getMonth() + 1, end.getDate(), 0, 0, 0, 0);
-			Days days = Days.daysBetween(d1, d2);
+		DateTime d1 = new DateTime(start.getYear(), start.getMonth() + 1, start.getDate(), 0, 0, 0, 0);
+		DateTime d2 = new DateTime(end.getYear(), end.getMonth() + 1, end.getDate(), 0, 0, 0, 0);
+		Days days = Days.daysBetween(d1, d2);
 			
-			return days.getDays() >= 0;
-		}
-		return true;
+		return days.getDays() >= 0;
 	}
 	
-	private boolean isNull(Object object) {
-		return object == null;
+	private boolean isNotNull(Object object) {
+		return object != null;
+	}
+
+	public void setStart(Date startDate) {
+		this.start = startDate;
+	}
+
+	public void setEnd(Date endDate) {
+		this.end = endDate;
+	}
+
+	public void setPayee(Payee payee) {
+		this.payee = payee;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }
