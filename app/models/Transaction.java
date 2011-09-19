@@ -33,7 +33,7 @@ public class Transaction extends Model {
 	@Required
 	private BigDecimal amount;
 	
-	@Transient
+	@Required
 	private BigDecimal balance;
 	
 	@OneToOne
@@ -159,22 +159,8 @@ public class Transaction extends Model {
 		}
 		
 		Query query = JPA.em().createQuery(sql.toString());
-		List<Transaction> all = query.getResultList(); 
-		
-		List<Transaction> transactionsWithBalance = new ArrayList<Transaction>();
-		
-		BigDecimal balance = BigDecimal.ZERO;
-		
-		for (int i = 0; i < all.size(); i++) {
-			Transaction transaction = all.get(i);
-			BigDecimal amount = transaction.getAmount();
-			balance = balance.add(amount);
-			transaction.setBalance(balance);
-			
-			transactionsWithBalance.add(transaction);
-		}
-		
-		return transactionsWithBalance;
+
+		return query.getResultList(); 
 	}
 
 	private static String formatDate(Date date) {

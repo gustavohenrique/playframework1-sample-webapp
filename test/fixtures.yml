@@ -89,6 +89,7 @@ Transaction(t1):
     description: Compra do mes
     transactionDate: 2011-08-01
     amount: -1000.0
+    balance: -1000.0
     payment: 4
     account: citibank
     payee: wallmart
@@ -98,6 +99,7 @@ Transaction(t2):
     description: Salario
     transactionDate: 2011-08-02
     amount: 5000.0
+    balance: 4000.0
     payment: 3
     account: citibank
     payee: mycompany
@@ -107,6 +109,7 @@ Transaction(t3):
     description: Mensalidade internet
     transactionDate: 2011-08-03
     amount: -100.0
+    balance: 3900.0
     payment: 5
     account: citibank
     payee: net
@@ -116,6 +119,7 @@ Transaction(t4):
     description: Almoco
     transactionDate: 2011-08-04
     amount: -10.0
+    balance: 3890.0
     payment: 4
     account: citibank
     payee: 
@@ -125,6 +129,7 @@ Transaction(t5):
     description: Chocolate
     transactionDate: 2011-08-05
     amount: -50.0
+    balance: 3840.0
     payment: 5
     account: citibank
     payee: cacau
@@ -134,6 +139,7 @@ Transaction(t6):
     description: Compras
     transactionDate: 2011-08-06
     amount: -100.0
+    balance: 3740.0
     payment: 5
     account: citibank
     payee: hortifruti
@@ -143,6 +149,7 @@ Transaction(t7):
     description: Freela
     transactionDate: 2011-08-07
     amount: 1500.0
+    balance: 1500.0
     payment: 5
     account: itau
     payee: 
@@ -152,6 +159,7 @@ Transaction(t8):
     description: TV LED
     transactionDate: 2011-08-08
     amount: -2000.0
+    balance: 1740.0
     payment: 5
     account: citibank
     payee: americanas
@@ -161,6 +169,7 @@ Transaction(t9):
     description: Notebook
     transactionDate: 2011-08-09
     amount: -3000.0
+    balance: -1500.0
     payment: 5
     account: itau
     payee: americanas

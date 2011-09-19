@@ -1,5 +1,6 @@
 package poupaniquel.importers.homebank;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import models.Category;
 import models.HomeBank;
 import models.Payee;
 import models.Transaction;
+import play.db.jpa.JPA;
 
 public class HomeBankDao {
 	
@@ -19,12 +21,20 @@ public class HomeBankDao {
 	}
 
 	private static List<Transaction> saveTransactionsInDB(List<Transaction> transactions) {
-    	for (Transaction transaction : transactions) {
+		
+		for (Transaction transaction : transactions) {
     		if (notRegisteredInDb(transaction)) {
     			
     			if (transaction.getAccount() != null) {
 	    			Account account = Account.find("byKey", transaction.getAccount().getKey()).first();
 	    			transaction.setAccount(account);
+    			}
+
+    			String sql = "select sum(t.amount) from transactions t where t.account=?";
+    			BigDecimal balance = (BigDecimal) JPA.em().createQuery(sql).setParameter(1, transaction.getAccount()).getResultList().get(0);
+    			
+    			if (balance == null) {
+    				balance = BigDecimal.ZERO;
     			}
     			
     			if (transaction.getCategory() != null) {
@@ -36,6 +46,9 @@ public class HomeBankDao {
 	    			Payee payee = Payee.find("byKey", transaction.getPayee().getKey()).first();
 	    			transaction.setPayee(payee);
     			}
+    			
+    			balance = balance.add(transaction.getAmount());
+    			transaction.setBalance(balance);
     			
     			transaction.save();
     		}

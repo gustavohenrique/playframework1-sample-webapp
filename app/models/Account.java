@@ -10,7 +10,7 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
-@Entity
+@Entity(name="accounts")
 public class Account extends Model {
 
 	private int key;

@@ -62,7 +62,7 @@ public class TransactionTest extends UnitTest {
 		
 		List<Transaction> transactions = Transaction.filterByPayee(citibank, americanas);
 	
-		assertEquals("-2000.00", transactions.get(0).getBalance().toString());
+		assertEquals("1740.00", transactions.get(0).getBalance().toString());
 	}
 	
 	@Test
@@ -71,6 +71,17 @@ public class TransactionTest extends UnitTest {
 		List<Transaction> transactions = Transaction.filterByCategory(citibank, food);
 	
 		assertEquals(4, transactions.size());
+	}
+	
+	@Test
+	public void testGetTransactionsByPayeeAndCategory() {
+		Payee cacau = Payee.find("byName", "Cacau Show").first();
+		Category food = Category.find("byName", "Food").first();
+		
+		List<Transaction> transactions = Transaction.filter(citibank, null, null, cacau, food);
+	
+		assertEquals("-50.00", transactions.get(0).getAmount().toString());
+		assertEquals("3840.00", transactions.get(0).getBalance().toString());
 	}
 	
 }
