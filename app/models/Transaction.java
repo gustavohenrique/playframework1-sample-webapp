@@ -1,16 +1,23 @@
 package models;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
 
@@ -46,7 +53,7 @@ public class Transaction extends Model {
 		this.description = description;
 		this.amount = new BigDecimal(amount);
 	}
-
+	
 	public String getDescription() {
 		return description;
 	}
@@ -109,5 +116,69 @@ public class Transaction extends Model {
 
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
+	}
+	
+	public static List<Transaction> filter(Account account) {
+		return filterBy(account, null, null, null, null);
+	}
+	
+	public static List<Transaction> filter(Account account, Date start, Date end) {
+		return filterBy(account, start, end, null, null);
+	}
+	
+	public static List<Transaction> filter(Account account, Payee payee) {
+		return filterBy(account, null, null, payee, null);
+	}
+	
+	public static List<Transaction> filter(Account account, Category category) {
+		return filterBy(account, null, null, null, category);
+	}
+	
+	private static List<Transaction> filterBy(Account account, Date start, Date end, Payee payee, Category category) {
+		
+		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE account_id='" + account.getId() + "' ");
+
+		if (isNotNull(start)) {
+			sql.append("AND transactionDate >= '" + formatDate(start) + "' ");
+		}
+		
+		if (isNotNull(end)) {
+			sql.append("AND transactionDate <= '" + formatDate(end) + "' ");
+		}
+		
+		if (isNotNull(payee)) {
+			sql.append("AND payee_id = '" + payee.getId() + "' ");
+		}
+		
+		if (isNotNull(category)) {
+			sql.append("AND category_id = '" + category.getId() + "' ");
+		}
+		
+		Query query = JPA.em().createQuery(sql.toString());
+		List<Transaction> all = query.getResultList(); 
+		
+		List<Transaction> transactionsWithBalance = new ArrayList<Transaction>();
+		
+		BigDecimal balance = BigDecimal.ZERO;
+		
+		for (int i = 0; i < all.size(); i++) {
+			Transaction transaction = all.get(i);
+			BigDecimal amount = transaction.getAmount();
+			balance = balance.add(amount);
+			transaction.setBalance(balance);
+			
+			transactionsWithBalance.add(transaction);
+		}
+		
+		return transactionsWithBalance;
+	}
+
+	private static String formatDate(Date date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		return dateFormat.format(date);
+	}
+	
+	private static boolean isNotNull(Object object) {
+		return object != null;
 	}
 }

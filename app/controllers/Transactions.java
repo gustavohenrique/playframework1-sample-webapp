@@ -7,7 +7,6 @@ import java.util.Map;
 import models.Account;
 import models.Transaction;
 import play.mvc.Controller;
-import poupaniquel.helpers.TransactionHelper;
 
 public class Transactions extends Controller {
 
@@ -17,7 +16,8 @@ public class Transactions extends Controller {
 	
 	public static void filter(Long accountId) {
 		Account account = Account.findById(accountId);
-    	List<Transaction> transactions = new TransactionHelper().getByAccount(account);
+
+    	List<Transaction> transactions = Transaction.filter(account);
     	
     	Map result = new HashMap<String, Object>();
     	result.put("success", "true");

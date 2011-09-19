@@ -1,25 +1,15 @@
-package poupaniquel.helpers;
+package models;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import models.Account;
-import models.Category;
-import models.Payee;
-import models.Transaction;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import play.db.jpa.GenericModel.JPAQuery;
-import play.db.jpa.JPABase;
 import play.test.Fixtures;
 import play.test.UnitTest;
 
-public class TransactionHelperTest extends UnitTest {
+public class TransactionTest extends UnitTest {
 
 	private Account citibank;
 	
@@ -33,8 +23,7 @@ public class TransactionHelperTest extends UnitTest {
 	@Test
 	public void testGetTransactionsWithCalculatedBalance() {
 		
-		TransactionHelper helper = new TransactionHelper();
-		List<Transaction> transactions = helper.getByAccount(citibank);
+		List<Transaction> transactions = Transaction.filter(citibank);
 	
 		assertEquals("-1000.00", transactions.get(0).getBalance().toString());
 		assertEquals("4000.00", transactions.get(1).getBalance().toString());
@@ -53,11 +42,7 @@ public class TransactionHelperTest extends UnitTest {
 		Calendar end = Calendar.getInstance();
 		end.set(2011, Calendar.AUGUST, 8);
 		
-		TransactionHelper helper = new TransactionHelper();
-		helper.setStart(start.getTime());
-		helper.setEnd(end.getTime());
-		
-		List<Transaction> transactions = helper.getByAccount(citibank);
+		List<Transaction> transactions = Transaction.filter(citibank, start.getTime(), end.getTime());
 		
 		assertEquals(2, transactions.size());
 //      Verificar bug do play que adiciona 1 dia na data da fixture		
@@ -69,10 +54,7 @@ public class TransactionHelperTest extends UnitTest {
 	public void testGetTransactionsFilteredByPayee() {
 		Payee americanas = Payee.find("byName", "Americanas").first();
 		
-		TransactionHelper helper = new TransactionHelper();
-		helper.setPayee(americanas);
-		
-		List<Transaction> transactions = helper.getByAccount(citibank);
+		List<Transaction> transactions = Transaction.filter(citibank, americanas);
 	
 		assertEquals("-2000.00", transactions.get(0).getBalance().toString());
 	}
@@ -80,11 +62,7 @@ public class TransactionHelperTest extends UnitTest {
 	@Test
 	public void testGetTransactionsFilteredByCategory() {
 		Category food = Category.find("byName", "Food").first();
-		
-		TransactionHelper helper = new TransactionHelper();
-		helper.setCategory(food);
-		
-		List<Transaction> transactions = helper.getByAccount(citibank);
+		List<Transaction> transactions = Transaction.filter(citibank, food);
 	
 		assertEquals(4, transactions.size());
 	}
