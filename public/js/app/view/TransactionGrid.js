@@ -7,7 +7,10 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
     columns: [{
     	xtype: 'rownumberer',
     	width: 30,
-    },{
+    }, {
+    	text     : 'ID',
+    	dataIndex: 'id',
+    }, {
         text     : 'Date',
         sortable : true,
         dataIndex: 'transactionDate',
@@ -30,7 +33,7 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
     initComponent: function() {
     	this.dockedItems = [{
             xtype: 'pagingtoolbar',
-            store: 'Transactions',
+            store: this.getStore(),
             dock: 'bottom',
             beforePageText: 'Page ',
             displayMsg: 'Displaying {0} - {1} of {2}',

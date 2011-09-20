@@ -17,7 +17,7 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     		this.getAccountsStore().each(function(record) {
 	    		store = Ext.create('PoupaNiquel.store.Transactions');
 	    		store.proxy.extraParams.accountId = record.data.id;
-	    		store.load();
+	    		store.load({params:{start:0, limit:5}});
 	    		
 	    		tab = Ext.widget('panel', {
 	    		    layout: 'border',

@@ -33,17 +33,17 @@ public class Transactions extends Controller {
     		errors.add("No transactions found for account " + account);
     	}
 		
-    	returnJson(transactions);
+    	returnJson(transactions, transactions.size());
     }
 	
 	public static void accounts() {
 		List<Account> accounts = Account.findAll();
 		
-		returnJson(accounts);
+		returnJson(accounts, accounts.size());
 	}
 	
 	
-	private static void returnJson(Object object) {
+	private static void returnJson(Object object, int size) {
 		boolean success = true;
 		
 		if (errors.size() > 0) {
@@ -54,6 +54,7 @@ public class Transactions extends Controller {
 		Map result = new HashMap<String, Object>();
 		result.put("success", success);
 		result.put("data", object);
+		result.put("total", size);
 		
 		renderJSON(result);
 	}

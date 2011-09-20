@@ -130,6 +130,11 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     
      
     initComponent: function() {
+    	this.buttons = [{
+    		title: 'Clean'
+    	}, {
+    		title: 'Filter'
+    	}];
         return this.callParent(arguments);
     }
 });
