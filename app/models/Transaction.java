@@ -119,43 +119,55 @@ public class Transaction extends Model {
 	}
 	
 	public static List<Transaction> filterByAccount(Account account) {
-		return filter(account, null, null, null, null);
+		TransactionFilter config = new TransactionFilter();
+		config.setAccount(account);
+		return filter(config);
 	}
 	
 	public static List<Transaction> filterByDateInterval(Account account, Date start, Date end) {
-		return filter(account, start, end, null, null);
+		TransactionFilter config = new TransactionFilter();
+		config.setAccount(account);
+		config.setStart(start);
+		config.setEnd(end);
+		return filter(config);
 	}
 	
 	public static List<Transaction> filterByPayee(Account account, Payee payee) {
-		return filter(account, null, null, payee, null);
+		TransactionFilter config = new TransactionFilter();
+		config.setAccount(account);
+		config.setPayee(payee);
+		return filter(config);
 	}
 	
 	public static List<Transaction> filterByCategory(Account account, Category category) {
-		return filter(account, null, null, null, category);
+		TransactionFilter config = new TransactionFilter();
+		config.setAccount(account);
+		config.setCategory(category);
+		return filter(config);
 	}
 	
-	public static List<Transaction> filter(Account account, Date start, Date end, Payee payee, Category category) {
+	public static List<Transaction> filter(TransactionFilter config) {
 		
-		if (account == null) {
+		if (config == null || config.getAccount() == null) {
 			return null;
 		}
 		
-		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE account_id='" + account.getId() + "' ");
+		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE account_id='" + config.getAccount().getId() + "' ");
 
-		if (isNotNull(start)) {
-			sql.append("AND transactionDate >= '" + formatDate(start) + "' ");
+		if (isNotNull(config.getStart())) {
+			sql.append("AND transactionDate >= '" + formatDate(config.getStart()) + "' ");
 		}
 		
-		if (isNotNull(end)) {
-			sql.append("AND transactionDate <= '" + formatDate(end) + "' ");
+		if (isNotNull(config.getEnd())) {
+			sql.append("AND transactionDate <= '" + formatDate(config.getEnd()) + "' ");
 		}
 		
-		if (isNotNull(payee)) {
-			sql.append("AND payee_id = '" + payee.getId() + "' ");
+		if (isNotNull(config.getPayee())) {
+			sql.append("AND payee_id = '" + config.getPayee().getId() + "' ");
 		}
 		
-		if (isNotNull(category)) {
-			sql.append("AND category_id = '" + category.getId() + "' ");
+		if (isNotNull(config.getCategory())) {
+			sql.append("AND category_id = '" + config.getCategory().getId() + "' ");
 		}
 		
 		Query query = JPA.em().createQuery(sql.toString());

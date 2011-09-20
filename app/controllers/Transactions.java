@@ -30,8 +30,10 @@ public class Transactions extends Controller {
 	
 	
 	private static void returnJson(Object object) {
+		boolean objectIsNotlNull = (object != null);
+		
 		Map result = new HashMap<String, Object>();
-		result.put("success", "true");
+		result.put("success", String.valueOf(objectIsNotlNull));
 		result.put("data", object);
 		
 		renderJSON(result);

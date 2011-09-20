@@ -21,8 +21,8 @@ public class TransactionTest extends UnitTest {
 	}
 	
 	@Test
-	public void testShouldReturnNullIfNotSentAccount() {
-		List<Transaction> transactions = Transaction.filter(null, null, null, null, null);
+	public void testShouldReturnNullIfDontHaveAccount() {
+		List<Transaction> transactions = Transaction.filter(null);
 		assertNull(transactions);
 	}
 	
@@ -51,9 +51,8 @@ public class TransactionTest extends UnitTest {
 		List<Transaction> transactions = Transaction.filterByDateInterval(citibank, start.getTime(), end.getTime());
 		
 		assertEquals(2, transactions.size());
-//      Verificar bug do play que adiciona 1 dia na data da fixture		
-//		assertEquals("3740.00", transactions.get(0).getBalance().toString());
-//		assertEquals("1740.00", transactions.get(1).getBalance().toString());
+		assertEquals("3740.00", transactions.get(0).getBalance().toString());
+		assertEquals("1740.00", transactions.get(1).getBalance().toString());
 	}
 	
 	@Test
@@ -78,10 +77,29 @@ public class TransactionTest extends UnitTest {
 		Payee cacau = Payee.find("byName", "Cacau Show").first();
 		Category food = Category.find("byName", "Food").first();
 		
-		List<Transaction> transactions = Transaction.filter(citibank, null, null, cacau, food);
+		TransactionFilter config = new TransactionFilter();
+		config.setAccount(citibank);
+		config.setCategory(food);
+		config.setPayee(cacau);
+		List<Transaction> transactions = Transaction.filter(config);
 	
 		assertEquals("-50.00", transactions.get(0).getAmount().toString());
 		assertEquals("3840.00", transactions.get(0).getBalance().toString());
+	}
+	
+	@Test
+	public void testGetTransactionsByPayeeAndCategoryPaginated() {
+		Payee cacau = Payee.find("byName", "Cacau Show").first();
+		Category food = Category.find("byName", "Food").first();
+		
+		TransactionFilter config = new TransactionFilter();
+		config.setAccount(citibank);
+		config.setCategory(food);
+		config.setPayee(cacau);
+		config.setPage(0, 1);
+		List<Transaction> transactions = Transaction.filter(config);
+	
+		assertEquals("-50.00", transactions.get(0).getAmount().toString());
 	}
 	
 }

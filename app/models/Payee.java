@@ -1,12 +1,11 @@
 package models;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 import play.data.validation.MaxSize;
 import play.db.jpa.Model;
 
-@Entity
+@Entity(name="payees")
 public class Payee extends Model {
 
 	private int key;

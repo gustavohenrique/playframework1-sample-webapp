@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 import play.db.jpa.Model;
 
-@Entity
+@Entity(name="categories")
 public class Category extends Model {
 
 	private int key;
