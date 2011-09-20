@@ -3,7 +3,7 @@ package models;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TransactionFilter {
+public class TransactionFilterOptions {
 
 	private Account account;
 	private Payee payee;

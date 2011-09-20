@@ -56,6 +56,7 @@ public class HomeBankDaoTest extends UnitTest {
 			assertEquals("10", persistedTransaction.getBalance().toString());
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			fail();
 		}
 	}

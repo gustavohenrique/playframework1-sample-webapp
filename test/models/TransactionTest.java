@@ -77,11 +77,11 @@ public class TransactionTest extends UnitTest {
 		Payee cacau = Payee.find("byName", "Cacau Show").first();
 		Category food = Category.find("byName", "Food").first();
 		
-		TransactionFilter config = new TransactionFilter();
-		config.setAccount(citibank);
-		config.setCategory(food);
-		config.setPayee(cacau);
-		List<Transaction> transactions = Transaction.filter(config);
+		TransactionFilterOptions options = new TransactionFilterOptions();
+		options.setAccount(citibank);
+		options.setCategory(food);
+		options.setPayee(cacau);
+		List<Transaction> transactions = Transaction.filter(options);
 	
 		assertEquals("-50.00", transactions.get(0).getAmount().toString());
 		assertEquals("3840.00", transactions.get(0).getBalance().toString());
@@ -92,13 +92,14 @@ public class TransactionTest extends UnitTest {
 		Payee cacau = Payee.find("byName", "Cacau Show").first();
 		Category food = Category.find("byName", "Food").first();
 		
-		TransactionFilter config = new TransactionFilter();
-		config.setAccount(citibank);
-		config.setCategory(food);
-		config.setPayee(cacau);
-		config.setPage(0, 1);
-		List<Transaction> transactions = Transaction.filter(config);
+		TransactionFilterOptions options = new TransactionFilterOptions();
+		options.setAccount(citibank);
+		options.setCategory(food);
+		options.setPayee(cacau);
+		options.setPage(0, 1);
+		List<Transaction> transactions = Transaction.filter(options);
 	
+		assertEquals(1,  transactions.size());
 		assertEquals("-50.00", transactions.get(0).getAmount().toString());
 	}
 	

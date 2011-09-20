@@ -119,13 +119,13 @@ public class Transaction extends Model {
 	}
 	
 	public static List<Transaction> filterByAccount(Account account) {
-		TransactionFilter config = new TransactionFilter();
+		TransactionFilterOptions config = new TransactionFilterOptions();
 		config.setAccount(account);
 		return filter(config);
 	}
 	
 	public static List<Transaction> filterByDateInterval(Account account, Date start, Date end) {
-		TransactionFilter config = new TransactionFilter();
+		TransactionFilterOptions config = new TransactionFilterOptions();
 		config.setAccount(account);
 		config.setStart(start);
 		config.setEnd(end);
@@ -133,20 +133,20 @@ public class Transaction extends Model {
 	}
 	
 	public static List<Transaction> filterByPayee(Account account, Payee payee) {
-		TransactionFilter config = new TransactionFilter();
+		TransactionFilterOptions config = new TransactionFilterOptions();
 		config.setAccount(account);
 		config.setPayee(payee);
 		return filter(config);
 	}
 	
 	public static List<Transaction> filterByCategory(Account account, Category category) {
-		TransactionFilter config = new TransactionFilter();
+		TransactionFilterOptions config = new TransactionFilterOptions();
 		config.setAccount(account);
 		config.setCategory(category);
 		return filter(config);
 	}
 	
-	public static List<Transaction> filter(TransactionFilter config) {
+	public static List<Transaction> filter(TransactionFilterOptions config) {
 		
 		if (config == null || config.getAccount() == null) {
 			return null;
