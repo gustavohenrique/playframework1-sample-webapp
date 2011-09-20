@@ -36,8 +36,6 @@ public class Transactions extends Controller {
     	returnJson(transactions);
     }
 	
-	
-	
 	public static void accounts() {
 		List<Account> accounts = Account.findAll();
 		

@@ -27,18 +27,16 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         dataIndex: 'balance'
     }],
    
-    
-//    bbar: Ext.create('Ext.PagingToolbar', {
-//        store: new Ext.data.SimpleStore({ fields: ['date', 'description','amount','balance'],  data : [ [ "2011-01-21", "Teste2", "500", "5500" ],  [ "2011-01-22", "Teste3", "-100", "5400" ] ] }),
-//        displayInfo: true,
-//        beforePageText: 'Page ',
-//        displayMsg: 'Displaying {0} - {1} of {2}',
-//        emptyMsg: "Nothing to display",
-//        displayInfo: true,
-//    }),
-
-    
     initComponent: function() {
+    	this.dockedItems = [{
+            xtype: 'pagingtoolbar',
+            store: 'Transactions',
+            dock: 'bottom',
+            beforePageText: 'Page ',
+            displayMsg: 'Displaying {0} - {1} of {2}',
+            emptyMsg: "Nothing to display",
+            displayInfo: true
+        }];
         return this.callParent(arguments);
     }
 });
