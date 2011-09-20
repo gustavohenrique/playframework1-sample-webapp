@@ -32,4 +32,13 @@ public class TransactionsTest extends FunctionalTest {
 		Response response = GET("/transactions/filter/"+account.getId());
 		assertEquals(expected, response.out.toString());
 	}
+	
+	@Test
+	public void testGetTransactionsPaginated() {
+		Account account = Account.find("byName", "Citibank").first();
+		String expected = "{\"data\":[{\"description\":\"Compra do mes\",\"transactionDate\":\"Jul 31, 2011\",\"amount\":-1000.00,\"balance\":-1000.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":5},\"payee\":{\"key\":0,\"name\":\"Wallmart\",\"id\":19},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":21},\"payment\":\"4\",\"id\":19},{\"description\":\"Salario\",\"transactionDate\":\"Aug 1, 2011\",\"amount\":5000.00,\"balance\":4000.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":5},\"payee\":{\"key\":0,\"name\":\"My Company\",\"id\":27},\"category\":{\"key\":21,\"parent\":0,\"name\":\"Salary\",\"id\":26},\"payment\":\"3\",\"id\":20}],\"success\":true}";
+
+		Response response = GET("/transactions/filter?accountId="+account.getId()+"&startPage=0&limitPage=2");
+		assertEquals(expected, response.out.toString());
+	}
 }

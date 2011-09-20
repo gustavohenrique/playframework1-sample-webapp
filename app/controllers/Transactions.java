@@ -7,6 +7,7 @@ import java.util.Map;
 
 import models.Account;
 import models.Transaction;
+import models.TransactionFilterOptions;
 import play.mvc.Controller;
 
 public class Transactions extends Controller {
@@ -19,18 +20,23 @@ public class Transactions extends Controller {
 	
 	public static void filter(Long accountId) {
 		Account account = Account.findById(accountId);
-		
 		if (account == null) {
 			errors.add("No accounts founds by id " + accountId);
 		}
+		
+		TransactionFilterOptions options = new TransactionFilterOptions();
+		options.setAccount(account);
+		options.setPagination(params.get("startPage"), params.get("limitPage"));
 
-    	List<Transaction> transactions = Transaction.filterByAccount(account);
+    	List<Transaction> transactions = Transaction.filter(options);
     	if (transactions == null || transactions.size() == 0) {
     		errors.add("No transactions found for account " + account);
     	}
-    	
+		
     	returnJson(transactions);
     }
+	
+	
 	
 	public static void accounts() {
 		List<Account> accounts = Account.findAll();

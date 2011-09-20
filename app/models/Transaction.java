@@ -170,7 +170,11 @@ public class Transaction extends Model {
 			sql.append("AND category_id = '" + config.getCategory().getId() + "' ");
 		}
 		
+		sql.append("ORDER BY transactionDate, balance");
+		
 		Query query = JPA.em().createQuery(sql.toString());
+		query.setFirstResult(config.getStartPage());
+		query.setMaxResults(config.getLimitPage());
 
 		return query.getResultList(); 
 	}

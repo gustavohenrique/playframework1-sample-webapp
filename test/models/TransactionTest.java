@@ -89,18 +89,14 @@ public class TransactionTest extends UnitTest {
 	
 	@Test
 	public void testGetTransactionsByPayeeAndCategoryPaginated() {
-		Payee cacau = Payee.find("byName", "Cacau Show").first();
-		Category food = Category.find("byName", "Food").first();
-		
 		TransactionFilterOptions options = new TransactionFilterOptions();
 		options.setAccount(citibank);
-		options.setCategory(food);
-		options.setPayee(cacau);
-		options.setPage(0, 1);
+		options.setPage(0, 2);
 		List<Transaction> transactions = Transaction.filter(options);
 	
-		assertEquals(1,  transactions.size());
-		assertEquals("-50.00", transactions.get(0).getAmount().toString());
+		assertEquals(2,  transactions.size());
+		assertEquals("-1000.00", transactions.get(0).getBalance().toString());
+		assertEquals("4000.00", transactions.get(1).getBalance().toString());
 	}
 	
 }

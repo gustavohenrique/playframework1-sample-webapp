@@ -75,4 +75,14 @@ public class TransactionFilterOptions {
 		this.startPage = startPage;
 		this.limitPage = limitPage;
 	}
+	
+	public void setPagination(String startPage, String limitPage) {
+		try {
+		   this.startPage = Integer.valueOf(startPage);
+		   this.limitPage = Integer.valueOf(limitPage);
+		}
+		catch (Exception e) {
+			// use default values on attribute declaration
+		}
+	}
 }
