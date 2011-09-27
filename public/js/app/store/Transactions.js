@@ -4,13 +4,13 @@ Ext.define('PoupaNiquel.store.Transactions', {
     
     storeId: 'Transactions',
     autoLoad: false,
-    pageSize: 5,
+    pageSize: 10,
     
     
     proxy: {
         type: 'ajax',
-        limitParam: 'limitPage',
-    	pageParam: 'startPage',
+//      limitParam: 'limitPage',
+//    	pageParam: 'startPage',
     	
         api: {
         	read : '/transactions/filter',

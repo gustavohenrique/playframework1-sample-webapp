@@ -1,3 +1,9 @@
+var onCellRender = function(value) {
+    if (value > 0)
+        return '<span style="color:green;">' + value + '</span>';
+    return '<span style="color:red;">' + value + '</span>';
+};
+
 Ext.define('PoupaNiquel.view.TransactionGrid' ,{
 	extend: 'Ext.grid.Panel',
     alias: 'widget.transactiongrid',
@@ -7,9 +13,6 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
     columns: [{
     	xtype: 'rownumberer',
     	width: 30,
-    }, {
-    	text     : 'ID',
-    	dataIndex: 'id',
     }, {
         text     : 'Date',
         sortable : true,
@@ -23,11 +26,13 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
     }, {
     	text     : 'Amount',
         sortable : false,
-        dataIndex: 'amount'
+        dataIndex: 'amount',
+        renderer : onCellRender,
     }, {
     	text     : 'Balance',
         sortable : false,
-        dataIndex: 'balance'
+        dataIndex: 'balance',
+        renderer : onCellRender,
     }],
    
     initComponent: function() {
@@ -41,5 +46,6 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
             displayInfo: true
         }];
         return this.callParent(arguments);
-    }
+    },
+    
 });

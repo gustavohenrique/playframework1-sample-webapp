@@ -26,24 +26,24 @@ public class Transactions extends Controller {
 		
 		TransactionFilterOptions options = new TransactionFilterOptions();
 		options.setAccount(account);
-		options.setPagination(params.get("startPage"), params.get("limitPage"));
+		options.setPagination(params.get("start"), params.get("limit"));
 
     	List<Transaction> transactions = Transaction.filter(options);
     	if (transactions == null || transactions.size() == 0) {
     		errors.add("No transactions found for account " + account);
     	}
-		
-    	returnJson(transactions, transactions.size());
+
+    	returnJson(transactions, Transaction.count());
     }
 	
 	public static void accounts() {
 		List<Account> accounts = Account.findAll();
 		
-		returnJson(accounts, accounts.size());
+		returnJson(accounts, Account.count());
 	}
 	
 	
-	private static void returnJson(Object object, int size) {
+	private static void returnJson(Object object, Long size) {
 		boolean success = true;
 		
 		if (errors.size() > 0) {

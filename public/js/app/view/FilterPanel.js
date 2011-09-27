@@ -11,8 +11,6 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     split: true,
     border: false,
     frame: false,
-//    plain: true,
-//    bodyStyle: 'padding:10px;background:white',
     bodyPadding: 10,
     collapsible: true,
     autoScroll: true,
@@ -107,7 +105,7 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     	triggerAction: 'all',
     	listClass: 'x-combo-list-small',
     	minChars: 0
-    },  {
+    }, /* {
     	xtype: 'multiselect',
         title: 'tags',
         fieldLabel: '',
@@ -126,14 +124,14 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
                 Ext.getCmp('frmFiltro').getForm().findField('tags').reset();
             }
         }]
-    }],
+    }*/],
     
      
     initComponent: function() {
     	this.buttons = [{
-    		title: 'Clean'
+    		text: 'Clean'
     	}, {
-    		title: 'Filter'
+    		text: 'Filter'
     	}];
         return this.callParent(arguments);
     }

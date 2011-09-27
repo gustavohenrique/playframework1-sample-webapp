@@ -21,7 +21,6 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    		
 	    		tab = Ext.widget('panel', {
 	    		    layout: 'border',
-//	    		    height:'100%',
 	    		    title: record.data.name,
 	    		    items: [{
 	    		    	region: 'west', xtype: 'filterpanel', title: 'Filter',
@@ -35,7 +34,6 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    	
 	    	tabPanel = Ext.widget('tabpanel', {
 	    		activeTab: 0,
-//	    		height:'100%',
 	    		frame: false,
 	    		items: tabs,
 	    	});
