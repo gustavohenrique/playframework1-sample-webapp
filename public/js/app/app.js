@@ -21,7 +21,8 @@ Ext.application({
                 autoScroll: true,
             }, {
             	region: 'north',
-            	height: 73,
+//            	height: 73,
+            	height: 45,
             	xtype: 'toppanel',
             }]
         });

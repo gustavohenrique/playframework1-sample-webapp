@@ -15,6 +15,8 @@ public class TransactionFilterOptions {
 	private int startPage = 0;
 	private int limitPage = 31;
 	
+	private String orderBy;
+	
 	public Account getAccount() {
 		return account;
 	}
@@ -85,5 +87,13 @@ public class TransactionFilterOptions {
 		catch (Exception e) {
 			// use default values on attribute declaration
 		}
+	}
+
+	public String getOrderBy() {
+		return orderBy;
+	}
+
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import models.Account;
 import models.Category;
+import models.Payee;
 import models.Transaction;
 import models.TransactionFilterOptions;
 import play.mvc.Controller;
@@ -38,13 +39,18 @@ public class Transactions extends Controller {
     }
 	
 	public static void accounts() {
-		List<Account> accounts = Account.findAll();
+		List<Account> accounts = Account.find("order by name").fetch();
 		returnJson(accounts, Account.count());
 	}
 	
 	public static void categories() {
-		List<Category> categories = Category.findAll();
-		returnJson(categories, Account.count());
+		List<Category> categories = Category.find("order by name").fetch();
+		returnJson(categories, Category.count());
+	}
+	
+	public static void payees() {
+		List<Payee> payees = Payee.find("order by name").fetch();
+		returnJson(payees, Payee.count());
 	}
 	
 	

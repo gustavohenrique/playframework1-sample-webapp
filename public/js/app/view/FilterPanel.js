@@ -24,14 +24,16 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     	this.items = [
 	        {xtype: 'datefield', format: 'd/m/Y', name: 'startDate', emptyText: 'Start date'},
 	        {xtype: 'datefield', format: 'd/m/Y', name: 'endDate', emptyText: 'End Date'},
-	        {xtype: 'filtercombo', name:'account',emptyText:'Account',store:'Accounts'},
-	        {xtype: 'filtercombo', name:'category',emptyText:'Category',store:'Categories'}
+	        {xtype: 'filtercombo', name:'account', emptyText:'Account', store:'Accounts'},
+	        {xtype: 'filtercombo', name:'category', emptyText:'Category', store:'Categories'},
+	        {xtype: 'filtercombo', name:'payee', emptyText:'Payee', store:'Payees'},
         ],
 
     	this.buttons = [{
     		text: 'Clean'
     	}, {
-    		text: 'Filter'
+    		text: 'Filter',
+    		handler: 'filter'
     	}];
         return this.callParent(arguments);
     }

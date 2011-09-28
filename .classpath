@@ -2,10 +2,8 @@
 <classpath>
 	<classpathentry excluding="views/**" kind="src" path="app"/>
 	<classpathentry kind="src" path="test"/>
-	
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/opt/play/framework/play-1.2.2.jar" sourcepath="/opt/play/framework/src" />
-	<classpathentry kind="lib" path="/home/gustavo/www/poupaniquel/lib/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="/opt/play/framework/play-1.2.2.jar" sourcepath="/opt/play/framework/src"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/async-http-client-1.6.3.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/jj-textile.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/netty-3.2.4.Final.jar"/>
@@ -79,6 +77,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/jj-wikitext.jar"/>
-	
 	<classpathentry kind="output" path="eclipse/classes"/>
 </classpath>

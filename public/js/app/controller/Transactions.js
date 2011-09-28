@@ -3,9 +3,14 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 
     views: ['FilterPanel', 'FilterCombo', 'TransactionGrid'],
     models: ['Account', 'Generic', 'Transaction'],
-    stores: ['Accounts', 'Categories', 'Transactions'],
+    stores: ['Accounts', 'Categories', 'Payees', 'Transactions'],
     
     init: function() {
+    	this.control({
+  	      'button[action=filter]': {
+  	    	  click: this.filterTransaction
+  	      }
+      	})
     },
     
     openWindow: function() {
@@ -15,11 +20,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     		var tabs = new Array();
     		
     		this.getAccountsStore().each(function(record) {
-	    		store = Ext.create('PoupaNiquel.store.Transactions');
+	    		var store = Ext.create('PoupaNiquel.store.Transactions');
 	    		store.proxy.extraParams.accountId = record.data.id;
 	    		store.load({params:{start:0, limit:5}});
 	    		
-	    		tab = Ext.widget('panel', {
+	    		var tab = Ext.widget('panel', {
 	    		    layout: 'border',
 	    		    title: record.data.name,
 	    		    items: [{
@@ -32,13 +37,13 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    		tabs.push(tab);
 	    	});
 	    	
-	    	tabPanel = Ext.widget('tabpanel', {
+	    	var tabPanel = Ext.widget('tabpanel', {
 	    		activeTab: 0,
 	    		frame: false,
 	    		items: tabs,
 	    	});
 
-	    	win = Ext.create('widget.window', {
+	    	var win = Ext.create('widget.window', {
 	    		id: 'transactionsWindow',
 	    		constrain: true,
 	            height: '70%',
@@ -52,9 +57,13 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	            items: tabPanel
 	    	});
 	    	
-	    	viewport = Ext.ComponentManager.get('viewportCenter');
+	    	var viewport = Ext.ComponentManager.get('viewportCenter');
 	    	viewport.add(win);
 	    	win.show();
     	}
+    },
+    
+    filterTransaction: function() {
+    	console.log("dfsfs");
     }
 });
