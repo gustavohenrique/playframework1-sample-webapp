@@ -20,9 +20,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     		var tabs = new Array();
     		
     		this.getAccountsStore().each(function(record) {
-	    		var store = Ext.create('PoupaNiquel.store.Transactions');
+	    		store = Ext.create('PoupaNiquel.store.Transactions');
 	    		store.proxy.extraParams.accountId = record.data.id;
-	    		store.load({params:{start:0, limit:5}});
+	    		store.load();
 	    		
 	    		var tab = Ext.widget('panel', {
 	    		    layout: 'border',
@@ -64,6 +64,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     filterTransaction: function() {
-    	console.log("dfsfs");
+    	var store = this.getTransactionsStore();//
+//    	store.proxy.extraParams.accountId = record.data.id;
+		store.load({limit:1});
+    	console.log(store);
     }
 });

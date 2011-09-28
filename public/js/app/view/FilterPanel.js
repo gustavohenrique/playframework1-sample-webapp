@@ -20,7 +20,6 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     defaults: { anchor: '100%' },
      
     initComponent: function() {
-
     	this.items = [
 	        {xtype: 'datefield', format: 'd/m/Y', name: 'startDate', emptyText: 'Start date'},
 	        {xtype: 'datefield', format: 'd/m/Y', name: 'endDate', emptyText: 'End Date'},
@@ -33,7 +32,7 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     		text: 'Clean'
     	}, {
     		text: 'Filter',
-    		handler: 'filter'
+    		action: 'filter',
     	}];
         return this.callParent(arguments);
     }
