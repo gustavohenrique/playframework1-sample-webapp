@@ -1,7 +1,8 @@
 var onCellRender = function(value) {
+	var formated = Ext.util.Format.currency(Math.abs(value), "R$ ", 2, false);
     if (value > 0)
-        return '<span style="color:green;">' + value + '</span>';
-    return '<span style="color:red;">' + value + '</span>';
+        return '<span style="color:green;">' + formated + '</span>';
+    return '<span style="color:red;">' + formated + '</span>';
 };
 
 Ext.define('PoupaNiquel.view.TransactionGrid' ,{
