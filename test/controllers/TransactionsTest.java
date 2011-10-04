@@ -1,6 +1,8 @@
 package controllers;
 
 import models.Account;
+import models.Category;
+import models.Payee;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,10 +13,13 @@ import play.test.FunctionalTest;
 
 public class TransactionsTest extends FunctionalTest {
 
+	private Account citibank;
+	
 	@Before
 	public void setUp() {
 		Fixtures.deleteAllModels();
 		Fixtures.loadModels("fixtures.yml");
+		citibank = Account.find("byName", "Citibank").first();
 	}
 	
 	@Test
@@ -40,18 +45,31 @@ public class TransactionsTest extends FunctionalTest {
 	
 	@Test
 	public void testGetTransactionsAccordingOfAccount() {
-		Account account = Account.find("byName", "Citibank").first();
 		String expected = "{\"total\":9,\"data\":[{\"description\":\"Compra do mes\",\"transactionDate\":\"Jul 31, 2011\",\"amount\":-1000.00,\"balance\":-1000.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":7},\"payee\":{\"key\":0,\"name\":\"Wallmart\",\"id\":28},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":31},\"payment\":\"4\",\"id\":28},{\"description\":\"Salario\",\"transactionDate\":\"Aug 1, 2011\",\"amount\":5000.00,\"balance\":4000.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":7},\"payee\":{\"key\":0,\"name\":\"My Company\",\"id\":36},\"category\":{\"key\":21,\"parent\":0,\"name\":\"Salary\",\"id\":36},\"payment\":\"3\",\"id\":29},{\"description\":\"Mensalidade internet\",\"transactionDate\":\"Aug 2, 2011\",\"amount\":-100.00,\"balance\":3900.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":7},\"payee\":{\"key\":0,\"name\":\"Net Virtua\",\"id\":35},\"category\":{\"key\":19,\"parent\":0,\"name\":\"Internet\",\"id\":38},\"payment\":\"5\",\"id\":30},{\"description\":\"Almoco\",\"transactionDate\":\"Aug 3, 2011\",\"amount\":-10.00,\"balance\":3890.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":7},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":31},\"payment\":\"4\",\"id\":31},{\"description\":\"Chocolate\",\"transactionDate\":\"Aug 4, 2011\",\"amount\":-50.00,\"balance\":3840.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":7},\"payee\":{\"key\":0,\"name\":\"Cacau Show\",\"id\":33},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":31},\"payment\":\"5\",\"id\":32},{\"description\":\"Compras\",\"transactionDate\":\"Aug 5, 2011\",\"amount\":-100.00,\"balance\":3740.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":7},\"payee\":{\"key\":0,\"name\":\"Hortifruti\",\"id\":34},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":31},\"payment\":\"5\",\"id\":33},{\"description\":\"TV LED\",\"transactionDate\":\"Aug 7, 2011\",\"amount\":-2000.00,\"balance\":1740.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":7},\"payee\":{\"key\":0,\"name\":\"Americanas\",\"id\":32},\"category\":{\"key\":11,\"parent\":0,\"name\":\"Others\",\"id\":40},\"payment\":\"5\",\"id\":35}],\"success\":true}";
-		Response response = GET("/transactions/filter/"+account.getId());
+		Response response = GET("/transactions/filter/" + citibank.getId());
 		assertEquals(expected, response.out.toString());
 	}
 	
 	@Test
 	public void testGetTransactionsPaginated() {
-		Account account = Account.find("byName", "Citibank").first();
 		String expected = "{\"total\":9,\"data\":[{\"description\":\"Salario\",\"transactionDate\":\"Aug 1, 2011\",\"amount\":5000.00,\"balance\":4000.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":9},\"payee\":{\"key\":0,\"name\":\"My Company\",\"id\":45},\"category\":{\"key\":21,\"parent\":0,\"name\":\"Salary\",\"id\":46},\"payment\":\"3\",\"id\":38},{\"description\":\"Mensalidade internet\",\"transactionDate\":\"Aug 2, 2011\",\"amount\":-100.00,\"balance\":3900.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":9},\"payee\":{\"key\":0,\"name\":\"Net Virtua\",\"id\":44},\"category\":{\"key\":19,\"parent\":0,\"name\":\"Internet\",\"id\":48},\"payment\":\"5\",\"id\":39}],\"success\":true}";
-		
-		Response response = GET("/transactions/filter?accountId="+account.getId()+"&start=1&limit=2");
+		Response response = GET("/transactions/filter?accountId=" + citibank.getId() + "&start=1&limit=2");
+		assertEquals(expected, response.out.toString());
+	}
+	
+	@Test
+	public void testGetTransactionsFilteredByCategory() {
+		Category category = Category.find("byName", "Food").first();
+		String expected = "{\"total\":9,\"data\":[{\"description\":\"Compra do mes\",\"transactionDate\":\"Jul 31, 2011\",\"amount\":-1000.00,\"balance\":-1000.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":11},\"payee\":{\"key\":0,\"name\":\"Wallmart\",\"id\":46},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":51},\"payment\":\"4\",\"id\":46},{\"description\":\"Almoco\",\"transactionDate\":\"Aug 3, 2011\",\"amount\":-10.00,\"balance\":3890.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":11},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":51},\"payment\":\"4\",\"id\":49},{\"description\":\"Chocolate\",\"transactionDate\":\"Aug 4, 2011\",\"amount\":-50.00,\"balance\":3840.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":11},\"payee\":{\"key\":0,\"name\":\"Cacau Show\",\"id\":51},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":51},\"payment\":\"5\",\"id\":50},{\"description\":\"Compras\",\"transactionDate\":\"Aug 5, 2011\",\"amount\":-100.00,\"balance\":3740.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":11},\"payee\":{\"key\":0,\"name\":\"Hortifruti\",\"id\":52},\"category\":{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":51},\"payment\":\"5\",\"id\":51}],\"success\":true}";
+		Response response = GET("/transactions/filter?accountId=" + citibank.getId()+"&category=" + category.getId());
+		assertEquals(expected, response.out.toString());
+	}
+	
+	@Test
+	public void testGetTransactionsFilteredByPayee() {
+		Payee payee = Payee.find("byName", "Americanas").first();
+		String expected = "{\"total\":9,\"data\":[{\"description\":\"TV LED\",\"transactionDate\":\"Aug 7, 2011\",\"amount\":-2000.00,\"balance\":1740.00,\"account\":{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":13},\"payee\":{\"key\":0,\"name\":\"Americanas\",\"id\":59},\"category\":{\"key\":11,\"parent\":0,\"name\":\"Others\",\"id\":70},\"payment\":\"5\",\"id\":62}],\"success\":true}";
+		Response response = GET("/transactions/filter?accountId=" + citibank.getId()+"&payee=" + payee.getId());
 		assertEquals(expected, response.out.toString());
 	}
 }

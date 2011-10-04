@@ -29,6 +29,8 @@ public class Transactions extends Controller {
 		TransactionFilterOptions options = new TransactionFilterOptions();
 		options.setAccount(account);
 		options.setPagination(params.get("start"), params.get("limit"));
+		options.setCategory(getCategoryIfHasIn(params.get("category")));
+		options.setPayee(getPayeeIfHasIn(params.get("payee")));
 
     	List<Transaction> transactions = Transaction.filter(options);
     	if (transactions == null || transactions.size() == 0) {
@@ -38,6 +40,14 @@ public class Transactions extends Controller {
     	returnJson(transactions, Transaction.count());
     }
 	
+	private static Category getCategoryIfHasIn(String id) {
+		return Category.findById(toLong(id));
+	}
+	
+	private static Payee getPayeeIfHasIn(String id) {
+		return Payee.findById(toLong(id));
+	}
+
 	public static void accounts() {
 		List<Account> accounts = Account.find("order by name").fetch();
 		returnJson(accounts, Account.count());
@@ -68,5 +78,14 @@ public class Transactions extends Controller {
 		result.put("total", size);
 		
 		renderJSON(result);
+	}
+	
+	private static Long toLong(String value) {
+		try {
+			return Long.valueOf(value);
+		}
+		catch (Exception e) {
+			return 0l;
+		}
 	}
 }

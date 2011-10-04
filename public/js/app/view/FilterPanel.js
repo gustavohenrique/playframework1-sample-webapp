@@ -26,14 +26,8 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
 	        {xtype: 'filtercombo', name:'account', emptyText:'Account', store:'Accounts'},
 	        {xtype: 'filtercombo', name:'category', emptyText:'Category', store:'Categories'},
 	        {xtype: 'filtercombo', name:'payee', emptyText:'Payee', store:'Payees'},
-        ],
-
-    	this.buttons = [{
-    		text: 'Clean'
-    	}, {
-    		text: 'Filter',
-    		action: 'filter',
-    	}];
+        ];
+    	
         return this.callParent(arguments);
     }
 });

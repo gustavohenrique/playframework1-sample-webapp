@@ -2,10 +2,10 @@ Ext.define('PoupaNiquel.store.Transactions', {
     extend: 'Ext.data.Store',
     model: 'PoupaNiquel.model.Transaction',
     
-    storeId: 'Transactions',
     autoLoad: false,
     pageSize: 10,
-    
+    remoteFilter: true,
+//    remoteSort: true,
     
     proxy: {
         type: 'ajax',

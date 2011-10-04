@@ -22,13 +22,22 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     		this.getAccountsStore().each(function(record) {
 	    		store = Ext.create('PoupaNiquel.store.Transactions');
 	    		store.proxy.extraParams.accountId = record.data.id;
+	    		store.accountId = record.data.id;
 	    		store.load();
+	    		
+	    		buttons = [{
+	    			text: 'Clean'
+	    		}, {
+	    			text: 'Filter',
+	    			action: 'filter',
+	    			store: store
+	    		}];
 	    		
 	    		var tab = Ext.widget('panel', {
 	    		    layout: 'border',
 	    		    title: record.data.name,
 	    		    items: [{
-	    		    	region: 'west', xtype: 'filterpanel', title: 'Filter',
+	    		    	region: 'west', xtype: 'filterpanel', title: 'Filter', buttons: buttons
 	    		    }, {
 	    		    	region: 'center', xtype: 'transactiongrid', title: 'Transactions', store: store
 	    		    }]
@@ -63,10 +72,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	}
     },
     
-    filterTransaction: function() {
-    	var store = this.getTransactionsStore();//
-//    	store.proxy.extraParams.accountId = record.data.id;
-		store.load({limit:1});
-    	console.log(store);
-    }
+    filterTransaction: function(button) {
+    	var store = button.store;
+    	store.proxy.extraParams.accountId = store.accountId;
+    	
+    	store.load();
+    },
+    
 });
