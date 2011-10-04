@@ -74,8 +74,12 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     
     filterTransaction: function(button) {
     	var store = button.store;
+    	var filterPanel = button.ownerCt.ownerCt;
     	store.proxy.extraParams.accountId = store.accountId;
-    	
+    	store.proxy.extraParams.startDate = filterPanel.child('datefield[name=startDate]').getRawValue();
+    	store.proxy.extraParams.endDate = filterPanel.child('datefield[name=endDate]').getRawValue();
+    	store.proxy.extraParams.category = filterPanel.child('combobox[name=category]').getValue();
+    	store.proxy.extraParams.payee = filterPanel.child('combobox[name=payee]').getValue();
     	store.load();
     },
     

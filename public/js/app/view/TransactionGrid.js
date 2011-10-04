@@ -25,6 +25,18 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         sortable : false,
         dataIndex: 'description'
     }, {
+    	text     : 'Category',
+    	flex     : 1,
+        sortable : false,
+        dataIndex: 'category',
+        width    : 100
+    }, {
+    	text     : 'Payee',
+    	flex     : 1,
+        sortable : false,
+        dataIndex: 'payee',
+        width    : 100
+    }, {
     	text     : 'Amount',
         sortable : false,
         dataIndex: 'amount',
@@ -42,7 +54,7 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
             store: this.getStore(),
             dock: 'bottom',
             beforePageText: 'Page ',
-            displayMsg: 'Displaying {0} - {1} of {2}',
+            displayMsg: '{0} - {1} of {2}',
             emptyMsg: "Nothing to display",
             displayInfo: true
         }];

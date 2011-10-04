@@ -1,9 +1,13 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.joda.time.JodaTimePermission;
 
 import models.Account;
 import models.Category;
@@ -31,6 +35,8 @@ public class Transactions extends Controller {
 		options.setPagination(params.get("start"), params.get("limit"));
 		options.setCategory(getCategoryIfHasIn(params.get("category")));
 		options.setPayee(getPayeeIfHasIn(params.get("payee")));
+		options.setStart(getDateIfHasIn(params.get("startDate")));
+		options.setEnd(getDateIfHasIn(params.get("endDate")));
 
     	List<Transaction> transactions = Transaction.filter(options);
     	if (transactions == null || transactions.size() == 0) {
@@ -40,6 +46,16 @@ public class Transactions extends Controller {
     	returnJson(transactions, Transaction.count());
     }
 	
+	private static Date getDateIfHasIn(String date) {
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			return formatter.parse(date);
+		}
+		catch (Exception e) { 
+			return null;
+		}
+	}
+
 	private static Category getCategoryIfHasIn(String id) {
 		return Category.findById(toLong(id));
 	}
