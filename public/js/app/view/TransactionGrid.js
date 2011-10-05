@@ -26,22 +26,16 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         dataIndex: 'description'
     }, {
     	text     : 'Category',
-    	flex     : 1,
+    	flex     : 0,
         sortable : false,
         dataIndex: 'category',
-        width    : 100
+        width    : 120
     }, {
     	text     : 'Payee',
-    	flex     : 1,
+    	flex     : 0,
         sortable : false,
         dataIndex: 'payee',
-        width    : 100
-    }, {
-    	text     : 'Account',
-    	flex     : 1,
-        sortable : false,
-        dataIndex: 'account_id',
-        width    : 100
+        width    : 120
     }, {
     	text     : 'Amount',
         sortable : false,

@@ -7,9 +7,12 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     
     init: function() {
     	this.control({
-  	      'button[action=filter]': {
-  	    	  click: this.filterTransaction
-  	      }
+  	        'button[action=filter]': {
+  	    	    click: this.filterTransaction
+  	        },
+  	        'button[action=clear]': {
+	    	    click: this.clearFilter
+	        }
       	})
     },
     
@@ -26,7 +29,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    		store.load();
 	    		
 	    		buttons = [{
-	    			text: 'Clean'
+	    			text: 'Clear',
+	    			action: 'clear',
+	    			store: store
 	    		}, {
 	    			text: 'Filter',
 	    			action: 'filter',
@@ -82,5 +87,16 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	store.proxy.extraParams.payee = filterPanel.child('combobox[name=payee]').getValue();
     	store.load();
     },
+    
+    clearFilter: function(button) {
+    	var store = button.store;
+    	var accountId = store.accountId;
+    	store.proxy.extraParams = {};
+    	store.proxy.extraParams.accountId = store.accountId;
+    	store.load();
+    	
+    	var filterPanel = button.ownerCt.ownerCt;
+    	filterPanel.getForm().reset();
+    }
     
 });
