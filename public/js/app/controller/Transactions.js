@@ -89,14 +89,14 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     clearFilter: function(button) {
+    	var filterPanel = button.ownerCt.ownerCt;
+    	filterPanel.getForm().reset();
+    	
     	var store = button.store;
     	var accountId = store.accountId;
     	store.proxy.extraParams = {};
     	store.proxy.extraParams.accountId = store.accountId;
     	store.load();
-    	
-    	var filterPanel = button.ownerCt.ownerCt;
-    	filterPanel.getForm().reset();
     }
     
 });

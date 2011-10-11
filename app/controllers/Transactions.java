@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.joda.time.JodaTimePermission;
-
 import models.Account;
 import models.Category;
 import models.Payee;
@@ -18,16 +16,20 @@ import play.mvc.Controller;
 
 public class Transactions extends Controller {
 
-	private static List<String> errors = new ArrayList<String>();
+	private static String error;
+	
+	private static Long accountId = 0l;
 	
 	public static void list() {
 		render();
 	}
 	
 	public static void filter(Long accountId) {
+		Transactions.accountId = accountId;
+		
 		Account account = Account.findById(accountId);
 		if (account == null) {
-			errors.add("No accounts founds by id " + accountId);
+			error = "No accounts founds by id " + accountId;
 		}
 		
 		TransactionFilterOptions options = new TransactionFilterOptions();
@@ -40,7 +42,7 @@ public class Transactions extends Controller {
 
     	List<Transaction> transactions = Transaction.filter(options);
     	if (transactions == null || transactions.size() == 0) {
-    		errors.add("No transactions found for account " + account);
+    		error = "No transactions found for account " + account.getName();
     	}
 
     	returnJson(transactions, Transaction.count());
@@ -54,14 +56,6 @@ public class Transactions extends Controller {
 		catch (Exception e) { 
 			return null;
 		}
-	}
-
-	private static Category getCategoryIfHasIn(String id) {
-		return Category.findById(toLong(id));
-	}
-	
-	private static Payee getPayeeIfHasIn(String id) {
-		return Payee.findById(toLong(id));
 	}
 
 	public static void accounts() {
@@ -83,9 +77,12 @@ public class Transactions extends Controller {
 	private static void returnJson(Object object, Long size) {
 		boolean success = true;
 		
-		if (errors.size() > 0) {
+		if (error != null) {
 			success = false;
-			object = errors;
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("accountId", Transactions.accountId);
+			data.put("message", error);
+			object = error;
 		}
 		
 		Map result = new HashMap<String, Object>();
@@ -94,6 +91,14 @@ public class Transactions extends Controller {
 		result.put("total", size);
 		
 		renderJSON(result);
+	}
+	
+	private static Category getCategoryIfHasIn(String id) {
+		return Category.findById(toLong(id));
+	}
+	
+	private static Payee getPayeeIfHasIn(String id) {
+		return Payee.findById(toLong(id));
 	}
 	
 	private static Long toLong(String value) {

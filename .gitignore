@@ -8,3 +8,4 @@ test-result
 eclipse
 db
 .settings
+.precompiled

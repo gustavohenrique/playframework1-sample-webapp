@@ -4,17 +4,16 @@ Ext.define('PoupaNiquel.store.Transactions', {
     
     autoLoad: false,
     pageSize: 10,
-    remoteFilter: true,
-//    remoteSort: true,
+    remoteFilter: false,
+    remoteSort: false,
     
     proxy: {
         type: 'ajax',
-//      limitParam: 'limitPage',
-//    	pageParam: 'startPage',
     	
         api: {
         	read : '/transactions/filter',
         },
+        
         reader: {
             type: 'json',
             root: 'data',
@@ -24,7 +23,10 @@ Ext.define('PoupaNiquel.store.Transactions', {
     
         listeners: {
             exception: function(proxy, response, operation){
-                //alert(operation.getError());
+            	var data = Ext.JSON.decode(response.responseText).data;
+            	this.extraParams = {};
+            	this.extraParams.accountId = data.accountId;
+            	Ext.Msg.alert('Error', data.message);
             }
         }
     }
