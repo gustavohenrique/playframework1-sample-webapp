@@ -21,13 +21,13 @@ Ext.define('PoupaNiquel.store.Transactions', {
             totalProperty: 'total'
         },
     
-        listeners: {
-            exception: function(proxy, response, operation){
-            	var data = Ext.JSON.decode(response.responseText).data;
-            	this.extraParams = {};
-            	this.extraParams.accountId = data.accountId;
-            	Ext.Msg.alert('Error', data.message);
-            }
-        }
+//        listeners: {
+//            exception: function(proxy, response, operation){
+//            	var data = Ext.JSON.decode(response.responseText).data;
+//            	this.extraParams = {};
+//            	this.extraParams.accountId = data.accountId;
+//            	Ext.Msg.alert('Error', data.message);
+//            }
+//        }
     }
 });

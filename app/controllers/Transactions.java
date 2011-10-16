@@ -1,7 +1,6 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,16 +17,14 @@ public class Transactions extends Controller {
 
 	private static String error;
 	
-	private static Long accountId = 0l;
-	
 	public static void list() {
 		render();
 	}
 	
 	public static void filter(Long accountId) {
-		Transactions.accountId = accountId;
-		
 		Account account = Account.findById(accountId);
+		
+		error = null;
 		if (account == null) {
 			error = "No accounts founds by id " + accountId;
 		}
@@ -42,7 +39,7 @@ public class Transactions extends Controller {
 
     	List<Transaction> transactions = Transaction.filter(options);
     	if (transactions == null || transactions.size() == 0) {
-    		error = "No transactions found for account " + account.getName();
+    		error = "No transactions found for " + account.getName();
     	}
 
     	returnJson(transactions, Transaction.count());
@@ -60,37 +57,39 @@ public class Transactions extends Controller {
 
 	public static void accounts() {
 		List<Account> accounts = Account.find("order by name").fetch();
-		returnJson(accounts, Account.count());
+		returnJson(accounts, accounts.size());
 	}
 	
 	public static void categories() {
 		List<Category> categories = Category.find("order by name").fetch();
-		returnJson(categories, Category.count());
+		returnJson(categories, categories.size());
 	}
 	
 	public static void payees() {
 		List<Payee> payees = Payee.find("order by name").fetch();
-		returnJson(payees, Payee.count());
+		returnJson(payees, payees.size());
 	}
 	
 	
-	private static void returnJson(Object object, Long size) {
-		boolean success = true;
-		
+	private static void returnJson(Object data, Integer size) {
 		if (error != null) {
-			success = false;
-			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("accountId", Transactions.accountId);
-			data.put("message", error);
-			object = error;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", "0");
+			map.put("description", error);
+			data = map;
+			size = 0;
 		}
 		
 		Map result = new HashMap<String, Object>();
-		result.put("success", success);
-		result.put("data", object);
+		result.put("success", true);
+		result.put("data", data);
 		result.put("total", size);
 		
 		renderJSON(result);
+	}
+	
+	private static void returnJson(Object data, Long size) {
+		returnJson(data, size.intValue());
 	}
 	
 	private static Category getCategoryIfHasIn(String id) {
