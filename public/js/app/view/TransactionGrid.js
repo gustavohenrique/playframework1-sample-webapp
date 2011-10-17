@@ -47,6 +47,17 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         dataIndex: 'balance',
         renderer : onCellRender,
     }],
+    
+    tbar: [{
+    	text: 'New',
+    	iconCls: 'new-icon',
+    }, '-', {
+        text: 'Edit',
+        iconCls: 'edit-icon',
+    }, '-', {
+        text: 'Delete',
+        iconCls: 'delete-icon',
+    }],
    
     initComponent: function() {
     	this.dockedItems = [{
@@ -56,7 +67,7 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
             beforePageText: 'Page ',
             displayMsg: '{0} - {1} of {2}',
             emptyMsg: "Nothing to display",
-            displayInfo: true
+            displayInfo: true,
         }];
         return this.callParent(arguments);
     },

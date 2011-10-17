@@ -2,3 +2,6 @@
 .accounts-icon { background:url(icons/accounts-large.png) no-repeat; }
 .categories-icon { background:url(icons/categories-large.png) no-repeat; }
 .payees-icon { background:url(icons/payees-large.png) no-repeat; }
+.new-icon { background:url(icons/new-small.png) no-repeat; }
+.edit-icon { background:url(icons/edit-small.png) no-repeat; }
+.delete-icon { background:url(icons/delete-small.png) no-repeat; }
