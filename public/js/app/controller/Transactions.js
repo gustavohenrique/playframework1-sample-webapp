@@ -45,21 +45,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    		store.accountId = record.data.id;
 	    		store.load();
 	    		
-	    		buttons = [{
-	    			text: 'Clear',
-	    			action: 'clear',
-	    			store: store
-	    		}, {
-	    			text: 'Filter',
-	    			action: 'filter',
-	    			store: store
-	    		}];
-	    		
 	    		var tab = Ext.widget('panel', {
 	    		    layout: 'border',
 	    		    title: record.data.name,
 	    		    items: [{
-	    		    	region: 'west', xtype: 'filterpanel', title: 'Filter', buttons: buttons
+	    		    	region: 'west', xtype: 'filterpanel', title: 'Filter'
 	    		    }, {
 	    		    	region: 'center', xtype: 'transactiongrid', title: 'Transactions', store: store
 	    		    }]
@@ -95,8 +85,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     filterTransaction: function(button) {
-    	var store = button.store;
-    	var filterPanel = button.ownerCt.ownerCt;
+    	var store = this.getTransactiongrid().getStore(),
+    	    filterPanel = button.ownerCt.ownerCt;
+    	
     	store.proxy.extraParams.accountId = store.accountId;
     	store.proxy.extraParams.startDate = filterPanel.child('datefield[name=startDate]').getRawValue();
     	store.proxy.extraParams.endDate = filterPanel.child('datefield[name=endDate]').getRawValue();
@@ -106,11 +97,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     clearFilter: function(button) {
-    	var filterPanel = button.ownerCt.ownerCt;
-    	filterPanel.getForm().reset();
+    	var filterPanel = button.ownerCt.ownerCt,
+    	    store = this.getTransactiongrid().getStore(),
+	        accountId = store.accountId;
     	
-    	var store = button.store;
-    	var accountId = store.accountId;
+    	filterPanel.getForm().reset();
     	store.proxy.extraParams = {};
     	store.proxy.extraParams.accountId = store.accountId;
     	store.load();
@@ -142,16 +133,17 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 		}
         
 		win.close();
-        this.getTransactionsStore().sync();
+        store.sync();
     },
     
     remove: function(button) {
-    	var grid = this.getTransactiongrid(),
-    	record = grid.getSelectionModel().getSelection(),
-        store = grid.getStore();
-
-	    store.remove(record);
-	    store.sync();
+    	if (confirm('Are you sure?')) {
+	    	var grid = this.getTransactiongrid(),
+	    	record = grid.getSelectionModel().getSelection(),
+	        store = grid.getStore();
+		    store.remove(record);
+		    store.sync();
+    	}
     },
     
 });

@@ -18,6 +18,14 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     labelWidth: 5,
     defaultType: 'textfield',
     defaults: { anchor: '100%' },
+    
+    buttons: [{
+		text: 'Clear',
+		action: 'clear',
+	}, {
+		text: 'Filter',
+		action: 'filter',
+	}],
      
     initComponent: function() {
     	this.items = [
