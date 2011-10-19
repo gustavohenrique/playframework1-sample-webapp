@@ -51,6 +51,7 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
     tbar: [{
     	text: 'New',
     	iconCls: 'new-icon',
+    	action: 'add'
     }, '-', {
         text: 'Edit',
         iconCls: 'edit-icon',

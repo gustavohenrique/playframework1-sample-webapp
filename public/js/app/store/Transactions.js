@@ -12,6 +12,9 @@ Ext.define('PoupaNiquel.store.Transactions', {
     	
         api: {
         	read : '/transactions/filter',
+        	create : '/transactions/create',
+            update: '/transactions/update',
+            destroy: '/transactions/delete'
         },
         
         reader: {
@@ -19,6 +22,13 @@ Ext.define('PoupaNiquel.store.Transactions', {
             root: 'data',
             successProperty: 'success',
             totalProperty: 'total'
+        },
+        
+        writer: {
+            type: 'json',
+            writeAllFields: true,
+            encode: false,
+            root: 'data'
         },
     
 //        listeners: {

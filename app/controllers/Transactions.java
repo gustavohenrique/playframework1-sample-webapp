@@ -45,6 +45,10 @@ public class Transactions extends Controller {
     	returnJson(transactions, Transaction.count());
     }
 	
+	public static void create() {
+		
+	}
+	
 	private static Date getDateIfHasIn(String date) {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

@@ -1,7 +1,7 @@
 Ext.define('PoupaNiquel.controller.Transactions', {
     extend: 'Ext.app.Controller',
 
-    views: ['FilterPanel', 'FilterCombo', 'TransactionGrid'],
+    views: ['FilterPanel', 'FilterCombo', 'TransactionGrid', 'TransactionForm'],
     models: ['Account', 'Generic', 'Transaction'],
     stores: ['Accounts', 'Categories', 'Payees', 'Transactions'],
     
@@ -12,7 +12,16 @@ Ext.define('PoupaNiquel.controller.Transactions', {
   	        },
   	        'button[action=clear]': {
 	    	    click: this.clearFilter
-	        }
+	        },
+	        'button[action=add]': {
+            	click: this.edit
+            },
+            'button[action=save]': {
+                click: this.save
+            },
+            'dataview': {
+                itemdblclick: this.edit
+            },
       	})
     },
     
@@ -97,6 +106,34 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	store.proxy.extraParams = {};
     	store.proxy.extraParams.accountId = store.accountId;
     	store.load();
-    }
+    },
+    
+    edit: function(grid, record) {
+        var edit = Ext.widget('transactionform').show();
+        
+        if (record) {
+        	edit.down('form').loadRecord(record);
+        }
+    },
+    
+    save: function(button) {
+        var win = button.up('window'),
+            form = win.down('form'),
+            record = form.getRecord(),
+            values = form.getValues();
+        
+		if (values.id > 0){
+			record.set(values);
+		}
+		else {
+			record = Ext.create('PoupaNiquel.model.Transaction');
+			record.set(values);
+			record.setId(0);
+			this.getTransactionsStore().add(record);
+		}
+        
+		win.close();
+        this.getTransactionsStore().sync();
+    },
     
 });
