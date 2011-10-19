@@ -55,9 +55,11 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
     }, '-', {
         text: 'Edit',
         iconCls: 'edit-icon',
+        action: 'edit'
     }, '-', {
         text: 'Delete',
         iconCls: 'delete-icon',
+        action: 'delete'
     }],
    
     initComponent: function() {

@@ -45,8 +45,8 @@ public class Transactions extends Controller {
     	returnJson(transactions, Transaction.count());
     }
 	
-	public static void create() {
-		
+	public static void delete() {
+		System.out.println("dsdfsdfsdfs");
 	}
 	
 	private static Date getDateIfHasIn(String date) {

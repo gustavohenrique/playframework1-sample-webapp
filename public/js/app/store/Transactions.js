@@ -26,9 +26,9 @@ Ext.define('PoupaNiquel.store.Transactions', {
         
         writer: {
             type: 'json',
+            root: 'data',
             writeAllFields: true,
             encode: false,
-            root: 'data'
         },
     
 //        listeners: {
