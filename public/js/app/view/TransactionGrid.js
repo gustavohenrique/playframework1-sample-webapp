@@ -46,6 +46,10 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         sortable : false,
         dataIndex: 'balance',
         renderer : onCellRender,
+    }, {
+    	text     : 'Category ID',
+        dataIndex: 'categoryId',
+        hidden: true
     }],
     
     tbar: [{
