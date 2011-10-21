@@ -4,6 +4,13 @@ Ext.define('PoupaNiquel.model.Transaction', {
     	'id','description', 'amount', 'balance', 'payment',  {
     		name: 'payee', convert: function(value, record) { return value.name; }
     	}, {
+    		name: 'payeeId', mapping: function(transaction) {
+    	        if (transaction.payee) {
+    	            return transaction.payee.id;
+    	        }
+    	        return null;
+    	    }
+    	}, {
     		name: 'category', convert: function(value, record) { return value.name; }
     	}, {
     		name: 'categoryId', mapping: 'category.id'

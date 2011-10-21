@@ -7,6 +7,7 @@ Ext.define('PoupaNiquel.view.TransactionForm', {
     autoShow: true,
     width: 450,
     height: 300,
+    modal: true,
     
     items: [{
         xtype: 'form',
@@ -40,9 +41,10 @@ Ext.define('PoupaNiquel.view.TransactionForm', {
             fieldLabel: 'Description',
             allowBlank: false
         }, {
-            xtype: 'textfield',
+            xtype: 'numberfield',
             name : 'amount',
             fieldLabel: 'Amount',
+            decimalPrecision: 2,
             allowBlank: false
         }, {
         	xtype: 'filtercombo',
@@ -55,7 +57,7 @@ Ext.define('PoupaNiquel.view.TransactionForm', {
         	store:'Categories',
         }, {
         	xtype: 'filtercombo',
-        	name:'payee',
+        	name:'payeeId',
         	fieldLabel: 'Payee',
         	store:'Payees'
         }]
