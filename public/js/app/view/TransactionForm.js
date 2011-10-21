@@ -31,8 +31,9 @@ Ext.define('PoupaNiquel.view.TransactionForm', {
             xtype: 'datefield',
             name : 'transactionDate',
             fieldLabel: 'Date',
-            format: 'd/m/Y',
-            allowBlank: false
+            format: 'Y-m-d',
+            submitFormat: 'Y-m-d',
+            allowBlank: false,
         }, {
             xtype: 'textfield',
             name : 'description',

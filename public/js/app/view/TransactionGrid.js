@@ -18,7 +18,7 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         text     : 'Date',
         sortable : true,
         dataIndex: 'transactionDate',
-        renderer : Ext.util.Format.dateRenderer('d/m/Y'),
+        //renderer : Ext.util.Format.dateRenderer('d/m/Y'),
     }, {
     	text     : 'Description',
     	flex     : 1,
