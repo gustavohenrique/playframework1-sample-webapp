@@ -30,14 +30,15 @@ Ext.define('PoupaNiquel.store.Transactions', {
             writeAllFields: true,
             encode: false,
         },
-    
-//        listeners: {
-//            exception: function(proxy, response, operation){
+        
+        listeners: {
+            exception: function(proxy, response, operation){
 //            	var data = Ext.JSON.decode(response.responseText).data;
-//            	this.extraParams = {};
-//            	this.extraParams.accountId = data.accountId;
-//            	Ext.Msg.alert('Error', data.message);
-//            }
-//        }
+            	var accountId = this.extraParams.accountId;
+            	this.extraParams = {};
+            	this.extraParams.accountId = accountId;
+            	Ext.Msg.alert('Error', 'No transactions found.');
+            }
+        }
     }
 });

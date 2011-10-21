@@ -76,16 +76,10 @@ public class Transactions extends Controller {
 	
 	
 	private static void returnJson(Object data, Integer size) {
-		if (error != null) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("id", "0");
-			map.put("description", error);
-			data = map;
-			size = 0;
-		}
+		boolean success = (error == null);
 		
 		Map result = new HashMap<String, Object>();
-		result.put("success", true);
+		result.put("success", success);
 		result.put("data", data);
 		result.put("total", size);
 		

@@ -14,5 +14,4 @@ Ext.define('PoupaNiquel.model.Transaction', {
     	    }
     	}
     ],
-    
 });
