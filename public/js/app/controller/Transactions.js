@@ -126,10 +126,10 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     
     save: function(button) {
         var panel = button.up('panel'),
-            form = win.down('form'),
+            form = panel.down('form'),
             record = form.getRecord(),
             values = form.getValues(),
-            grid = button.up('transactionGrid'),
+            grid = this.getTransactionGrid(),
             store = grid.getStore();
         
 		if (values.id > 0){

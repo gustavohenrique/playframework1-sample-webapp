@@ -8,7 +8,7 @@ Ext.define('PoupaNiquel.store.Transactions', {
     remoteSort: false,
     
     proxy: {
-        type: 'ajax',
+        type: 'rest',
     	
         api: {
         	read : '/transactions/filter',

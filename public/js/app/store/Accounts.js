@@ -7,7 +7,7 @@ Ext.define('PoupaNiquel.store.Accounts', {
     pageSize: 35,
     
     proxy: {
-        type: 'ajax',
+        type: 'rest',
         api: {
         	read : '/transactions/accounts',
         },
