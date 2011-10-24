@@ -25,6 +25,7 @@ import play.db.jpa.JPABase;
 import play.mvc.Controller;
 import utils.DateDeserializer;
 import utils.GsonBinder;
+import utils.NullDeserializer;
 
 public class Transactions extends Controller {
 
@@ -72,6 +73,7 @@ public class Transactions extends Controller {
 			error = null;
 			Gson gson = new GsonBuilder()
 			 .registerTypeAdapter(Date.class, new DateDeserializer())
+			 .serializeNulls()
 		     .create();
 	
 			submited = gson.fromJson(body.get("data"), Transaction.class);

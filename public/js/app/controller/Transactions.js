@@ -125,11 +125,12 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     save: function(button) {
-        var win = button.up('window'),
+        var panel = button.up('panel'),
             form = win.down('form'),
             record = form.getRecord(),
             values = form.getValues(),
-            store = this.getTransactionGrid().getStore();
+            grid = button.up('transactionGrid'),
+            store = grid.getStore();
         
 		if (values.id > 0){
 			record.set(values);
@@ -140,22 +141,15 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 			record.setId(0);
 			store.add(record);
 		}
-		win.close();
+		panel.close();
         store.sync();
     },
     
     delete: function(button) {
     	if (confirm('Are you sure?')) {
-	    	var grid = this.getTransactionGrid(),
-	    	    record = grid.getSelectionModel().getSelection()[0],
+	    	var grid = button.up('transactionGrid'),
+	    	    record = grid.getSelectionModel().getSelection(),
 	            store = grid.getStore();
-	    	/*
-                record = grid.store.getAt(pos.row);
-	    	var grid = this.getTransactiongrid();
-	    	var record = grid.getSelectionModel().getSelection()[0]; 
-	    	var store = grid.getStore();
-    	    //var record = store.getAt(pos.row);
-	    	*/
                 
 		    store.remove(record);
 		    store.sync();
