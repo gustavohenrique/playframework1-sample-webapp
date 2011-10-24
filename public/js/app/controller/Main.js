@@ -15,6 +15,6 @@ Ext.define('PoupaNiquel.controller.Main', {
     },
     
     openTransactions: function() {
-    	this.getController('Transactions').openWindow();
+    	this.getController('Transactions').showPanel();
     }
 });

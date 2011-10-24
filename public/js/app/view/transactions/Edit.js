@@ -2,7 +2,7 @@ Ext.define('PoupaNiquel.view.transactions.Edit', {
     extend: 'Ext.window.Window',
     alias : 'widget.transactionEdit',
 
-    title : 'Edit Transaction',
+    title : 'Add/Edit Transaction',
     layout: 'fit',
     autoShow: true,
     width: 450,

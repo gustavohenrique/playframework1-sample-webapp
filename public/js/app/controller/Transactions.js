@@ -22,7 +22,7 @@ Ext.define('PoupaNiquel.controller.Transactions', {
             	click: this.edit
             },
             'button[action=edit]': {
-            	click: this.edit
+            	click: this.editTransaction
             },
             'button[action=delete]': {
             	click: this.delete
@@ -36,9 +36,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
       	})
     },
     
-    openWindow: function() {
+    showPanel: function() {
     	
-    	if (Ext.ComponentManager.get('transactionsWindow') == null) {
+    	if (Ext.ComponentManager.get('transactionsPanel') == null) {
     		
     		var tabs = new Array();
     		
@@ -67,13 +67,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    		items: tabs,
 	    	});
 
-	    	var win = Ext.create('widget.window', {
-	    		id: 'transactionsWindow',
+	    	var win = Ext.create('widget.panel', {
+	    		id: 'transactionsPanel',
 	    		constrain: true,
-	            height: '70%',
-	            width: '90%',
-	            x: 20,
-	            y: 20,
+	            height: '100%',
+	            width: '100%',
 	            title: 'Transactions',
 	            closable: true,
 	            plain: true,
@@ -118,14 +116,12 @@ Ext.define('PoupaNiquel.controller.Transactions', {
         }
     },
     
-    edit: function(button) {
-    	var grid = this.getTransactionGrid(),
-	        record = grid.getSelectionModel().getSelection()[0],
-            edit = Ext.widget('transactionEdit').show();
+    editTransaction: function(button) {
+    	var grid = button.up('transactionGrid'),
+	        record = grid.getSelectionModel().getSelection()[0];
+    	
+    	this.edit(grid, record);
         
-        if (record) {
-        	edit.down('form').loadRecord(record);
-        }
     },
     
     save: function(button) {
