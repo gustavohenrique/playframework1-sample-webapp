@@ -77,5 +77,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="lib" path="/opt/play/framework/lib/jj-wikitext.jar"/>
+	<classpathentry kind="lib" path="lib/xpp3_min-1.1.4c.jar"/>
 	<classpathentry kind="output" path="eclipse/classes"/>
 </classpath>

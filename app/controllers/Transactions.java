@@ -1,19 +1,10 @@
 package controllers;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import models.Account;
 import models.Category;
@@ -21,11 +12,13 @@ import models.Payee;
 import models.Transaction;
 import models.TransactionFilterOptions;
 import play.data.binding.Binder;
-import play.db.jpa.JPABase;
 import play.mvc.Controller;
 import utils.DateDeserializer;
 import utils.GsonBinder;
-import utils.NullDeserializer;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 public class Transactions extends Controller {
 

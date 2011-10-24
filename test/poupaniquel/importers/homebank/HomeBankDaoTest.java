@@ -8,6 +8,7 @@ import models.HomeBank;
 import models.Payee;
 import models.Transaction;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import play.test.Fixtures;
@@ -15,6 +16,12 @@ import play.test.UnitTest;
 
 public class HomeBankDaoTest extends UnitTest {
 
+	@Before
+	public void setUp() {
+		Fixtures.deleteAllModels();
+		Fixtures.loadModels("fixtures.yml");
+	}
+	
 	@Test
 	public void testPersistTransactionInEmptyDatabase() {
 		Account account = new Account();
@@ -24,15 +31,15 @@ public class HomeBankDaoTest extends UnitTest {
 		
 		Category category = new Category();
 		category.setKey(1);
-		category.setName("Internet");
+		category.setName("Food");
 		
 		Payee payee = new Payee();
 		payee.setKey(1);
-		payee.setName("Net");
+		payee.setName("Wallmart");
 
 		Transaction transaction = new Transaction();
 		transaction.setAmount(BigDecimal.TEN);
-		transaction.setDescription("Internet service provider");
+		transaction.setDescription("Compra do mes");
 		transaction.setAccount(account);
 		transaction.setCategory(category);
 		transaction.setPayee(payee);
@@ -53,7 +60,7 @@ public class HomeBankDaoTest extends UnitTest {
 			assertEquals(category.getName(), persistedTransaction.getCategory().getName());
 			assertEquals(payee.getName(), persistedTransaction.getPayee().getName());
 			assertEquals(transaction.getDescription(), persistedTransaction.getDescription());
-			assertEquals("10", persistedTransaction.getBalance().toString());
+			assertEquals("-1000.00", persistedTransaction.getBalance().toString());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +70,6 @@ public class HomeBankDaoTest extends UnitTest {
 	
 	@Test
 	public void testPersistTransactionWhenAlreadyExistsOthers() {
-		Fixtures.deleteAllModels();
-		Fixtures.loadModels("fixtures.yml");
-		
 		Account account = Account.find("byName", "Citibank").first();
 		Category category = Category.find("byName", "Food").first();
 		Payee payee = Payee.find("byName", "Cinemark").first();

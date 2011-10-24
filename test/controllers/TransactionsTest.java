@@ -7,6 +7,7 @@ import models.Payee;
 import org.junit.Before;
 import org.junit.Test;
 
+import play.db.jpa.JPAPlugin;
 import play.mvc.Http.Response;
 import play.test.Fixtures;
 import play.test.FunctionalTest;
@@ -17,6 +18,7 @@ public class TransactionsTest extends FunctionalTest {
 	
 	@Before
 	public void setUp() {
+		JPAPlugin.startTx(false);
 		Fixtures.deleteAllModels();
 		Fixtures.loadModels("fixtures.yml");
 		citibank = Account.find("byName", "Citibank").first();
