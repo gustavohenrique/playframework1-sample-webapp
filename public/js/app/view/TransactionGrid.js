@@ -18,7 +18,6 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         text     : 'Date',
         sortable : true,
         dataIndex: 'transactionDate',
-        //renderer : Ext.util.Format.dateRenderer('d/m/Y'),
     }, {
     	text     : 'Description',
     	flex     : 1,
@@ -47,12 +46,20 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         dataIndex: 'balance',
         renderer : onCellRender,
     }, {
-    	text     : 'Category ID',
+    	text     : 'Category Object',
         dataIndex: 'category',
         hidden: true
     }, {
-    	text     : 'Payee ID',
+    	text     : 'Payee Object',
         dataIndex: 'payee',
+        hidden: true
+    }, {
+    	text     : 'Category Id',
+        dataIndex: 'categoryId',
+        hidden: true
+    }, {
+    	text     : 'Payee Id',
+        dataIndex: 'payeeId',
         hidden: true
     }],
     
