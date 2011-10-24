@@ -1,21 +1,38 @@
 package controllers;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import models.Account;
 import models.Category;
 import models.Payee;
 import models.Transaction;
 import models.TransactionFilterOptions;
+import play.data.binding.Binder;
+import play.db.jpa.JPABase;
 import play.mvc.Controller;
+import utils.DateDeserializer;
+import utils.GsonBinder;
 
 public class Transactions extends Controller {
 
 	private static String error;
+	
+	static {
+        Binder.register(JsonObject.class, new GsonBinder());
+    }
 	
 	public static void list() {
 		render();
@@ -45,8 +62,28 @@ public class Transactions extends Controller {
     	returnJson(transactions, Transaction.count());
     }
 	
-	public static void delete() {
-		System.out.println("dsdfsdfsdfs");
+	public static void create(String accountId) {
+		System.out.println(params); 
+	}
+	
+	public static void delete(Long accountId, JsonObject body) {
+		Transaction submited = null;
+		try {
+			error = null;
+			Gson gson = new GsonBuilder()
+			 .registerTypeAdapter(Date.class, new DateDeserializer())
+		     .create();
+	
+			submited = gson.fromJson(body.get("data"), Transaction.class);
+			Transaction transaction = Transaction.findById(submited.getId());
+			transaction.delete();
+			returnJson(transaction, 1);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			returnJsonError(e.getMessage());
+		}
+		
 	}
 	
 	private static Date getDateIfHasIn(String date) {
@@ -82,6 +119,14 @@ public class Transactions extends Controller {
 		result.put("success", success);
 		result.put("data", data);
 		result.put("total", size);
+		
+		renderJSON(result);
+	}
+	
+	private static void returnJsonError(String message) {
+		Map result = new HashMap<String, Object>();
+		result.put("success", false);
+		result.put("message", message);
 		
 		renderJSON(result);
 	}

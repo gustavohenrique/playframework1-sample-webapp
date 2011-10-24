@@ -28,13 +28,13 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
     	text     : 'Category',
     	flex     : 0,
         sortable : false,
-        dataIndex: 'category',
+        dataIndex: 'categoryName',
         width    : 120
     }, {
     	text     : 'Payee',
     	flex     : 0,
         sortable : false,
-        dataIndex: 'payee',
+        dataIndex: 'payeeName',
         width    : 120
     }, {
     	text     : 'Amount',
@@ -48,7 +48,11 @@ Ext.define('PoupaNiquel.view.TransactionGrid' ,{
         renderer : onCellRender,
     }, {
     	text     : 'Category ID',
-        dataIndex: 'categoryId',
+        dataIndex: 'category',
+        hidden: true
+    }, {
+    	text     : 'Payee ID',
+        dataIndex: 'payee',
         hidden: true
     }],
     

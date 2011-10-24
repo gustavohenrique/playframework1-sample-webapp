@@ -5,6 +5,8 @@
 # Home page
 GET     /                                       Transactions.list
 GET     /transactions/filter/{accountId}        Transactions.filter
+POST    /transactions/create/{accountId}        Transactions.create
+POST    /transactions/delete/{accountId}        Transactions.delete
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

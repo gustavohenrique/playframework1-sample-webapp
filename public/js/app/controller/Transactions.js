@@ -131,7 +131,6 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 			record.setId(0);
 			store.add(record);
 		}
-        
 		win.close();
         store.sync();
     },
@@ -139,8 +138,16 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     remove: function(button) {
     	if (confirm('Are you sure?')) {
 	    	var grid = this.getTransactiongrid(),
-	    	record = grid.getSelectionModel().getSelection(),
-	        store = grid.getStore();
+	    	    record = grid.getSelectionModel().getSelection()[0],
+	            store = grid.getStore();
+	    	/*
+                record = grid.store.getAt(pos.row);
+	    	var grid = this.getTransactiongrid();
+	    	var record = grid.getSelectionModel().getSelection()[0]; 
+	    	var store = grid.getStore();
+    	    //var record = store.getAt(pos.row);
+	    	*/
+                
 		    store.remove(record);
 		    store.sync();
     	}
