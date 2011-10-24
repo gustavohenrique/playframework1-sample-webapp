@@ -1,6 +1,6 @@
-Ext.define('PoupaNiquel.view.FilterCombo' ,{
+Ext.define('PoupaNiquel.view.transactions.FilterComboBox' ,{
 	extend: 'Ext.form.field.ComboBox',
-	alias: 'widget.filtercombo',
+	alias: 'widget.filterComboBox',
 	fieldLabel: '',
 	valueField: 'id',
 	store: [],

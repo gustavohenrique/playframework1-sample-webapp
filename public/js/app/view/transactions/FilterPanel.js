@@ -2,9 +2,9 @@ Ext.Loader.setConfig({enabled: true});
 Ext.Loader.setPath('Ext.ux', '/public/js/extjs/ux');
 Ext.require(['Ext.ux.form.MultiSelect']);
 
-Ext.define('PoupaNiquel.view.FilterPanel' ,{
+Ext.define('PoupaNiquel.view.transactions.FilterPanel', {
 	extend: 'Ext.form.Panel',
-	alias: 'widget.filterpanel',
+	alias: 'widget.filterPanel',
 
     minWidth: 200,
     width: 250,
@@ -31,8 +31,8 @@ Ext.define('PoupaNiquel.view.FilterPanel' ,{
     	this.items = [
 	        {xtype: 'datefield', format: 'Y-m-d', name: 'startDate', emptyText: 'Start date'},
 	        {xtype: 'datefield', format: 'Y-m-d', name: 'endDate', emptyText: 'End Date'},
-	        {xtype: 'filtercombo', name:'category', emptyText:'Category', store:'Categories'},
-	        {xtype: 'filtercombo', name:'payee', emptyText:'Payee', store:'Payees'},
+	        {xtype: 'filterComboBox', name:'category', emptyText:'Category', store:'Categories'},
+	        {xtype: 'filterComboBox', name:'payee', emptyText:'Payee', store:'Payees'},
         ];
     	
         return this.callParent(arguments);

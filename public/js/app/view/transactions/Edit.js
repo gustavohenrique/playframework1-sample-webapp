@@ -1,6 +1,6 @@
-Ext.define('PoupaNiquel.view.TransactionForm', {
+Ext.define('PoupaNiquel.view.transactions.Edit', {
     extend: 'Ext.window.Window',
-    alias : 'widget.transactionform',
+    alias : 'widget.transactionEdit',
 
     title : 'Edit Transaction',
     layout: 'fit',
@@ -47,16 +47,16 @@ Ext.define('PoupaNiquel.view.TransactionForm', {
             decimalPrecision: 2,
             allowBlank: false
         }, {
-        	xtype: 'filtercombo',
+        	xtype: 'filterComboBox',
         	name:'payment',
         	fieldLabel: 'Payment',
         }, {
-        	xtype: 'filtercombo',
+        	xtype: 'filterComboBox',
         	name:'categoryId',
         	fieldLabel: 'Category',
         	store:'Categories',
         }, {
-        	xtype: 'filtercombo',
+        	xtype: 'filterComboBox',
         	name:'payeeId',
         	fieldLabel: 'Payee',
         	store:'Payees'
@@ -70,12 +70,10 @@ Ext.define('PoupaNiquel.view.TransactionForm', {
 	        id:'buttons',
 	        ui: 'footer',
 	        items: ['->', {
-	            iconCls: 'icon-save',
 	            itemId: 'save',
 	            text: 'Save',
 	            action: 'save'
 	        },{
-	            iconCls: 'icon-reset',
 	            text: 'Cancel',
 	            scope: this,
 	            handler: this.close

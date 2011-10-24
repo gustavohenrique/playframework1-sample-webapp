@@ -23,7 +23,7 @@ Ext.application({
             	region: 'north',
 //            	height: 73,
             	height: 45,
-            	xtype: 'toppanel',
+            	xtype: 'mainTop',
             }]
         });
     }

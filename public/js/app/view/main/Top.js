@@ -1,12 +1,7 @@
-Ext.define('PoupaNiquel.view.TopPanel' ,{
+Ext.define('PoupaNiquel.view.main.Top', {
 	extend: 'Ext.panel.Panel',
-    alias: 'widget.toppanel',
+    alias: 'widget.mainTop',
     
-//	tbar: [{
-//    	text: 'File',
-//    }, {
-//    	text: 'Help',
-//    }],
     bbar: [{
     	cls:'x-btn-text-icon',
     	scale: 'large',

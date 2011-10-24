@@ -1,28 +1,31 @@
 Ext.define('PoupaNiquel.controller.Transactions', {
     extend: 'Ext.app.Controller',
 
-    views: ['FilterPanel', 'FilterCombo', 'TransactionGrid', 'TransactionForm'],
     models: ['Account', 'Generic', 'Transaction'],
     stores: ['Accounts', 'Categories', 'Payees', 'Transactions'],
+    views: ['transactions.FilterPanel', 'transactions.FilterComboBox', 'transactions.Grid', 'transactions.Edit'],
     
     refs: [{
-    	ref: 'transactiongrid',
-    	selector: 'transactiongrid'
+    	ref: 'transactionGrid',
+    	selector: 'transactionGrid'
     }],
     
     init: function() {
     	this.control({
   	        'button[action=filter]': {
-  	    	    click: this.filterTransaction
+  	    	    click: this.filter
   	        },
   	        'button[action=clear]': {
-	    	    click: this.clearFilter
+	    	    click: this.clear
 	        },
 	        'button[action=add]': {
             	click: this.edit
             },
+            'button[action=edit]': {
+            	click: this.edit
+            },
             'button[action=delete]': {
-            	click: this.remove
+            	click: this.delete
             },
             'button[action=save]': {
                 click: this.save
@@ -49,9 +52,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    		    layout: 'border',
 	    		    title: record.data.name,
 	    		    items: [{
-	    		    	region: 'west', xtype: 'filterpanel', title: 'Filter'
+	    		    	region: 'west', xtype: 'filterPanel', title: 'Filter'
 	    		    }, {
-	    		    	region: 'center', xtype: 'transactiongrid', title: 'Transactions', store: store
+	    		    	region: 'center', xtype: 'transactionGrid', title: 'Transactions', store: store
 	    		    }]
 	    		});
 	    		
@@ -84,7 +87,7 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	}
     },
     
-    filterTransaction: function(button) {
+    filter: function(button) {
     	var store = this.getTransactiongrid().getStore(),
     	    filterPanel = button.ownerCt.ownerCt;
     	
@@ -96,9 +99,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	store.load();
     },
     
-    clearFilter: function(button) {
+    clear: function(button) {
     	var filterPanel = button.ownerCt.ownerCt,
-    	    store = this.getTransactiongrid().getStore(),
+    	    store = this.getTransactionGrid().getStore(),
 	        accountId = store.accountId;
     	
     	filterPanel.getForm().reset();
@@ -108,7 +111,17 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     edit: function(grid, record) {
-        var edit = Ext.widget('transactionform').show();
+        var edit = Ext.widget('transactionEdit').show();
+        
+        if (record) {
+        	edit.down('form').loadRecord(record);
+        }
+    },
+    
+    edit: function(button) {
+    	var grid = this.getTransactionGrid(),
+	        record = grid.getSelectionModel().getSelection()[0],
+            edit = Ext.widget('transactionEdit').show();
         
         if (record) {
         	edit.down('form').loadRecord(record);
@@ -120,7 +133,7 @@ Ext.define('PoupaNiquel.controller.Transactions', {
             form = win.down('form'),
             record = form.getRecord(),
             values = form.getValues(),
-            store = this.getTransactiongrid().getStore();
+            store = this.getTransactionGrid().getStore();
         
 		if (values.id > 0){
 			record.set(values);
@@ -135,9 +148,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
         store.sync();
     },
     
-    remove: function(button) {
+    delete: function(button) {
     	if (confirm('Are you sure?')) {
-	    	var grid = this.getTransactiongrid(),
+	    	var grid = this.getTransactionGrid(),
 	    	    record = grid.getSelectionModel().getSelection()[0],
 	            store = grid.getStore();
 	    	/*

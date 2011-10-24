@@ -2,9 +2,9 @@ Ext.Loader.setConfig({enabled:true});
 Ext.define('PoupaNiquel.controller.Main', {
     extend: 'Ext.app.Controller',
 
-    views: ['TopPanel'],
     models: ['Account'],
     stores: ['Accounts'],
+    views: ['main.Top'],
     
     init: function() {
     	this.control({

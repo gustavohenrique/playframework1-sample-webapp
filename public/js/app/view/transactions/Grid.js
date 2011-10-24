@@ -5,9 +5,9 @@ var onCellRender = function(value) {
     return '<span style="color:red;">' + formated + '</span>';
 };
 
-Ext.define('PoupaNiquel.view.TransactionGrid' ,{
+Ext.define('PoupaNiquel.view.transactions.Grid' ,{
 	extend: 'Ext.grid.Panel',
-    alias: 'widget.transactiongrid',
+    alias: 'widget.transactionGrid',
     
     border: true,
     
