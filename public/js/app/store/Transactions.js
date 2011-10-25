@@ -8,10 +8,10 @@ Ext.define('PoupaNiquel.store.Transactions', {
     remoteSort: false,
     
     proxy: {
-        type: 'ajax',
+        type: 'rest',
     	
         api: {
-        	read : '/transactions/filter',
+        	read : '/transactions/read',
         	create : '/transactions/create',
             update: '/transactions/update',
             destroy: '/transactions/delete'
@@ -33,11 +33,11 @@ Ext.define('PoupaNiquel.store.Transactions', {
         
         listeners: {
             exception: function(proxy, response, operation){
-//            	var data = Ext.JSON.decode(response.responseText).data;
+            	var message = Ext.JSON.decode(response.responseText).message;
             	var accountId = this.extraParams.accountId;
             	this.extraParams = {};
             	this.extraParams.accountId = accountId;
-            	Ext.Msg.alert('Error', 'No transactions found.');
+            	Ext.Msg.alert('Error', message);
             }
         }
     }
