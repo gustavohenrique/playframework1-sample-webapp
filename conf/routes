@@ -3,8 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                                       Transactions.list
-GET     /transactions/filter/{accountId}        Transactions.filter
+GET     /                                       Transactions.index
+GET     /transactions/read/{accountId}          Transactions.read
 POST    /transactions/create/{accountId}        Transactions.create
 DELETE  /transactions/delete/{accountId}        Transactions.delete
 

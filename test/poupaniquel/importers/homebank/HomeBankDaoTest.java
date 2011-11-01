@@ -60,7 +60,7 @@ public class HomeBankDaoTest extends UnitTest {
 			assertEquals(category.getName(), persistedTransaction.getCategory().getName());
 			assertEquals(payee.getName(), persistedTransaction.getPayee().getName());
 			assertEquals(transaction.getDescription(), persistedTransaction.getDescription());
-			assertEquals("-1000.00", persistedTransaction.getBalance().toString());
+			assertEquals("-1000.00", persistedTransaction.getAmount().toString());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -90,7 +90,7 @@ public class HomeBankDaoTest extends UnitTest {
 			new HomeBankDao().persist(homeBank);
 			
 			Transaction persistedTransaction = Transaction.find("byDescription", "Launch and fun").first();
-			assertEquals("1940.00", persistedTransaction.getBalance().toString());
+			assertEquals("200", persistedTransaction.getAmount().toString());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

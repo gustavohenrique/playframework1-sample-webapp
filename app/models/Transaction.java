@@ -33,9 +33,6 @@ public class Transaction extends Model {
 	@Required
 	private BigDecimal amount;
 	
-	@Required
-	private BigDecimal balance;
-	
 	@OneToOne
 	private Account account;
 	
@@ -110,14 +107,6 @@ public class Transaction extends Model {
 		this.payment = payment;
 	}
 
-	public BigDecimal getBalance() {
-		return balance;
-	}
-
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
-	
 	public static List<Transaction> filterByAccount(Account account) {
 		TransactionFilterOptions config = new TransactionFilterOptions();
 		config.setAccount(account);
@@ -170,7 +159,7 @@ public class Transaction extends Model {
 			sql.append("AND category_id = '" + config.getCategory().getId() + "' ");
 		}
 		
-		String orderBy = "transactionDate, balance";
+		String orderBy = "transactionDate, amount";
 		if (isNotNull(config.getOrderBy())) {
 			orderBy = config.getOrderBy();
 		}

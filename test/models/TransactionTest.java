@@ -27,20 +27,6 @@ public class TransactionTest extends UnitTest {
 	}
 	
 	@Test
-	public void testGetTransactionsWithCalculatedBalanceByAccount() {
-		
-		List<Transaction> transactions = Transaction.filterByAccount(citibank);
-	
-		assertEquals("-1000.00", transactions.get(0).getBalance().toString());
-		assertEquals("4000.00", transactions.get(1).getBalance().toString());
-		assertEquals("3900.00", transactions.get(2).getBalance().toString());
-		assertEquals("3890.00", transactions.get(3).getBalance().toString());
-		assertEquals("3840.00", transactions.get(4).getBalance().toString());
-		assertEquals("3740.00", transactions.get(5).getBalance().toString());
-		assertEquals("1740.00", transactions.get(6).getBalance().toString());
-	}
-	
-	@Test
 	public void testGetTransactionsByDateInterval() {
 		Calendar start = Calendar.getInstance();
 		start.set(2011, Calendar.AUGUST, 5);
@@ -51,8 +37,8 @@ public class TransactionTest extends UnitTest {
 		List<Transaction> transactions = Transaction.filterByDateInterval(citibank, start.getTime(), end.getTime());
 		
 		assertEquals(2, transactions.size());
-		assertEquals("3740.00", transactions.get(0).getBalance().toString());
-		assertEquals("1740.00", transactions.get(1).getBalance().toString());
+		assertEquals("-100.00", transactions.get(0).getAmount().toString());
+		assertEquals("-2000.00", transactions.get(1).getAmount().toString());
 	}
 	
 	@Test
@@ -61,7 +47,7 @@ public class TransactionTest extends UnitTest {
 		
 		List<Transaction> transactions = Transaction.filterByPayee(citibank, americanas);
 	
-		assertEquals("1740.00", transactions.get(0).getBalance().toString());
+		assertEquals("-2000.00", transactions.get(0).getAmount().toString());
 	}
 	
 	@Test
@@ -84,7 +70,6 @@ public class TransactionTest extends UnitTest {
 		List<Transaction> transactions = Transaction.filter(options);
 	
 		assertEquals("-50.00", transactions.get(0).getAmount().toString());
-		assertEquals("3840.00", transactions.get(0).getBalance().toString());
 	}
 	
 	@Test
@@ -95,8 +80,8 @@ public class TransactionTest extends UnitTest {
 		List<Transaction> transactions = Transaction.filter(options);
 	
 		assertEquals(2,  transactions.size());
-		assertEquals("-1000.00", transactions.get(0).getBalance().toString());
-		assertEquals("4000.00", transactions.get(1).getBalance().toString());
+		assertEquals("-1000.00", transactions.get(0).getAmount().toString());
+		assertEquals("5000.00", transactions.get(1).getAmount().toString());
 	}
 	
 }

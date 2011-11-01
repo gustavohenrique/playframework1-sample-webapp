@@ -41,11 +41,6 @@ Ext.define('PoupaNiquel.view.transactions.Grid' ,{
         dataIndex: 'amount',
         renderer : onCellRender,
     }, {
-    	text     : 'Balance',
-        sortable : false,
-        dataIndex: 'balance',
-        renderer : onCellRender,
-    }, {
     	text     : 'Category Object',
         dataIndex: 'category',
         hidden: true

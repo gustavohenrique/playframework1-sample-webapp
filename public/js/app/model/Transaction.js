@@ -15,7 +15,7 @@ function getId(object) {
 Ext.define('PoupaNiquel.model.Transaction', {
     extend: 'Ext.data.Model',
     fields: [
-    	'id','description', 'amount', 'balance', 'payment', 'account', 'category', 'payee', {
+    	'id','description', 'amount', 'payment', 'account', 'category', 'payee', {
     		name: 'categoryId', mapping: function(transaction) { return getId(transaction.category); }
 	    }, {
 	    	name: 'categoryName', mapping: function(transaction) { return getName(transaction.category); }
@@ -24,9 +24,12 @@ Ext.define('PoupaNiquel.model.Transaction', {
 	    }, {
 	    	name: 'payeeName', mapping: function(transaction) { return getName(transaction.payee); }
     	}, {
-    		name: 'transactionDate', type: 'date', convert: function(value) { 
-			    var dt = new Date(Date.parse(value));
-		        return Ext.Date.format(dt, "Y-m-d");
+    		name: 'transactionDate', type: 'date', convert: function(value) {
+    			if (value != "") {
+			        var dt = new Date(Date.parse(value));
+		            return Ext.Date.format(dt, "Y-m-d");
+    			}
+    			return value;
 		    }
 		},
     ],

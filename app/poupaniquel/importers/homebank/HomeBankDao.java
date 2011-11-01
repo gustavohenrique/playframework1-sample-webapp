@@ -47,9 +47,6 @@ public class HomeBankDao {
 	    			transaction.setPayee(payee);
     			}
     			
-    			balance = balance.add(transaction.getAmount());
-    			transaction.setBalance(balance);
-    			
     			transaction.save();
     		}
 		}

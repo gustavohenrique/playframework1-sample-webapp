@@ -18,7 +18,7 @@ Ext.define('PoupaNiquel.view.transactions.Edit', {
         fieldDefaults: {
             anchor: '100%',
             labelAlign: 'left',
-            allowBlank: true,
+            //allowBlank: true,
             combineErrors: true,
             msgTarget: 'side'
         },

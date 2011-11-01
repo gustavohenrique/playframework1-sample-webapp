@@ -86,7 +86,7 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     filter: function(button) {
-    	var store = this.getTransactiongrid().getStore(),
+    	var store = this.getTransactionGrid().getStore(),
     	    filterPanel = button.ownerCt.ownerCt;
     	
     	store.proxy.extraParams.accountId = store.accountId;

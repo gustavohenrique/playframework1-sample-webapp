@@ -18,8 +18,9 @@ Ext.define('PoupaNiquel.store.Accounts', {
         },
     
         listeners: {
-            exception: function(proxy, response, operation){
-                //alert(operation.getError());
+        	exception: function(proxy, response, operation){
+            	var message = Ext.JSON.decode(response.responseText).message;
+            	Ext.Msg.alert('Error', 'No accounts found. Please add an account.');
             }
         }
     }
