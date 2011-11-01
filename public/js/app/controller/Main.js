@@ -8,13 +8,20 @@ Ext.define('PoupaNiquel.controller.Main', {
     
     init: function() {
     	this.control({
-	      'button[action=transactions]': {
-	        click: this.openTransactions
-	      },
+	        'button[action=transactions]': {
+	            click: this.openTransactions
+	        },
+	        'button[action=accounts]': {
+		        click: this.openAccounts
+		    }
     	})
     },
     
     openTransactions: function() {
     	this.getController('Transactions').showPanel();
+    },
+    
+    openAccounts: function() {
+    	this.getController('Accounts').showPanel();
     }
 });

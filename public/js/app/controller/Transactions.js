@@ -37,12 +37,14 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     showPanel: function() {
-    	
-    	if (Ext.ComponentManager.get('transactionsPanel') == null) {
-    		
+    	var accountStore = this.getAccountsStore();
+    	if (accountStore.data.length == 0) {
+    		Ext.Msg.alert('Error', 'No accounts found. Please add an account first.');
+    	}
+    	else if (Ext.ComponentManager.get('transactionsPanel') == null) {
     		var tabs = new Array();
     		
-    		this.getAccountsStore().each(function(record) {
+    		accountStore.each(function(record) {
 	    		store = Ext.create('PoupaNiquel.store.Transactions');
 	    		store.proxy.extraParams.accountId = record.data.id;
 	    		store.accountId = record.data.id;
