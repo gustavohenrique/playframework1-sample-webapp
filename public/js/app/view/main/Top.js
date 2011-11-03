@@ -11,6 +11,7 @@ Ext.define('PoupaNiquel.view.main.Top', {
     }, {
     	cls:'x-btn-text-icon',
     	scale: 'large',
+    	action: 'accounts',
     	iconCls: 'accounts-icon',
     	text: 'Accounts'
     }, {

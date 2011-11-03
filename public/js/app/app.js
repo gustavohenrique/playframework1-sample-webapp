@@ -5,7 +5,7 @@ Ext.application({
     appFolder: '/public/js/app',
     autoCreateViewport: false,
 
-    controllers: ['Main', 'Transactions'],
+    controllers: ['Main', 'Transactions', 'Accounts'],
     
     launch: function() {
     	
