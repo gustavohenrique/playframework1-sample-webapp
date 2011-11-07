@@ -3,7 +3,7 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 
     models: ['Account', 'Generic', 'Transaction'],
     stores: ['Accounts', 'Categories', 'Payees', 'Transactions'],
-    views: ['transactions.FilterPanel', 'transactions.FilterComboBox', 'transactions.Grid', 'transactions.Edit'],
+    views: ['transactions.FilterPanel', 'transactions.FilterComboBox', 'transactions.Grid', 'transactions.Edit', 'common.MdiWindow'],
     
     refs: [{
     	ref: 'transactionGrid',
@@ -41,7 +41,10 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	if (accountStore.data.length == 0) {
     		Ext.Msg.alert('Error', 'No accounts found. Please add an account first.');
     	}
-    	else if (Ext.ComponentManager.get('transactionsPanel') == null) {
+    	else if (Ext.ComponentQuery.query('#transactionsPanel').length) {
+    		Ext.ComponentManager.get('transactionsPanel').show();
+    	}
+    	else {
     		var tabs = new Array();
     		
     		accountStore.each(function(record) {
@@ -69,15 +72,9 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	    		items: tabs,
 	    	});
 
-	    	var win = Ext.create('widget.panel', {
+	    	var win = Ext.create('widget.mdiWindow', {
 	    		id: 'transactionsPanel',
-	    		constrain: true,
-	            height: '100%',
-	            width: '100%',
-	            title: 'Transactions',
-	            closable: true,
-	            plain: true,
-	            layout: 'fit',
+	    		title: 'Transactions',
 	            items: tabPanel
 	    	});
 	    	

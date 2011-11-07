@@ -3,7 +3,7 @@ Ext.define('PoupaNiquel.controller.Accounts', {
 
     models: ['Account'],
     stores: ['Accounts'],
-    views: ['accounts.Grid'],
+    views: ['accounts.Grid', 'common.MdiWindow'],
     
     refs: [{
     	ref: 'accountsGrid',
@@ -15,22 +15,22 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     },
     
     showPanel: function() {
-    	var viewport = Ext.ComponentManager.get('viewportCenter'),
-    	    win = Ext.create('widget.panel', {
+    	var viewport = Ext.ComponentManager.get('viewportCenter');
+    	
+    	if (Ext.ComponentQuery.query('#accountsPanel').length) {
+    		Ext.ComponentManager.get('accountsPanel').show();
+    	}
+    	else {
+       	    win = Ext.create('widget.mdiWindow', {
 	    		id: 'accountsPanel',
-	    		constrain: true,
-	            height: '100%',
-	            width: '100%',
 	            title: 'Accounts',
-	            closable: true,
-	            plain: true,
-	            layout: 'fit',
 	            items: [{
 	            	xtype: 'accountsGrid'
 	            }]
 	    	});
-    	viewport.add(win);
-    	win.show();
+       	    viewport.add(win);
+       	    win.show();
+    	}
     }
     
 });
