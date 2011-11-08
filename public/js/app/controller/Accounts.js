@@ -1,3 +1,5 @@
+var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
+
 Ext.define('PoupaNiquel.controller.Accounts', {
     extend: 'Ext.app.Controller',
 
@@ -11,7 +13,14 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     }],
     
     init: function() {
-    	
+    	this.control({
+    		'accountsGrid button[action=add]': {
+  	    	    click: this.add
+  	        },
+  	        'accountsGrid button[action=delete]': {
+	    	    click: this.delete
+	        },
+    	})
     },
     
     showPanel: function() {
@@ -23,12 +32,30 @@ Ext.define('PoupaNiquel.controller.Accounts', {
 	    		id: 'accountsPanel',
 	            title: 'Accounts',
 	            items: [{
-	            	xtype: 'accountsGrid'
+	            	xtype: 'accountsGrid',
+	            	store: this.getAccountsStore(),
+	            	plugins: [rowEditing],
 	            }]
 	    	});
        	    viewport.add(panel);
        	    panel.show();
     	}
+    },
+    
+    add: function(button) {
+    	this.getAccountsStore().insert(0, Ext.create('PoupaNiquel.model.Account'));
+        rowEditing.startEdit(0, 0);
+    },
+    
+    delete: function(button) {
+    	var grid = button.up('accountsGrid'),
+	        record = grid.getSelectionModel().getSelection(),
+            store = grid.getStore();
+        
+        if (record) {
+        	store.remove(record);
+            store.sync();
+        }
     }
     
 });

@@ -12,25 +12,25 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     
     init: function() {
     	this.control({
-  	        'button[action=filter]': {
+  	        'filterPanel button[action=filter]': {
   	    	    click: this.filter
   	        },
-  	        'button[action=clear]': {
+  	        'filterPanel button[action=clear]': {
 	    	    click: this.clear
 	        },
-	        'button[action=add]': {
-            	click: this.edit
-            },
-            'button[action=edit]': {
-            	click: this.editTransaction
-            },
-            'button[action=delete]': {
-            	click: this.delete
-            },
-            'button[action=save]': {
+	        'transactionEdit button[action=save]': {
                 click: this.save
             },
-            'dataview': {
+	        'transactionGrid button[action=add]': {
+            	click: this.edit
+            },
+            'transactionGrid button[action=edit]': {
+            	click: this.editTransaction
+            },
+            'transactionGrid button[action=delete]': {
+            	click: this.delete
+            },
+            'transactionGrid dataview': {
                 itemdblclick: this.edit
             },
       	})
@@ -143,11 +143,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     delete: function(button) {
-    	if (confirm('Are you sure?')) {
-	    	var grid = button.up('transactionGrid'),
-	    	    record = grid.getSelectionModel().getSelection(),
-	            store = grid.getStore();
-                
+    	var grid = button.up('transactionGrid'),
+	        record = grid.getSelectionModel().getSelection(),
+            store = grid.getStore();
+    	
+    	if (record && confirm('Are you sure?')) {
 		    store.remove(record);
 		    store.sync();
     	}
