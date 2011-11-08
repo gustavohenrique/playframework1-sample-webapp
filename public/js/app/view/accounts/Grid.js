@@ -3,6 +3,9 @@ Ext.define('PoupaNiquel.view.accounts.Grid', {
     alias: 'widget.accountsGrid',
     
     border: true,
+    selModel: {
+        selType: 'cellmodel'
+    },
     
     columns: [{
     	xtype: 'rownumberer',
@@ -45,6 +48,14 @@ Ext.define('PoupaNiquel.view.accounts.Grid', {
                 iconCls: 'delete-icon',
                 action: 'delete'
             }]
+        }, {
+        	xtype: 'pagingtoolbar',
+            store: this.getStore(),
+            dock: 'bottom',
+            beforePageText: '',
+            displayMsg: '{0} - {1} of {2}',
+            emptyMsg: "Nothing to display",
+            displayInfo: true,
         }];
     	
         return this.callParent(arguments);

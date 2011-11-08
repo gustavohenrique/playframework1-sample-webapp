@@ -25,16 +25,8 @@ public class TransactionsTest extends FunctionalTest {
 	}
 	
 	@Test
-	public void testGetAccounts() {
-	    String expected = "{\"total\":2,\"data\":[{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":1},{\"key\":2,\"name\":\"Itau\",\"number\":\"6254\",\"id\":2}],\"success\":true}";
-		
-	    Response response = GET("/transactions/accounts");
-		assertEquals(expected, response.out.toString());
-	}
-	
-	@Test
 	public void testGetCategories() {
-	    String expected = "{\"total\":10,\"data\":[{\"key\":10,\"parent\":0,\"name\":\"Book\",\"id\":19},{\"key\":22,\"parent\":0,\"name\":\"Clothes\",\"id\":15},{\"key\":1,\"parent\":0,\"name\":\"Education\",\"id\":17},{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":11},{\"key\":2,\"parent\":0,\"name\":\"Helth\",\"id\":12},{\"key\":19,\"parent\":0,\"name\":\"Internet\",\"id\":18},{\"key\":23,\"parent\":0,\"name\":\"Investment\",\"id\":14},{\"key\":11,\"parent\":0,\"name\":\"Others\",\"id\":20},{\"key\":21,\"parent\":0,\"name\":\"Salary\",\"id\":16},{\"key\":11,\"parent\":0,\"name\":\"Travel\",\"id\":13}],\"success\":true}";
+	    String expected = "{\"total\":10,\"data\":[{\"key\":10,\"parent\":0,\"name\":\"Book\",\"id\":9},{\"key\":22,\"parent\":0,\"name\":\"Clothes\",\"id\":5},{\"key\":1,\"parent\":0,\"name\":\"Education\",\"id\":7},{\"key\":3,\"parent\":0,\"name\":\"Food\",\"id\":1},{\"key\":2,\"parent\":0,\"name\":\"Helth\",\"id\":2},{\"key\":19,\"parent\":0,\"name\":\"Internet\",\"id\":8},{\"key\":23,\"parent\":0,\"name\":\"Investment\",\"id\":4},{\"key\":11,\"parent\":0,\"name\":\"Others\",\"id\":10},{\"key\":21,\"parent\":0,\"name\":\"Salary\",\"id\":6},{\"key\":11,\"parent\":0,\"name\":\"Travel\",\"id\":3}],\"success\":true}";
 		
 	    Response response = GET("/transactions/categories");
 		assertEquals(expected, response.out.toString());

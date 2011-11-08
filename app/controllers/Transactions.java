@@ -74,11 +74,6 @@ public class Transactions extends Controller {
 		System.out.println(params); 
 	}
 	
-	public static void accounts() {
-		List<Account> accounts = Account.find("order by name").fetch();
-		jsonOk(accounts, ConverterUtil.toLong(accounts.size()));
-	}
-	
 	public static void categories() {
 		List<Category> categories = Category.find("order by name").fetch();
 		jsonOk(categories, ConverterUtil.toLong(categories.size()));
