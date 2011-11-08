@@ -15,21 +15,19 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     },
     
     showPanel: function() {
-    	var viewport = Ext.ComponentManager.get('viewportCenter');
+    	var viewport = Ext.ComponentManager.get('viewportCenter'),
+    	    panel = Ext.ComponentManager.get('accountsPanel');
     	
-    	if (Ext.ComponentQuery.query('#accountsPanel').length) {
-    		Ext.ComponentManager.get('accountsPanel').show();
-    	}
-    	else {
-       	    win = Ext.create('widget.mdiWindow', {
+    	if (panel == null) {
+       	    panel = Ext.create('widget.mdiWindow', {
 	    		id: 'accountsPanel',
 	            title: 'Accounts',
 	            items: [{
 	            	xtype: 'accountsGrid'
 	            }]
 	    	});
-       	    viewport.add(win);
-       	    win.show();
+       	    viewport.add(panel);
+       	    panel.show();
     	}
     }
     
