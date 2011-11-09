@@ -1,17 +1,11 @@
 package controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import models.Account;
-import models.Category;
-import models.Payee;
-import models.Transaction;
-import models.TransactionFilterOptions;
 import play.data.binding.Binder;
 import play.mvc.Controller;
 import utils.ConverterUtil;
-import utils.DateDeserializer;
 import utils.ExtJSReturn;
 import utils.GsonBinder;
 
@@ -30,15 +24,22 @@ public class Accounts extends Controller {
 		jsonOk(accounts, ConverterUtil.toLong(accounts.size()));
 	}
 	
-	public static void update() {
-		Account account = Account.findById(params.get("id"));
-		account.edit("account", params.all());
+	public static void update(Long accountId, JsonObject body) {
+		Gson gson = new GsonBuilder().serializeNulls().create();
+		Account submited = gson.fromJson(body.get("data"), Account.class);
+		
+		Account account = Account.findById(submited.getId());
+		account.setName(submited.getName());
+		account.setNumber(submited.getNumber());
+		account.setInitial(submited.getInitial());
+		
 	    validation.valid(account);
 	    if(validation.hasErrors()) {
-	    	account.refresh();
-	    	jsonError("Validation error");
+	    	jsonError("Validation error: "+validation.errors().get(0).toString());
 	    }
-		jsonOk(account, 0l);
+	    
+	    account.save();
+		jsonOk(account, 1l);
 	}
 	
 	private static void jsonError(String message) {

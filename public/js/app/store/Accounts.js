@@ -21,7 +21,8 @@ Ext.define('PoupaNiquel.store.Accounts', {
             successProperty: 'success'
         },
         writer: {
-            type: 'json'
+            type: 'json',
+            root: 'data',
         },
     }
 });

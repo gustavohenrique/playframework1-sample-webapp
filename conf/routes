@@ -11,7 +11,7 @@ DELETE  /transactions/delete/{accountId}        Transactions.delete
 GET     /accounts/read/{accountId}              Accounts.read
 POST    /accounts/create                        Accounts.create
 DELETE  /accounts/delete/{accountId}            Accounts.delete
-PUT     /accounts/update                        Accounts.update
+PUT     /accounts/update/{accountId}            Accounts.update
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

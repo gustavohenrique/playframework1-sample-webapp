@@ -26,10 +26,10 @@ Ext.define('PoupaNiquel.view.accounts.Grid', {
             xtype: 'textfield'
         }
     }, {
-    	text: 'Initital',
+    	text: 'Initial',
     	flex: 0,
         sortable: false,
-        dataIndex: 'initital',
+        dataIndex: 'initial',
         width: 120,
         field: {
             xtype: 'textfield'
