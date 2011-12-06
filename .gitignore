@@ -6,6 +6,10 @@ tmp
 test-result
 *classes*
 eclipse
+.classpath
 db
 .settings
 .precompiled
+precompiled
+logs
+lib

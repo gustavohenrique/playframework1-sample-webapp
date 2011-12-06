@@ -1,40 +1,22 @@
 package controllers;
 
-import models.Account;
-import models.Category;
-import models.Payee;
-
-import org.junit.Before;
 import org.junit.Test;
 
-import play.db.jpa.JPAPlugin;
-
-import play.mvc.Http.Request;
 import play.mvc.Http.Response;
-import play.mvc.Scope;
-import play.mvc.Scope.Params;
-import play.test.Fixtures;
-import play.test.FunctionalTest;
 
-public class AccountsTest extends FunctionalTest {
+public class AccountsTest extends AbstractFunctionalTest {
 
-	private Account citibank;
-	
-	@Before
-	public void setUp() {
-		JPAPlugin.startTx(false);
-		Fixtures.deleteAllModels();
-		Fixtures.loadModels("fixtures.yml");
-		citibank = Account.find("byName", "Citibank").first();
-	}
-	
 	@Test
-	public void testGetAccounts() {
-	    String expected = "{\"total\":2,\"data\":[{\"key\":1,\"name\":\"Citibank\",\"number\":\"25739904721\",\"id\":1},{\"key\":2,\"name\":\"Itau\",\"number\":\"6254\",\"id\":2}],\"success\":true}";
-		
-	    Response response = GET("/accounts/read");
-		assertEquals(expected, response.out.toString());
+	public void testGetAllAccounts() {
+		Response response = GET("/accounts/read");
+		assertEquals(2, getTotalObjectsIn(response));
 	}
+	
+//	@Test
+//	public void testGetAccountById() {
+//		Response response = GET("/accounts/read");
+//		assertEquals(2, getTotalObjectsIn(response));
+//	}
 	
 //	@Test
 //	public void testUpdateAccount() {

@@ -1,22 +1,14 @@
-# you describe your data using the YAML notation here
-# and then load them using Fixtures.load("data.yml")
-
-# User(bob):
-#   email: bob@gmail.com
-#   password: secret
-#   fullname: Bob
-
 Account(citibank):
     key: 1
     name: Citibank
     number: 25739904721
-    initital: 900.0
+    initial: 900.0
 
 Account(itau):
     key: 2
     name: Itau
     number: 6254
-    initital: 900.5
+    initial: 900.5
 
 Category(food):
     key: 3
