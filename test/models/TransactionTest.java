@@ -37,8 +37,8 @@ public class TransactionTest extends UnitTest {
 		List<Transaction> transactions = Transaction.filterByDateInterval(citibank, start.getTime(), end.getTime());
 		
 		assertEquals(2, transactions.size());
-		assertEquals("-100.00", transactions.get(0).getAmount().toString());
-		assertEquals("-2000.00", transactions.get(1).getAmount().toString());
+		assertEquals("-100.00", transactions.get(0).amount.toString());
+		assertEquals("-2000.00", transactions.get(1).amount.toString());
 	}
 	
 	@Test
@@ -47,7 +47,7 @@ public class TransactionTest extends UnitTest {
 		
 		List<Transaction> transactions = Transaction.filterByPayee(citibank, americanas);
 	
-		assertEquals("-2000.00", transactions.get(0).getAmount().toString());
+		assertEquals("-2000.00", transactions.get(0).amount.toString());
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class TransactionTest extends UnitTest {
 		options.setPayee(cacau);
 		List<Transaction> transactions = Transaction.filter(options);
 	
-		assertEquals("-50.00", transactions.get(0).getAmount().toString());
+		assertEquals("-50.00", transactions.get(0).amount.toString());
 	}
 	
 	@Test
@@ -80,8 +80,8 @@ public class TransactionTest extends UnitTest {
 		List<Transaction> transactions = Transaction.filter(options);
 	
 		assertEquals(2,  transactions.size());
-		assertEquals("-1000.00", transactions.get(0).getAmount().toString());
-		assertEquals("5000.00", transactions.get(1).getAmount().toString());
+		assertEquals("-1000.00", transactions.get(0).amount.toString());
+		assertEquals("5000.00", transactions.get(1).amount.toString());
 	}
 	
 }

@@ -1,13 +1,9 @@
 package poupaniquel.importers.homebank;
 
 
-import java.io.File;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 import models.Account;
 import models.Category;
@@ -15,15 +11,11 @@ import models.HomeBank;
 import models.Payee;
 import models.Transaction;
 
-import org.joda.time.DateTime;
-import org.joda.time.chrono.JulianChronology;
 import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
 import play.vfs.VirtualFile;
-import poupaniquel.importers.homebank.HomeBankImporter;
-import sun.util.calendar.JulianCalendar;
 
 public class HomeBankImporterTest extends UnitTest {
 	
@@ -47,10 +39,10 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(3, accounts.size());
 		
 		Account account = accounts.get(0);
-		assertEquals(1, account.getKey());
-		assertEquals("Citibank", account.getName());
-		assertEquals("25739904721", account.getNumber());
-		assertEquals(new BigDecimal("900.5"), account.getInitial());
+		assertEquals(1, account.key);
+		assertEquals("Citibank", account.name);
+		assertEquals("25739904721", account.number);
+		assertEquals(new BigDecimal("900.5"), account.initial);
 	}
 	
 	@Test
@@ -59,8 +51,8 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(10, payees.size());
 		
 		Payee payee = payees.get(0);
-		assertEquals(1, payee.getKey());
-		assertEquals("Wallmart", payee.getName());
+		assertEquals(1, payee.key);
+		assertEquals("Wallmart", payee.name);
 	}
 	
 	@Test
@@ -69,9 +61,9 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(10, categories.size());
 		
 		Category category = categories.get(3);
-		assertEquals(10, category.getKey());
-		assertEquals(1, category.getParent());
-		assertEquals("Book", category.getName());
+		assertEquals(10, category.key);
+		assertEquals(1, category.parent);
+		assertEquals("Book", category.name);
 	}
 	
 	@Test
@@ -80,12 +72,12 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(5, transactions.size());
 		
 		Transaction transaction = transactions.get(4);
-		assertEquals(new BigDecimal("-46.47"), transaction.getAmount());
-		assertEquals("Buy book Clean Code", transaction.getDescription());
-		assertEquals(1, transaction.getAccount().getKey());
-		assertEquals(1, transaction.getPayee().getKey());
-		assertEquals(10, transaction.getCategory().getKey());
-		assertEquals("9", transaction.getPayment());
+		assertEquals(new BigDecimal("-46.47"), transaction.amount);
+		assertEquals("Buy book Clean Code", transaction.description);
+		assertEquals(1, transaction.account.key);
+		assertEquals(1, transaction.payee.key);
+		assertEquals(10, transaction.category.key);
+		assertEquals("9", transaction.payment);
 
 		// 2011-07-25 = 734343 = 1311562800512
 	}

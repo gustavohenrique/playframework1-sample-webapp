@@ -4,7 +4,9 @@ import java.util.List;
 
 import models.Account;
 import play.data.binding.Binder;
+import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.Http;
 import utils.ConverterUtil;
 import utils.ExtJSReturn;
 import utils.GsonBinder;
@@ -13,7 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-public class Accounts extends Controller {
+public class Accounts extends Auth {
+	
 	
 	static {
         Binder.register(JsonObject.class, new GsonBinder());
@@ -29,9 +32,9 @@ public class Accounts extends Controller {
 		Account submited = gson.fromJson(body.get("data"), Account.class);
 		
 		Account account = Account.findById(submited.getId());
-		account.setName(submited.getName());
-		account.setNumber(submited.getNumber());
-		account.setInitial(submited.getInitial());
+		account.name = submited.name;
+		account.number = submited.number;
+		account.initial = submited.initial;
 		
 	    validation.valid(account);
 	    if(validation.hasErrors()) {
@@ -42,15 +45,5 @@ public class Accounts extends Controller {
 		jsonOk(account, 1l);
 	}
 	
-	private static void jsonError(String message) {
-		renderJSON(ExtJSReturn.mapError(message));
-	}
-	
-	private static void jsonOk(Object data, Long size) {
-		if (size > 0) {
-		    renderJSON(ExtJSReturn.mapOk(data, size));
-		}
-		renderJSON(ExtJSReturn.mapError("Object not found"));
-	}
 	
 }

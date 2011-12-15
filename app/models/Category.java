@@ -1,39 +1,23 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity(name="categories")
 public class Category extends Model {
 
-	private int key;
+	@Required
+	@ManyToOne(cascade=CascadeType.ALL)
+	public User user;
 	
-	private int parent;
+	public int key;
 	
-	private String name;
+	public int parent;
 	
-	public int getKey() {
-		return key;
-	}
+	public String name;
 	
-	public void setKey(int key) {
-		this.key = key;
-	}
-	
-	public int getParent() {
-		return parent;
-	}
-	
-	public void setParent(int parent) {
-		this.parent = parent;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
 }

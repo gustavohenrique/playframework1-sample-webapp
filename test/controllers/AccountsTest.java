@@ -5,7 +5,7 @@ import org.junit.Test;
 import play.mvc.Http.Response;
 
 public class AccountsTest extends AbstractFunctionalTest {
-
+	
 	@Test
 	public void testGetAllAccounts() {
 		Response response = GET("/accounts/read");
@@ -14,8 +14,8 @@ public class AccountsTest extends AbstractFunctionalTest {
 	
 //	@Test
 //	public void testGetAccountById() {
-//		Response response = GET("/accounts/read");
-//		assertEquals(2, getTotalObjectsIn(response));
+//		Response response = GET("/accounts/read/1");
+//		assertEquals(1, getTotalObjectsIn(response));
 //	}
 	
 //	@Test

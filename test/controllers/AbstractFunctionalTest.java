@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import models.Account;
 
 import org.codehaus.jackson.JsonNode;
@@ -11,7 +14,7 @@ import play.mvc.Http.Response;
 import play.test.Fixtures;
 import play.test.FunctionalTest;
 
-public class AbstractFunctionalTest extends FunctionalTest {
+public abstract class AbstractFunctionalTest extends FunctionalTest {
 	
 	protected Account citibank;
 	
@@ -20,6 +23,15 @@ public class AbstractFunctionalTest extends FunctionalTest {
 		Fixtures.deleteAllModels();
 		Fixtures.loadModels("fixtures.yml");
 		citibank = Account.find("byName", "Citibank").first();
+		login();
+	}
+	
+	protected void login() {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("username", "admin@localhost.com");
+		parameters.put("password", "123456");
+		
+		POST("/auth/authenticate", parameters);
 	}
 	
 	protected int getTotalObjectsIn(Response response) {

@@ -25,25 +25,25 @@ public class HomeBankDaoTest extends UnitTest {
 	@Test
 	public void testPersistTransactionInEmptyDatabase() {
 		Account account = new Account();
-		account.setKey(1);
-		account.setName("Citibank");
-		account.setNumber("1536-4");
+		account.key = 1;
+		account.name = "Citibank";
+		account.number = "1536-4";
 		
 		Category category = new Category();
-		category.setKey(1);
-		category.setName("Food");
+		category.key = 1;
+		category.name = "Food";
 		
 		Payee payee = new Payee();
-		payee.setKey(1);
-		payee.setName("Wallmart");
+		payee.key = 1;
+		payee.name = "Wallmart";
 
 		Transaction transaction = new Transaction();
-		transaction.setAmount(BigDecimal.TEN);
-		transaction.setDescription("Compra do mes");
-		transaction.setAccount(account);
-		transaction.setCategory(category);
-		transaction.setPayee(payee);
-		transaction.setPayment("4");
+		transaction.amount = BigDecimal.TEN;
+		transaction.description = "Compra do mes";
+		transaction.account = account;
+		transaction.category = category;
+		transaction.payee = payee;
+		transaction.payment = "4";
 		
 		HomeBank homeBank = new HomeBank();
 		homeBank.setVersion("0.5");
@@ -56,11 +56,11 @@ public class HomeBankDaoTest extends UnitTest {
 			new HomeBankDao().persist(homeBank);
 			
 			Transaction persistedTransaction = Transaction.findById(1l);
-			assertEquals(account.getName(), persistedTransaction.getAccount().getName());
-			assertEquals(category.getName(), persistedTransaction.getCategory().getName());
-			assertEquals(payee.getName(), persistedTransaction.getPayee().getName());
-			assertEquals(transaction.getDescription(), persistedTransaction.getDescription());
-			assertEquals("-1000.00", persistedTransaction.getAmount().toString());
+			assertEquals(account.name, persistedTransaction.account.name);
+			assertEquals(category.name, persistedTransaction.category.name);
+			assertEquals(payee.name, persistedTransaction.payee.name);
+			assertEquals(transaction.description, persistedTransaction.description);
+			assertEquals("-1000.00", persistedTransaction.amount.toString());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,12 +75,12 @@ public class HomeBankDaoTest extends UnitTest {
 		Payee payee = Payee.find("byName", "Cinemark").first();
 
 		Transaction transaction = new Transaction();
-		transaction.setAmount(new BigDecimal("200"));
-		transaction.setDescription("Launch and fun");
-		transaction.setAccount(account);
-		transaction.setCategory(category);
-		transaction.setPayee(payee);
-		transaction.setPayment("3");
+		transaction.amount = new BigDecimal("200");
+		transaction.description = "Launch and fun";
+		transaction.account = account;
+		transaction.category = category;
+		transaction.payee = payee;
+		transaction.payment = "3";
 		
 		HomeBank homeBank = new HomeBank();
 		homeBank.setVersion("0.5");
@@ -90,7 +90,7 @@ public class HomeBankDaoTest extends UnitTest {
 			new HomeBankDao().persist(homeBank);
 			
 			Transaction persistedTransaction = Transaction.find("byDescription", "Launch and fun").first();
-			assertEquals("200", persistedTransaction.getAmount().toString());
+			assertEquals("200", persistedTransaction.amount.toString());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

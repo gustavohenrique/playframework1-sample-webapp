@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 public class HomeBank {
@@ -19,7 +18,7 @@ public class HomeBank {
             public int compare(Object o1, Object o2) {  
                 Account a1 = (Account) o1;
                 Account a2 = (Account) o2;
-                return a1.getKey() < a2.getKey() ? -1 : (a1.getKey() > a2.getKey() ? +1 : 0);
+                return a1.key < a2.key ? -1 : (a1.key > a2.key ? +1 : 0);
             }  
         });
 		return accounts;
@@ -34,7 +33,7 @@ public class HomeBank {
             public int compare(Object o1, Object o2) {  
                 Payee a1 = (Payee) o1;
                 Payee a2 = (Payee) o2;
-                return a1.getKey() < a2.getKey() ? -1 : (a1.getKey() > a2.getKey() ? +1 : 0);
+                return a1.key < a2.key ? -1 : (a1.key > a2.key ? +1 : 0);
             }  
         });
 		return payees;
@@ -49,7 +48,7 @@ public class HomeBank {
             public int compare(Object o1, Object o2) {  
             	Category a1 = (Category) o1;
             	Category a2 = (Category) o2;
-                return a1.getKey() < a2.getKey() ? -1 : (a1.getKey() > a2.getKey() ? +1 : 0);
+                return a1.key < a2.key ? -1 : (a1.key > a2.key ? +1 : 0);
             }  
         });
 		return categories;
@@ -64,7 +63,7 @@ public class HomeBank {
             public int compare(Object o1, Object o2) {  
             	Transaction a1 = (Transaction) o1;
             	Transaction a2 = (Transaction) o2;
-                return a1.getTransactionDate().before(a2.getTransactionDate()) ? -1 : (a1.getTransactionDate().after(a2.getTransactionDate()) ? +1 : 0);
+                return a1.transactionDate.before(a2.transactionDate) ? -1 : (a1.transactionDate.after(a2.transactionDate) ? +1 : 0);
             }  
         });
 		

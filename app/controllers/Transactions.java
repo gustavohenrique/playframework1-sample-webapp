@@ -19,7 +19,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-public class Transactions extends Controller {
+
+public class Transactions extends JsonController {
 	
 	static {
         Binder.register(JsonObject.class, new GsonBinder());
@@ -82,18 +83,6 @@ public class Transactions extends Controller {
 	public static void payees() {
 		List<Payee> payees = Payee.find("order by name").fetch();
 		jsonOk(payees, ConverterUtil.toLong((payees.size())));
-	}
-	
-	
-	private static void jsonOk(Object data, Long size) {
-		if (size > 0) {
-		    renderJSON(ExtJSReturn.mapOk(data, size));
-		}
-		renderJSON(ExtJSReturn.mapError("Object not found"));
-	}
-	
-	private static void jsonError(String message) {
-		renderJSON(ExtJSReturn.mapError(message));
 	}
 	
 	private static Category getCategory(String id) {

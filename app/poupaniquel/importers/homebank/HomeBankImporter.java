@@ -75,54 +75,54 @@ public class HomeBankImporter {
 		
 		private void parserAccount(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Account account = new Account();
-			account.setKey(Integer.valueOf(reader.getAttribute("key")));
-			account.setName(reader.getAttribute("name"));
-			account.setNumber(reader.getAttribute("number"));
-			account.setInitial(new BigDecimal(reader.getAttribute("initial")));
+			account.key = Integer.valueOf(reader.getAttribute("key"));
+			account.name = reader.getAttribute("name");
+			account.number = reader.getAttribute("number");
+			account.initial = new BigDecimal(reader.getAttribute("initial"));
 			homeBank.addAccount(account);
 		}
 		
 		private void parserPayee(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Payee payer = new Payee();
-			payer.setKey(Integer.valueOf(reader.getAttribute("key")));
-			payer.setName(reader.getAttribute("name"));
+			payer.key = Integer.valueOf(reader.getAttribute("key"));
+			payer.name = reader.getAttribute("name");
 			homeBank.addPayee(payer);
 		}
 		
 		private void parserCategory(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Category category = new Category();
-			category.setKey(Integer.valueOf(reader.getAttribute("key")));
-			category.setParent(Integer.valueOf(reader.getAttribute("parent")));
-			category.setName(reader.getAttribute("name"));
+			category.key = Integer.valueOf(reader.getAttribute("key"));
+			category.parent = Integer.valueOf(reader.getAttribute("parent"));
+			category.name = reader.getAttribute("name");
 			homeBank.addCategory(category);
 		}
 		
 		private void parserTransaction(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Transaction transaction = new Transaction();
-			transaction.setDescription(reader.getAttribute("wording"));
+			transaction.description = reader.getAttribute("wording");
 			
 			BigDecimal amount = new BigDecimal(reader.getAttribute("amount"));
-			transaction.setAmount(amount.setScale(2, BigDecimal.ROUND_UP));
+			transaction.amount = amount.setScale(2, BigDecimal.ROUND_UP);
 			
 			GregorianCalendar calendar = convertFromJulianToGregorian(reader.getAttribute("date"));
-			transaction.setTransactionDate(calendar.getTime());
+			transaction.transactionDate = calendar.getTime();
 			
 			int categoryKey = Integer.valueOf(reader.getAttribute("category"));
 			Category category = new Category();
-			category.setKey(categoryKey);
-			transaction.setCategory(category);
+			category.key = categoryKey;
+			transaction.category = category;
 			
 			int accountKey = Integer.valueOf(reader.getAttribute("account"));
 			Account account = new Account();
-			account.setKey(accountKey);
-			transaction.setAccount(account);
+			account.key = accountKey;
+			transaction.account = account;
 			
 			int payeeKey = Integer.valueOf(reader.getAttribute("payee"));
 			Payee payee = new Payee();
-			payee.setKey(payeeKey);
-			transaction.setPayee(payee);
+			payee.key = payeeKey;
+			transaction.payee = payee;
 			
-			transaction.setPayment(reader.getAttribute("paymode"));
+			transaction.payment = reader.getAttribute("paymode");
 			
 			homeBank.addTransaction(transaction);
 		}

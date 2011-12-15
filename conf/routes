@@ -3,6 +3,8 @@
 # ~~~~
 
 # Home page
+POST    /auth/authenticate                      Auth.authenticate
+
 GET     /                                       Transactions.index
 GET     /transactions/read/{accountId}          Transactions.read
 POST    /transactions/create/{accountId}        Transactions.create
