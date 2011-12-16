@@ -20,4 +20,9 @@ public class User extends Model {
     
     public boolean isAdmin;
     
+    @Override
+    public String toString() {
+    	return this.username;
+    }
+    
 }

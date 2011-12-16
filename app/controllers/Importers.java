@@ -10,7 +10,7 @@ import play.mvc.Controller;
 import poupaniquel.importers.homebank.HomeBankDao;
 import poupaniquel.importers.homebank.HomeBankImporter;
 
-public class Importers extends Controller {
+public class Importers extends Auth {
 
     public static void index() {
     	render();
@@ -24,7 +24,7 @@ public class Importers extends Controller {
     	
 	    	try {
 				InputStream xmlFile = new FileInputStream(file);
-				models.HomeBank homeBank = new HomeBankImporter().fromXml(xmlFile);
+				models.HomeBank homeBank = new HomeBankImporter(user).fromXml(xmlFile);
 				
 				new HomeBankDao().persist(homeBank);
 				

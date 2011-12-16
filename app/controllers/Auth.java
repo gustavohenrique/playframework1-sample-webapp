@@ -7,6 +7,8 @@ import play.mvc.Before;
 
 public class Auth extends JsonController {
 	
+	protected static User user;
+	
 	@Before(unless={"login", "authenticate", "logout"})
     static void checkAccess() {
         if (! session.contains("token")) {
@@ -14,7 +16,8 @@ public class Auth extends JsonController {
             login();
         }
         
-        if (! userExists(session.get("token"))) {
+        user = getUserAccount(session.get("token"));
+        if (! exists(user)) {
         	login();
         }
     }
@@ -41,18 +44,8 @@ public class Auth extends JsonController {
 	}
 	
 	
-	private static boolean userExists(String token) {
-		try {
-			String[] splited = token.split("-");
-			String username = splited[0];
-			String encrypted = splited[1];
-			
-			User user = User.find("byUsername", username).first();
-			return Codec.hexSHA1(user.username).equals(encrypted);
-		}
-		catch (Exception e) {
-			return false;
-		}
+	private static boolean exists(User user) {
+		return user != null;
 	}
 	
 	private static String createToken(String username, String id) {
@@ -67,6 +60,21 @@ public class Auth extends JsonController {
 		catch (Exception e) {
 			return null;
 		}
+	}
+	
+	private static User getUserAccount(String token) {
+		try {
+			String[] splited = token.split("-");
+			String username = splited[0];
+			String encrypted = splited[1];
+			
+			User user = User.find("byUsername", username).first();
+			if (Codec.hexSHA1(user.username).equals(encrypted)) {
+				return user;
+			}
+		}
+		catch (Exception e) {}
+		return null;
 	}
 	
 }

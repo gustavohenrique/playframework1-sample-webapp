@@ -10,10 +10,12 @@ import models.Category;
 import models.HomeBank;
 import models.Payee;
 import models.Transaction;
+import models.User;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import play.test.Fixtures;
 import play.test.UnitTest;
 import play.vfs.VirtualFile;
 
@@ -23,8 +25,11 @@ public class HomeBankImporterTest extends UnitTest {
 	
 	@Before
 	public void onSetUp() throws Exception {
+		Fixtures.deleteAllModels();
+		Fixtures.loadModels("fixtures.yml");
+		User user = User.find("byUsername", "admin").first();
 		InputStream file = VirtualFile.open("test/homebank-sample.xhb").inputstream();
-		HomeBankImporter importer = new HomeBankImporter();
+		HomeBankImporter importer = new HomeBankImporter(user);
 		homeBank = importer.fromXml(file);
 	}
 	
@@ -39,6 +44,7 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(3, accounts.size());
 		
 		Account account = accounts.get(0);
+		assertEquals("admin", account.user);
 		assertEquals(1, account.key);
 		assertEquals("Citibank", account.name);
 		assertEquals("25739904721", account.number);
@@ -51,6 +57,7 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(10, payees.size());
 		
 		Payee payee = payees.get(0);
+		assertEquals("admin", payee.user);
 		assertEquals(1, payee.key);
 		assertEquals("Wallmart", payee.name);
 	}
@@ -61,6 +68,7 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(10, categories.size());
 		
 		Category category = categories.get(3);
+		assertEquals("admin", category.user);
 		assertEquals(10, category.key);
 		assertEquals(1, category.parent);
 		assertEquals("Book", category.name);
@@ -72,6 +80,7 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(5, transactions.size());
 		
 		Transaction transaction = transactions.get(4);
+		assertEquals("admin", transaction.user);
 		assertEquals(new BigDecimal("-46.47"), transaction.amount);
 		assertEquals("Buy book Clean Code", transaction.description);
 		assertEquals(1, transaction.account.key);
