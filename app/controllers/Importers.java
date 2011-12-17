@@ -26,7 +26,7 @@ public class Importers extends Auth {
 				InputStream xmlFile = new FileInputStream(file);
 				models.HomeBank homeBank = new HomeBankImporter(user).fromXml(xmlFile);
 				
-				new HomeBankDao().persist(homeBank);
+				new HomeBankDao(null).persist(homeBank);
 				
 				render(homeBank);
 			}

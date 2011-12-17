@@ -9,10 +9,18 @@ import models.Category;
 import models.HomeBank;
 import models.Payee;
 import models.Transaction;
+import models.User;
+import play.db.jpa.GenericModel.JPAQuery;
 import play.db.jpa.JPA;
 
 public class HomeBankDao {
 	
+	private static User user;
+	
+	public HomeBankDao(User user) {
+		this.user = user;
+	}
+
 	public void persist(HomeBank homeBank) {
 		saveAccountsInDB(homeBank.getAccounts());
 		saveCategoriesInDB(homeBank.getCategories());
@@ -66,7 +74,8 @@ public class HomeBankDao {
 
 	private static List<Payee> savePayeesInDB(List<Payee> payees) {
     	for (Payee payee : payees) {
-			if (!(Payee.find("byName", payee.name).fetch().size() > 0)) {
+			if (notFound(Payee.find("byName", payee.name))) {
+				payee.user = user;
 				payee.save();
 			}
 		}
@@ -75,7 +84,8 @@ public class HomeBankDao {
 
 	private static List<Account> saveAccountsInDB(List<Account> accounts) {
 		for (Account account : accounts) {
-			if (!(Account.find("byName", account.name).fetch().size() > 0)) {
+			if (notFound(Account.find("byName", account.name))) {
+				account.user = user;
 				account.save();
 			}
 		}
@@ -84,10 +94,15 @@ public class HomeBankDao {
     
     private static List<Category> saveCategoriesInDB(List<Category> categories) {
 		for (Category category : categories) {
-			if (!(Category.find("byName", category.name).fetch().size() > 0)) {
+			if (notFound(Category.find("byName", category.name))) {
+				category.user = user;
 				category.save();
 			}
 		}
 		return categories;
 	}
+    
+    private static boolean notFound(JPAQuery object) {
+    	return object.fetch().size() == 0;
+    }
 }

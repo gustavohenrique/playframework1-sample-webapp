@@ -33,18 +33,12 @@ public class HomeBankImporter {
 	public HomeBank fromXml(InputStream file) throws Exception {
 		XStream xstream = new XStream();
 		xstream.alias("homebank", HomeBank.class);
-		xstream.registerConverter(new HomeBankConverter(user));
+		xstream.registerConverter(new HomeBankConverter());
 
 		return (HomeBank) xstream.fromXML(file);
 	}
 	
 	class HomeBankConverter implements Converter {
-
-		private User user;
-		
-		public HomeBankConverter(User user) {
-			this.user = user;
-		}
 
 		@Override
 		public boolean canConvert(Class type) {
@@ -65,6 +59,7 @@ public class HomeBankImporter {
 			
 			HomeBank homeBank = new HomeBank();
 			homeBank.setVersion(reader.getAttribute("v"));
+			homeBank.setUser(user);
 
 			while(reader.hasMoreChildren()) {
 				reader.moveDown();
@@ -88,7 +83,7 @@ public class HomeBankImporter {
 		
 		private void parserAccount(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Account account = new Account();
-			account.user = this.user;
+			account.user = homeBank.getUser();
 			account.key = Integer.valueOf(reader.getAttribute("key"));
 			account.name = reader.getAttribute("name");
 			account.number = reader.getAttribute("number");
@@ -98,7 +93,7 @@ public class HomeBankImporter {
 		
 		private void parserPayee(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Payee payee= new Payee();
-			payee.user = this.user;
+			payee.user = homeBank.getUser();
 			payee.key = Integer.valueOf(reader.getAttribute("key"));
 			payee.name = reader.getAttribute("name");
 			homeBank.addPayee(payee);
@@ -106,7 +101,7 @@ public class HomeBankImporter {
 		
 		private void parserCategory(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Category category = new Category();
-			category.user = this.user;
+			category.user = homeBank.getUser();
 			category.key = Integer.valueOf(reader.getAttribute("key"));
 			category.parent = Integer.valueOf(reader.getAttribute("parent"));
 			category.name = reader.getAttribute("name");
@@ -115,7 +110,7 @@ public class HomeBankImporter {
 		
 		private void parserTransaction(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Transaction transaction = new Transaction();
-			transaction.user = this.user;
+			transaction.user = homeBank.getUser();
 			transaction.description = reader.getAttribute("wording");
 			
 			BigDecimal amount = new BigDecimal(reader.getAttribute("amount"));

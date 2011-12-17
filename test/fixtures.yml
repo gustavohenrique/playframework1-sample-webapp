@@ -70,38 +70,47 @@ Category(others):
 
 Payee(wallmart):
     user: admin
+    key: 1
     name: Wallmart
 
 Payee(cinemark):
     user: admin
+    key: 2
     name: Cinemark
 
 Payee(hering):
     user: admin
+    key: 3
     name: Hering
 
 Payee(ricardo):
     user: admin
+    key: 4
     name: Ricardo Eletro
 
 Payee(americanas):
     user: admin
+    key: 5
     name: Americanas
 
 Payee(cacau):
     user: admin
+    key: 6
     name: Cacau Show
 
 Payee(hortifruti):
     user: admin
+    key: 7
     name: Hortifruti
 
 Payee(net):
     user: admin
+    key: 8
     name: Net Virtua
 
 Payee(mycompany):
     user: admin
+    key: 9
     name: My Company
 
 Transaction(t1):

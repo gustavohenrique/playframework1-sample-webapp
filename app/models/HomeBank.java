@@ -7,10 +7,16 @@ import java.util.List;
 
 public class HomeBank {
 
+	private User user;
+	
 	private String version;
+	
 	private List<Account> accounts = new ArrayList();
+	
 	private List<Payee> payees = new ArrayList();
+	
 	private List<Category> categories = new ArrayList();
+	
 	private List<Transaction> transactions = new ArrayList();
 
 	public List<Account> getAccounts() {
@@ -80,6 +86,14 @@ public class HomeBank {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public User getUser() {
+		return this.user;
 	}
 	
 }
