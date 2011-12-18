@@ -39,8 +39,10 @@ public class Auth extends JsonController {
     		User user = getUserAccount(username, password);
 	        if (user != null && user.id > 0) {
 	        	session.put("token", createToken(username, String.valueOf(user.id)));
+	        	jsonOk(user, 1l);
 	        }
         }
+		jsonError("Login failed");
 	}
 	
 	

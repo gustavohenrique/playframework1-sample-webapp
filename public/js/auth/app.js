@@ -2,13 +2,12 @@ Ext.Loader.setConfig({enabled:true});
 
 Ext.application({
     name: 'PoupaNiquel',
-    appFolder: '/public/js/app',
+    appFolder: '/public/js/auth',
     autoCreateViewport: false,
 
-    controllers: ['Main', 'Transactions', 'Accounts'],
+    controllers: ['Auth'],
     
     launch: function() {
-    	
         viewport = Ext.create('Ext.container.Viewport', {
         	id: 'viewport',
             layout: 'border',
@@ -17,11 +16,15 @@ Ext.application({
                 region: 'center',
                 border: false,
                 autoScroll: true,
+                items: [{
+                	xtype: 'loginPanel',
+                	autoShow: 'true'
+                }]
 
             }, {
             	region: 'north',
             	height: 45,
-            	xtype: 'mainTop',
+            	xtype: 'authMenu',
             }]
         });
     }
