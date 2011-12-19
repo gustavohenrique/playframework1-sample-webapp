@@ -1,3 +1,10 @@
+#{extends 'main.html'/}
+
+#{set title:'Sign Up'/}
+
+#{set 'script'}
+<script type="text/javascript">
+
 Ext.Loader.setConfig({enabled:true});
 
 Ext.application({
@@ -9,19 +16,22 @@ Ext.application({
     
     launch: function() {
         viewport = Ext.create('Ext.container.Viewport', {
-        	id: 'viewport',
+            id: 'viewport',
             layout: 'border',
             items: [{
-            	id: 'viewportCenter',
+                id: 'viewportCenter',
                 region: 'center',
                 border: false,
                 autoScroll: true,
                 items: [{
-                	xtype: 'loginPanel',
-                	autoShow: 'true'
+                    xtype: 'signupPanel',
+                    autoShow: 'true'
                 }]
 
             }]
         });
     }
 });
+
+</script>
+#{/}

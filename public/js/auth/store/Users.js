@@ -10,7 +10,7 @@ Ext.define('PoupaNiquel.store.Users', {
     proxy: {
         type: 'rest',
         api: {
-        	create : '/auth/authenticate',
+        	create : '/auth/register',
         },
         reader: {
             type: 'json',
