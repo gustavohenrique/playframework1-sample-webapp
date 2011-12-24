@@ -5,6 +5,7 @@
 # Home page
 POST    /users/authenticate                     Users.authenticate
 GET     /users/login                            Users.login
+POST    /users/create                           Users.create
 
 GET     /                                       Transactions.index
 GET     /transactions/read/{accountId}          Transactions.read

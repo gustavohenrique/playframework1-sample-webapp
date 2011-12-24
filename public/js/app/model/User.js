@@ -9,6 +9,12 @@ Ext.define('PoupaNiquel.model.User', {
         	create : '/users/create',
         },
         
+        writer: {
+            type: 'json',
+            root: 'data',
+            successProperty: 'success'
+        },
+        
         listeners: {
             exception: function(proxy, response, operation) {
                 var json = Ext.decode(response.responseText);

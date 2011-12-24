@@ -42,7 +42,7 @@ Ext.define('PoupaNiquel.controller.Users', {
 	            method: 'POST',
 	            scope:this,
 	            success: function(form, response) {
-	                window.href.location = '/';
+	            	window.location.href = '/'
 	//                 Ext.ux.Router.redirect('');
 	            },
 	            failure: function(form, response) {

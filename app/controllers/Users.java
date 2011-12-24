@@ -1,15 +1,26 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.mysql.jdbc.Messages;
 
+import models.Account;
 import models.User;
+import play.data.binding.Binder;
 import play.data.validation.Required;
+import play.data.validation.Valid;
 import play.libs.Codec;
 import play.mvc.Before;
+import utils.GsonBinder;
 
 public class Users extends JsonController {
 	
 	protected static User user;
+	
+	static {
+        Binder.register(JsonObject.class, new GsonBinder());
+    }
 	
 	@Before(unless={"login", "authenticate", "logout", "signup", "create"})
     static void checkAccess() {
@@ -32,24 +43,22 @@ public class Users extends JsonController {
 		render();
 	}
 	
-	public static void create() {
-		if (validation.hasErrors()) {
-            jsonError(Messages.getString("users.create.error"));
-        }
-        else {
-        	User user = new User();
-        	user.username = params.get("username").trim();
-        	user.password = Codec.hexSHA1(params.get("password").trim());
-        	user.fullname = params.get("fullname");
-        	try {
-	        	user.save();
-	        	jsonOk(user, 1l);
-        	}
-        	catch (Exception e) {
-				jsonError(Messages.getString("users.create.duplicated"));
-			}
-        }
-        	
+	public static void create(JsonObject body) {
+		Gson gson = new GsonBuilder().serializeNulls().create();
+		User submited = gson.fromJson(body.get("data"), User.class);
+		
+		User user = new User();
+    	user.username = submited.username;
+    	user.password = Codec.hexSHA1(submited.password);
+    	user.fullname = submited.fullname;
+		
+		validation.valid(user);
+	    if(validation.hasErrors()) {
+	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    }
+	    
+	    user.save();
+		jsonOk(user, 1l);
 	}
 
 	public static void authenticate() {
