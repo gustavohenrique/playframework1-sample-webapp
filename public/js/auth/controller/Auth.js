@@ -3,7 +3,7 @@ Ext.define('PoupaNiquel.controller.Auth', {
 
     models: ['User'],
     stores: ['Users'],
-    views: ['auth.Signup', 'auth.Login'],
+    views:  ['auth.Signup', 'auth.Login'],
     
     init: function() {
     	this.control({
@@ -22,8 +22,14 @@ Ext.define('PoupaNiquel.controller.Auth', {
     		store = this.getUsersStore();
     	
     	if (form.getForm().isValid()) {
-    		store.insert(0, values);
-    		console.log(store);
+    		try {
+    		    store.add(values);
+    		    store.sync();
+    		    console.log('after sync');
+    		}
+    		catch(error) {}
+    		
+    		console.log("fim");
     	}
     },
     

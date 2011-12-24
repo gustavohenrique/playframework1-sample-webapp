@@ -32,6 +32,7 @@ public class Auth extends JsonController {
 	
 	public static void register() {
 		jsonError("dfsdfsd");
+		//jsonOk("dfsdfsd", 1l);
 	}
 
 	public static void authenticate() {

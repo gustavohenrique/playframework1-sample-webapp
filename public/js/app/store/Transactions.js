@@ -33,8 +33,8 @@ Ext.define('PoupaNiquel.store.Transactions', {
         
         listeners: {
             exception: function(proxy, response, operation){
-            	var message = Ext.JSON.decode(response.responseText).message;
-            	var accountId = this.extraParams.accountId;
+            	var message = Ext.JSON.decode(response.responseText).message,
+            	    accountId = this.extraParams.accountId;
             	this.extraParams = {};
             	this.extraParams.accountId = accountId;
             	Ext.Msg.alert('Error', message);
