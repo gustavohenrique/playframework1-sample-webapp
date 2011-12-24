@@ -1,5 +1,7 @@
 package controllers;
 
+import com.mysql.jdbc.Messages;
+
 import models.User;
 import play.data.validation.Required;
 import play.libs.Codec;
@@ -31,8 +33,23 @@ public class Users extends JsonController {
 	}
 	
 	public static void create() {
-//		jsonError("dfsdfsd");
-		jsonOk("ok", 1l);
+		if (validation.hasErrors()) {
+            jsonError(Messages.getString("users.create.error"));
+        }
+        else {
+        	User user = new User();
+        	user.username = params.get("username").trim();
+        	user.password = Codec.hexSHA1(params.get("password").trim());
+        	user.fullname = params.get("fullname");
+        	try {
+	        	user.save();
+	        	jsonOk(user, 1l);
+        	}
+        	catch (Exception e) {
+				jsonError(Messages.getString("users.create.duplicated"));
+			}
+        }
+        	
 	}
 
 	public static void authenticate() {

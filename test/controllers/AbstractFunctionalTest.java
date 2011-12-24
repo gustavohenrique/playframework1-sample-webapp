@@ -45,5 +45,5 @@ public abstract class AbstractFunctionalTest extends FunctionalTest {
 			return 0;
 		}
 	}
-
+	
 }

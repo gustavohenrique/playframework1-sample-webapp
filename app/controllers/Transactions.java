@@ -20,7 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 
-public class Transactions extends JsonController {
+public class Transactions extends Users {
 	
 	static {
         Binder.register(JsonObject.class, new GsonBinder());
