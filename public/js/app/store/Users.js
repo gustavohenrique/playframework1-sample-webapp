@@ -11,7 +11,7 @@ Ext.define('PoupaNiquel.store.Users', {
         type: 'rest',
         
         api: {
-        	create : '/auth/register',
+        	create : '/users/create',
         },
         
         reader: {

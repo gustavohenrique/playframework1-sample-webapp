@@ -5,11 +5,11 @@ import play.data.validation.Required;
 import play.libs.Codec;
 import play.mvc.Before;
 
-public class Auth extends JsonController {
+public class Users extends JsonController {
 	
 	protected static User user;
 	
-	@Before(unless={"login", "authenticate", "logout", "signup", "register"})
+	@Before(unless={"login", "authenticate", "logout", "signup", "create"})
     static void checkAccess() {
         if (! session.contains("token")) {
             flash.put("url", "GET".equals(request.method) ? request.url : "/");
@@ -30,7 +30,7 @@ public class Auth extends JsonController {
 		render();
 	}
 	
-	public static void register() {
+	public static void create() {
 		jsonError("dfsdfsd");
 		//jsonOk("dfsdfsd", 1l);
 	}

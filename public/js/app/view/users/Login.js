@@ -1,18 +1,20 @@
-Ext.define('PoupaNiquel.view.auth.Signup', {
+Ext.define('PoupaNiquel.view.users.Login', {
 	extend: 'Ext.window.Window',
-    alias: 'widget.signupPanel',
+    alias: 'widget.loginPanel',
 
-    title: 'Sign Up',
+    title: 'Authentication',
     width: 300,
-    height: 200,
+    height: 150,
     layout: 'fit',
     border: 0,
     closable: false,
+//    resizable: false,
     plain: true,
     
     items: [{
     	xtype: 'form',
     	bodyPadding: 10,
+    	
     	
     	fieldDefaults: {
             labelWidth: 60,
@@ -24,10 +26,6 @@ Ext.define('PoupaNiquel.view.auth.Signup', {
         },
         
     	items: [{
-    		fieldLabel: 'Name',
-    		xtype: 'textfield',
-    		name: 'fullname',
-        }, {
     		fieldLabel: 'E-mail',
     		xtype: 'textfield',
     		name: 'username',
@@ -44,7 +42,7 @@ Ext.define('PoupaNiquel.view.auth.Signup', {
 	        ui: 'footer',
 	        items: ['->', {
 	            text: 'Ok',
-	            action: 'register',
+	            action: 'authenticate',
 	            width: 100,
 	        }]
            

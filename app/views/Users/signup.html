@@ -4,15 +4,14 @@
 
 #{set 'script'}
 <script type="text/javascript">
-
 Ext.Loader.setConfig({enabled:true});
 
 Ext.application({
     name: 'PoupaNiquel',
-    appFolder: '/public/js/auth',
+    appFolder: '/public/js/app',
     autoCreateViewport: false,
 
-    controllers: ['Auth'],
+    controllers: ['Users'],
     
     launch: function() {
         viewport = Ext.create('Ext.container.Viewport', {

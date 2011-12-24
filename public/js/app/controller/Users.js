@@ -1,9 +1,9 @@
-Ext.define('PoupaNiquel.controller.Auth', {
+Ext.define('PoupaNiquel.controller.Users', {
     extend: 'Ext.app.Controller',
 
     models: ['User'],
     stores: ['Users'],
-    views:  ['auth.Signup', 'auth.Login'],
+    views:  ['users.Signup', 'users.Login'],
     
     init: function() {
     	this.control({
@@ -25,7 +25,6 @@ Ext.define('PoupaNiquel.controller.Auth', {
     		try {
     		    store.add(values);
     		    store.sync();
-    		    console.log('after sync');
     		}
     		catch(error) {}
     		
@@ -37,16 +36,14 @@ Ext.define('PoupaNiquel.controller.Auth', {
     	var form = button.up('form').getForm();
     	if (form.isValid()) {
 	    	form.submit({
-	    	    url: '/auth/authenticate',
+	    	    url: '/users/authenticate',
 	            method: 'POST',
 	            scope:this,
 	            success: function(form, response) {
-	//                 loginWin.close();
-	                 console.log("ok " + action);
+	                window.href.location = '/';
 	//                 Ext.ux.Router.redirect('');
 	            },
 	            failure: function(form, response) {
-	            	console.log(response)
 	            	Ext.Msg.alert('Error', response.result.message);
 	            }
 	    	});

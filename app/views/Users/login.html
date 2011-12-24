@@ -1,3 +1,9 @@
+#{extends 'main.html'/}
+
+#{set title:'Login'/}
+
+#{set 'script'}
+<script type="text/javascript">
 Ext.Loader.setConfig({enabled:true});
 
 Ext.application({
@@ -5,24 +11,25 @@ Ext.application({
     appFolder: '/public/js/app',
     autoCreateViewport: false,
 
-    controllers: ['Main', 'Transactions', 'Accounts'],
+    controllers: ['Users'],
     
     launch: function() {
-    	
         viewport = Ext.create('Ext.container.Viewport', {
-        	id: 'viewport',
+            id: 'viewport',
             layout: 'border',
             items: [{
-            	id: 'viewportCenter',
+                id: 'viewportCenter',
                 region: 'center',
                 border: false,
                 autoScroll: true,
+                items: [{
+                    xtype: 'loginPanel',
+                    autoShow: 'true'
+                }]
 
-            }, {
-            	region: 'north',
-            	height: 45,
-            	xtype: 'mainTop',
             }]
         });
     }
 });
+</script>
+#{/}

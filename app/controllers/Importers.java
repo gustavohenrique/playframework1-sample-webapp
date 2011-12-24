@@ -10,7 +10,7 @@ import play.mvc.Controller;
 import poupaniquel.importers.homebank.HomeBankDao;
 import poupaniquel.importers.homebank.HomeBankImporter;
 
-public class Importers extends Auth {
+public class Importers extends Users {
 
     public static void index() {
     	render();
