@@ -31,8 +31,8 @@ public class Users extends JsonController {
 	}
 	
 	public static void create() {
-		jsonError("dfsdfsd");
-		//jsonOk("dfsdfsd", 1l);
+//		jsonError("dfsdfsd");
+		jsonOk("ok", 1l);
 	}
 
 	public static void authenticate() {

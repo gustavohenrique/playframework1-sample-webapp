@@ -1,6 +1,6 @@
 Ext.define('PoupaNiquel.view.users.Signup', {
 	extend: 'Ext.window.Window',
-    alias: 'widget.signupPanel',
+    alias: 'widget.signup',
 
     title: 'Sign Up',
     width: 300,
@@ -24,6 +24,9 @@ Ext.define('PoupaNiquel.view.users.Signup', {
         },
         
     	items: [{
+    		xtype: 'hiddenfield',
+    		name: 'id',
+    	}, {
     		fieldLabel: 'Name',
     		xtype: 'textfield',
     		name: 'fullname',
@@ -38,21 +41,16 @@ Ext.define('PoupaNiquel.view.users.Signup', {
            	inputType: 'password',
         }],
         
-        dockedItems: [{
-        	xtype: 'toolbar',
-	        dock: 'bottom',
-	        id:'buttons',
-	        ui: 'footer',
-	        items: ['->', {
-	            text: 'Ok',
-	            action: 'register',
-	            width: 100,
-	        }]
-           
-    	}]
+        
     }],
     
     initComponent: function() {
-        return this.callParent(arguments);
+    	this.buttons = [{
+            text: 'Ok',
+            action: 'create',
+            width: 100,
+        }];
+    	
+        this.callParent(arguments);
     }
 });

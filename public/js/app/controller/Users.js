@@ -10,25 +10,27 @@ Ext.define('PoupaNiquel.controller.Users', {
 	        'loginPanel button[action=authenticate]': {
 	            click: this.authenticate
 	        },
-	        'signupPanel button[action=register]': {
-	            click: this.register
+	        'signup button[action=create]': {
+	            click: this.create
 	        }
     	});
     },
     
-    register: function(button) {
-    	var form = button.up('form'),
+    create: function(button) {
+    	var win = button.up('window'),
+            form = win.down('form'),
     		values = form.getValues(),
     		store = this.getUsersStore();
     	
     	if (form.getForm().isValid()) {
-    		try {
-    		    store.add(values);
-    		    store.sync();
-    		}
-    		catch(error) {}
-    		
-    		console.log("fim");
+    		var user = new PoupaNiquel.model.User();
+    		user.set(values);
+    		console.log(user);
+    		user.save({
+    		    success: function() {
+    		    	window.location.href = '/'
+    		    },
+    		});
     	}
     },
     

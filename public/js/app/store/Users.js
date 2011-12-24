@@ -23,10 +23,11 @@ Ext.define('PoupaNiquel.store.Users', {
         writer: {
             type: 'json',
             root: 'data',
+            successProperty: 'success'
         },
         
         listeners: {
-            exception: function (proxy, response, operation) {
+            exception: function(proxy, response, operation) {
                 var json = Ext.decode(response.responseText);
                 
                 if (json) {
@@ -43,7 +44,8 @@ Ext.define('PoupaNiquel.store.Users', {
                     icon: Ext.MessageBox.ERROR,
                     buttons: Ext.Msg.OK
                 });
-            }
+            },
+            
         }
     }
 });

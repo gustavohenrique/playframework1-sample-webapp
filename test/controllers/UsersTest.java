@@ -18,7 +18,7 @@ import play.mvc.Scope.Session;
 import play.test.Fixtures;
 import play.test.FunctionalTest;
 
-public class AuthTest extends FunctionalTest {
+public class UsersTest extends FunctionalTest {
 
 	@Before
 	public void setUp() {
@@ -38,7 +38,7 @@ public class AuthTest extends FunctionalTest {
 		parameters.put("username", "foo@bar.com");
 		parameters.put("password", "xxxxxxx");
 		
-		Response response = POST("/auth/authenticate", parameters);
+		Response response = POST("/users/authenticate", parameters);
 		assertFalse(isLogged(response));
 	}
 	
@@ -48,7 +48,7 @@ public class AuthTest extends FunctionalTest {
 		parameters.put("username", "admin@localhost.com");
 		parameters.put("password", "123456");
 		
-		Response response = POST("/auth/authenticate", parameters);
+		Response response = POST("/users/authenticate", parameters);
 
 		assertTrue(isLogged(response));
 	}
