@@ -44,8 +44,7 @@ public class Users extends JsonController {
 	}
 	
 	public static void create(JsonObject body) {
-		Gson gson = new GsonBuilder().serializeNulls().create();
-		User submited = gson.fromJson(body.get("data"), User.class);
+		User submited = getSubmitedUser(body);
 		
 		User user = new User();
     	user.username = submited.username;
@@ -57,27 +56,35 @@ public class Users extends JsonController {
 	    	jsonError("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
-	    user.save();
-		jsonOk(user, 1l);
+	    try {
+	    	user.save();
+	    	jsonOk(user, 1l);
+	    }
+	    catch (Exception e) {
+	    	jsonError("");
+		}
 	}
 
-	public static void authenticate() {
-		if (validation.hasErrors()) {
-            flash.keep("url");
-            flash.error("secure.error");
-            params.flash();
+	private static User getSubmitedUser(JsonObject body) {
+		Gson gson = new GsonBuilder().serializeNulls().create();
+		User submited = gson.fromJson(body.get("data"), User.class);
+		return submited;
+	}
+
+	public static void authenticate(JsonObject body) {
+		User submited = getSubmitedUser(body);
+		
+		validation.valid(user);
+	    if(validation.hasErrors()) {
+	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    }
+	    
+    	User user = getUserAccount(submited.username, submited.password);
+        if (user != null && user.id > 0) {
+        	session.put("token", createToken(submited.username, String.valueOf(user.id)));
+        	jsonOk(user, 1l);
         }
-        else {
-        	String username = params.get("username");
-    		String password = params.get("password");
-    		
-    		User user = getUserAccount(username, password);
-	        if (user != null && user.id > 0) {
-	        	session.put("token", createToken(username, String.valueOf(user.id)));
-	        	jsonOk(user, 1l);
-	        }
-        }
-		jsonError("Login failed");
+    	jsonError("Login failed");
 	}
 	
 	

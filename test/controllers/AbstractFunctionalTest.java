@@ -27,11 +27,8 @@ public abstract class AbstractFunctionalTest extends FunctionalTest {
 	}
 	
 	protected void login() {
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("username", "admin@localhost.com");
-		parameters.put("password", "123456");
-		
-		POST("/auth/authenticate", parameters);
+		String body = "{data:{\"username\":\"admin@localhost.com\",\"password\":\"123456\"}}";
+	    POST("/users/authenticate", "application/json", body);		
 	}
 	
 	protected int getTotalObjectsIn(Response response) {

@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import play.mvc.Http;
+import play.mvc.Http.Request;
 import play.mvc.Http.Response;
 import play.mvc.Scope;
 import play.mvc.Scope.Params;
@@ -35,32 +36,25 @@ public class UsersTest extends FunctionalTest {
 	
 	@Test
 	public void testAccessDeniedForInvalidUser() {
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("username", "foo@bar.com");
-		parameters.put("password", "xxxxxxx");
+		String body = "{data:{\"username\":\"foo@bar.com\",\"password\":\"xxxxxx\"}}";
+		Response response = POST("/users/authenticate", "application/json", body);
 		
-		Response response = POST("/users/authenticate", parameters);
 		assertFalse(isLogged(response));
 	}
 	
 	@Test
 	public void testAccessGaranted() {
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("username", "admin@localhost.com");
-		parameters.put("password", "123456");
 		
-		Response response = POST("/users/authenticate", parameters);
-
+		String body = "{data:{\"username\":\"admin@localhost.com\",\"password\":\"123456\"}}";
+		Response response = POST("/users/authenticate", "application/json", body);
+		
 		assertTrue(isLogged(response));
 	}
 	
 	@Test
 	public void testCreateUserOnlyRequiredFields() {
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("username", "eu@gustavohenrique.net");
-		parameters.put("password", "123456");
-		
-		Response response = POST("/users/create", parameters);
+		String body = "{data:{\"username\":\"eu@gustavohenrique.net\",\"password\":\"123456\"}}";
+	    Response response = POST("/users/create", "application/json", body);		
 
 		assertTrue(isSucccess(response));
 		
@@ -70,11 +64,8 @@ public class UsersTest extends FunctionalTest {
 	
 	@Test
 	public void testFailTryingDuplicateUsername() {
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("username", "admin@localhost.com");
-		parameters.put("password", "123456");
-		
-		Response response = POST("/users/create", parameters);
+		String body = "{data:{\"username\":\"admin@localhost.com\",\"password\":\"123456\"}}";
+		Response response = POST("/users/create", "application/json", body);
 
 		assertFalse(isSucccess(response));
 		assertEquals(1, User.find("byUsername", "admin@localhost.com").fetch().size());

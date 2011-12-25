@@ -1,8 +1,12 @@
 package controllers;
 
+import models.Account;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import play.mvc.Http.Response;
+import play.test.Fixtures;
 
 public class AccountsTest extends AbstractFunctionalTest {
 	

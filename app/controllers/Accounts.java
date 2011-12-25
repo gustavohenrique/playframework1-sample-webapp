@@ -23,7 +23,7 @@ public class Accounts extends Users {
     }
 	
 	public static void read() {
-		List<Account> accounts = Account.find("order by name").fetch();
+		List<Account> accounts = Account.find("byUser", user).fetch();
 		jsonOk(accounts, ConverterUtil.toLong(accounts.size()));
 	}
 	
