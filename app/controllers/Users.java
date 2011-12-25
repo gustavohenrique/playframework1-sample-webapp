@@ -70,6 +70,25 @@ public class Users extends JsonController {
 		User submited = gson.fromJson(body.get("data"), User.class);
 		return submited;
 	}
+	
+	public static void authenticate() {
+		if (validation.hasErrors()) {
+            flash.keep("url");
+            flash.error("secure.error");
+            params.flash();
+        }
+        else {
+        	String username = params.get("username");
+    		String password = params.get("password");
+    		
+    		User user = getUserAccount(username, password);
+	        if (user != null && user.id > 0) {
+	        	session.put("token", createToken(username, String.valueOf(user.id)));
+	        	jsonOk(user, 1l);
+	        }
+        }
+		jsonError("Login failed");
+	}
 
 	public static void authenticate(JsonObject body) {
 		User submited = getSubmitedUser(body);

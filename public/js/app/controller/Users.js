@@ -7,7 +7,7 @@ Ext.define('PoupaNiquel.controller.Users', {
     
     init: function() {
     	this.control({
-	        'loginPanel button[action=authenticate]': {
+	        'login button[action=authenticate]': {
 	            click: this.authenticate
 	        },
 	        'signup button[action=create]': {
@@ -19,13 +19,11 @@ Ext.define('PoupaNiquel.controller.Users', {
     create: function(button) {
     	var win = button.up('window'),
             form = win.down('form'),
-    		values = form.getValues(),
-    		store = this.getUsersStore();
+    		values = form.getValues();
     	
     	if (form.getForm().isValid()) {
     		var user = new PoupaNiquel.model.User();
     		user.set(values);
-    		console.log(user);
     		user.save({
     		    success: function() {
     		    	window.location.href = '/'
@@ -35,16 +33,19 @@ Ext.define('PoupaNiquel.controller.Users', {
     },
     
     authenticate: function(button) {
-    	var form = button.up('form').getForm();
+    	var win = button.up('window'),
+	        form = win.down('form').getForm();
+		
     	if (form.isValid()) {
 	    	form.submit({
 	    	    url: '/users/authenticate',
 	            method: 'POST',
 	            scope:this,
+	            
 	            success: function(form, response) {
 	            	window.location.href = '/'
-	//                 Ext.ux.Router.redirect('');
 	            },
+	            
 	            failure: function(form, response) {
 	            	Ext.Msg.alert('Error', response.result.message);
 	            }

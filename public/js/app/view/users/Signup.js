@@ -34,6 +34,7 @@ Ext.define('PoupaNiquel.view.users.Signup', {
     		fieldLabel: 'E-mail',
     		xtype: 'textfield',
     		name: 'username',
+    		vtype: 'email'
         }, {
         	fieldLabel: 'Password',
            	xtype: 'textfield',

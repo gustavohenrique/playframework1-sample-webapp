@@ -36,18 +36,23 @@ public class UsersTest extends FunctionalTest {
 	
 	@Test
 	public void testAccessDeniedForInvalidUser() {
-		String body = "{data:{\"username\":\"foo@bar.com\",\"password\":\"xxxxxx\"}}";
-		Response response = POST("/users/authenticate", "application/json", body);
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("username", "foo@bar.com");
+		parameters.put("password", "xxx");
+		
+		Response response = POST("/users/authenticate", parameters);
 		
 		assertFalse(isLogged(response));
 	}
 	
 	@Test
 	public void testAccessGaranted() {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("username", "admin@localhost.com");
+		parameters.put("password", "123456");
 		
-		String body = "{data:{\"username\":\"admin@localhost.com\",\"password\":\"123456\"}}";
-		Response response = POST("/users/authenticate", "application/json", body);
-		
+		Response response = POST("/users/authenticate", parameters);
+
 		assertTrue(isLogged(response));
 	}
 	
