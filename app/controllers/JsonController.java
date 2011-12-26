@@ -12,6 +12,10 @@ public class JsonController extends Controller {
 		renderJSON(ExtJSReturn.mapError("Object not found"));
 	}
 	
+	protected static void jsonOk(String message) {
+		renderJSON(ExtJSReturn.mapOk(message));
+	}
+	
 	protected static void jsonError(String message) {
 		renderJSON(ExtJSReturn.mapError(message));
 	}

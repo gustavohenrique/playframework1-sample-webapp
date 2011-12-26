@@ -9,8 +9,13 @@ Ext.define('PoupaNiquel.controller.Main', {
 	        'button[action=transactions]': {
 	            click: this.openTransactions
 	        },
+	        
 	        'button[action=accounts]': {
 		        click: this.openAccounts
+		    },
+		    
+		    'button[action=import]': {
+		        click: this.openImport
 		    }
     	})
     },
@@ -21,5 +26,9 @@ Ext.define('PoupaNiquel.controller.Main', {
     
     openAccounts: function() {
     	this.getController('Accounts').showPanel();
+    },
+    
+    openImport: function() {
+    	this.getController('Importers').showPanel();
     }
 });

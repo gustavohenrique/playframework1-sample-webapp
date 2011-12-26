@@ -1,8 +1,8 @@
 Ext.define('PoupaNiquel.view.main.Top', {
-	extend: 'Ext.panel.Panel',
+	extend: 'Ext.toolbar.Toolbar',
     alias: 'widget.mainTop',
     
-    bbar: [{
+    items: [{
     	cls:'x-btn-text-icon',
     	scale: 'large',
     	action: 'transactions',
@@ -24,6 +24,12 @@ Ext.define('PoupaNiquel.view.main.Top', {
     	scale: 'large',
     	iconCls: 'payees-icon',
     	text: 'Payees'
+    }, '-', {
+    	cls:'x-btn-text-icon',
+    	scale: 'large',
+    	action: 'import',
+    	iconCls: 'import-icon',
+    	text: 'Import'
     }],
 
     initComponent: function() {

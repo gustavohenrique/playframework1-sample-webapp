@@ -17,16 +17,18 @@ Ext.application({
         viewport = Ext.create('Ext.container.Viewport', {
             id: 'viewport',
             layout: 'border',
+            
             items: [{
+                region: 'north',
+                height: 45,
+                xtype: 'mainTop',
+                border: true,
+            }, {
                 id: 'viewportCenter',
                 region: 'center',
                 border: false,
                 autoScroll: true,
 
-            }, {
-                region: 'north',
-                height: 45,
-                xtype: 'mainTop',
             }]
         });
     }

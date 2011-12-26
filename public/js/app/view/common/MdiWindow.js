@@ -7,6 +7,7 @@ Ext.define('PoupaNiquel.view.common.MdiWindow', {
     closable: true,
     closeAction: 'destroy',
     plain: true,
+    border: false,
     layout: 'fit',
     
     initComponent: function() {

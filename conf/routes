@@ -7,6 +7,8 @@ POST    /users/authenticate                     Users.authenticate
 GET     /users/login                            Users.login
 POST    /users/create                           Users.create
 
+POST    /importers/upload                       Importers.upload
+
 GET     /                                       Transactions.index
 GET     /transactions/read/{accountId}          Transactions.read
 POST    /transactions/create/{accountId}        Transactions.create
