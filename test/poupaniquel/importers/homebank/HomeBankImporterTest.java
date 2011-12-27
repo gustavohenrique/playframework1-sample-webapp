@@ -27,16 +27,16 @@ public class HomeBankImporterTest extends UnitTest {
 	public void onSetUp() throws Exception {
 		Fixtures.deleteAllModels();
 		Fixtures.loadModels("fixtures.yml");
-		User user = User.find("byUsername", "admin@localhost.com").first();
 		InputStream file = VirtualFile.open("test/homebank-sample.xhb").inputstream();
-		HomeBankImporter importer = new HomeBankImporter(user);
-		homeBank = importer.fromXml(file);
+		
+		User user = User.find("byUsername", "admin@localhost.com").first();
+		homeBank = new HomeBankImporter().fromXml(file);
+		homeBank.setUser(user);
 	}
 	
 	@Test
 	public void testGetHomeBankHasVersionAndUser() {
 		assertEquals("0.5", homeBank.getVersion());
-		assertEquals("admin@localhost.com", homeBank.getUser().username);
 	}
 	
 	@Test
@@ -45,7 +45,6 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(3, accounts.size());
 		
 		Account account = accounts.get(0);
-		assertEquals("admin@localhost.com", account.user.username);
 		assertEquals(1, account.key);
 		assertEquals("Citibank", account.name);
 		assertEquals("25739904721", account.number);
@@ -58,7 +57,6 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(10, payees.size());
 		
 		Payee payee = payees.get(0);
-		assertEquals("admin@localhost.com", payee.user.username);
 		assertEquals(1, payee.key);
 		assertEquals("Wallmart", payee.name);
 	}
@@ -69,7 +67,6 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(10, categories.size());
 		
 		Category category = categories.get(3);
-		assertEquals("admin@localhost.com", category.user.username);
 		assertEquals(10, category.key);
 		assertEquals(1, category.parent);
 		assertEquals("Book", category.name);
@@ -81,7 +78,6 @@ public class HomeBankImporterTest extends UnitTest {
 		assertEquals(5, transactions.size());
 		
 		Transaction transaction = transactions.get(4);
-		assertEquals("admin@localhost.com", transaction.user.username);
 		assertEquals(new BigDecimal("-46.47"), transaction.amount);
 		assertEquals("Buy book Clean Code", transaction.description);
 		assertEquals(1, transaction.account.key);

@@ -4,11 +4,7 @@ import java.util.List;
 
 import models.Account;
 import play.data.binding.Binder;
-import play.mvc.Before;
-import play.mvc.Controller;
-import play.mvc.Http;
 import utils.ConverterUtil;
-import utils.ExtJSReturn;
 import utils.GsonBinder;
 
 import com.google.gson.Gson;
@@ -16,7 +12,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 public class Accounts extends Users {
-	
 	
 	static {
         Binder.register(JsonObject.class, new GsonBinder());

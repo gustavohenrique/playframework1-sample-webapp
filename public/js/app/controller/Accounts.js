@@ -6,7 +6,7 @@ Ext.define('PoupaNiquel.controller.Accounts', {
 
     models: ['Account'],
     stores: ['Accounts'],
-    views: ['accounts.Grid', 'common.MdiWindow'],
+    views:  ['accounts.Grid', 'common.MdiWindow'],
     
     refs: [{
     	ref: 'accountsGrid',

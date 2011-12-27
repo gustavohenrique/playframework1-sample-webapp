@@ -15,20 +15,15 @@ import play.db.jpa.JPA;
 
 public class HomeBankDao {
 	
-	private static User user;
-	
-	public HomeBankDao(User user) {
-		this.user = user;
-	}
-
 	public void persist(HomeBank homeBank) {
-		saveAccountsInDB(homeBank.getAccounts());
-		saveCategoriesInDB(homeBank.getCategories());
-		savePayeesInDB(homeBank.getPayees());
-		saveTransactionsInDB(homeBank.getTransactions());
+		saveAccountsInDB(homeBank);
+		saveCategoriesInDB(homeBank);
+		savePayeesInDB(homeBank);
+		saveTransactionsInDB(homeBank);
 	}
 
-	private static List<Transaction> saveTransactionsInDB(List<Transaction> transactions) {
+	private static List<Transaction> saveTransactionsInDB(HomeBank homeBank) {
+		List<Transaction> transactions = homeBank.getTransactions();
 		
 		for (Transaction transaction : transactions) {
     		if (notRegisteredInDb(transaction)) {
@@ -55,6 +50,7 @@ public class HomeBankDao {
 	    			transaction.payee = payee;
     			}
     			
+    			transaction.user = homeBank.getUser();
     			transaction.save();
     		}
 		}
@@ -72,30 +68,33 @@ public class HomeBankDao {
 		}
 	}
 
-	private static List<Payee> savePayeesInDB(List<Payee> payees) {
+	private static List<Payee> savePayeesInDB(HomeBank homeBank) {
+		List<Payee> payees = homeBank.getPayees();
     	for (Payee payee : payees) {
 			if (notFound(Payee.find("byName", payee.name))) {
-				payee.user = user;
+				payee.user = homeBank.getUser();
 				payee.save();
 			}
 		}
 		return payees;
 	}
 
-	private static List<Account> saveAccountsInDB(List<Account> accounts) {
+	private static List<Account> saveAccountsInDB(HomeBank homeBank) {
+		List<Account> accounts = homeBank.getAccounts();
 		for (Account account : accounts) {
 			if (notFound(Account.find("byName", account.name))) {
-				account.user = user;
+				account.user = homeBank.getUser();
 				account.save();
 			}
 		}
 		return accounts;
 	}
     
-    private static List<Category> saveCategoriesInDB(List<Category> categories) {
+    private static List<Category> saveCategoriesInDB(HomeBank homeBank) {
+		List<Category> categories = homeBank.getCategories();
 		for (Category category : categories) {
 			if (notFound(Category.find("byName", category.name))) {
-				category.user = user;
+				category.user = homeBank.getUser();
 				category.save();
 			}
 		}

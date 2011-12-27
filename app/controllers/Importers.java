@@ -4,7 +4,9 @@ package controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 
+import models.Account;
 import models.HomeBank;
 import poupaniquel.importers.homebank.HomeBankDao;
 import poupaniquel.importers.homebank.HomeBankImporter;
@@ -17,12 +19,14 @@ public class Importers extends Users {
     	if (! validation.hasErrors()) {
 	    	try {
 				InputStream xmlFile = new FileInputStream(file);
-				HomeBank homeBank = new HomeBankImporter(user).fromXml(xmlFile);
+				HomeBank homeBank = new HomeBankImporter().fromXml(xmlFile);
+				homeBank.setUser(user);
 				
-				new HomeBankDao(null).persist(homeBank);
+				new HomeBankDao().persist(homeBank);
 				
 				response.contentType = "text/html";
-				jsonOk("File was successful imported");
+				List<Account> a = Account.findAll();
+				jsonOk("File was successful imported!");
 			}
 			catch (Exception e) {
 				jsonError(e.getMessage());

@@ -13,7 +13,6 @@ import models.Category;
 import models.HomeBank;
 import models.Payee;
 import models.Transaction;
-import models.User;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.Converter;
@@ -24,11 +23,6 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class HomeBankImporter {
 
-	private User user;
-	
-	public HomeBankImporter(User user) {
-		this.user = user;
-	}
 
 	public HomeBank fromXml(InputStream file) throws Exception {
 		XStream xstream = new XStream();
@@ -59,7 +53,6 @@ public class HomeBankImporter {
 			
 			HomeBank homeBank = new HomeBank();
 			homeBank.setVersion(reader.getAttribute("v"));
-			homeBank.setUser(user);
 
 			while(reader.hasMoreChildren()) {
 				reader.moveDown();
@@ -83,7 +76,6 @@ public class HomeBankImporter {
 		
 		private void parserAccount(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Account account = new Account();
-			account.user = homeBank.getUser();
 			account.key = Integer.valueOf(reader.getAttribute("key"));
 			account.name = reader.getAttribute("name");
 			account.number = reader.getAttribute("number");
@@ -93,7 +85,6 @@ public class HomeBankImporter {
 		
 		private void parserPayee(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Payee payee= new Payee();
-			payee.user = homeBank.getUser();
 			payee.key = Integer.valueOf(reader.getAttribute("key"));
 			payee.name = reader.getAttribute("name");
 			homeBank.addPayee(payee);
@@ -101,7 +92,6 @@ public class HomeBankImporter {
 		
 		private void parserCategory(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Category category = new Category();
-			category.user = homeBank.getUser();
 			category.key = Integer.valueOf(reader.getAttribute("key"));
 			category.parent = Integer.valueOf(reader.getAttribute("parent"));
 			category.name = reader.getAttribute("name");
@@ -110,7 +100,6 @@ public class HomeBankImporter {
 		
 		private void parserTransaction(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Transaction transaction = new Transaction();
-			transaction.user = homeBank.getUser();
 			transaction.description = reader.getAttribute("wording");
 			
 			BigDecimal amount = new BigDecimal(reader.getAttribute("amount"));
