@@ -14,7 +14,7 @@ import play.mvc.Http.Response;
 import play.test.Fixtures;
 import play.test.FunctionalTest;
 
-public abstract class AbstractFunctionalTest extends FunctionalTest {
+public abstract class FixturesAndLogin extends FunctionalTest {
 	
 	protected Account citibank;
 	
@@ -43,6 +43,18 @@ public abstract class AbstractFunctionalTest extends FunctionalTest {
 		}
 		catch (Exception e) {
 			return 0;
+		}
+	}
+	
+	protected JsonNode getNode(String node, Response response) {
+		try {
+			String json = getContent(response).toString();
+			ObjectMapper mapper = new ObjectMapper();
+			return mapper.readTree(json).findValue(node);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	

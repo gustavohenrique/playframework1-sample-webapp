@@ -1,36 +1,48 @@
 package controllers;
 
-import models.Account;
-
-import org.junit.Before;
+import org.codehaus.jackson.JsonNode;
 import org.junit.Test;
 
 import play.mvc.Http.Response;
-import play.test.Fixtures;
 
-public class AccountsTest extends AbstractFunctionalTest {
+public class AccountsTest extends FixturesAndLogin {
 	
 	@Test
-	public void testGetAllAccounts() {
+	public void testGetAllAccountsByUser() {
 		Response response = GET("/accounts/read");
-		assertEquals(2, getTotalObjectsIn(response));
+		JsonNode node = getNode("data", response);
+		
+		assertEquals("Citibank", node.findValuesAsText("name").get(0));
+		assertEquals("25739904721", node.findValuesAsText("number").get(0));
+		assertEquals("900.0", node.findValuesAsText("initial").get(0));
+		
+		assertEquals("Itau", node.findValuesAsText("name").get(1));
+		assertEquals("6254", node.findValuesAsText("number").get(1));
+		assertEquals("900.5", node.findValuesAsText("initial").get(1));
+	}
+
+	@Test
+	public void testGetAccountById() {
+		Long id = citibank.id;
+		Response response = GET("/accounts/read/"+id);
+		JsonNode node = getNode("data", response);
+		
+		assertEquals("Citibank", node.findValuesAsText("name").get(0));
+		assertEquals("25739904721", node.findValuesAsText("number").get(0));
+		assertEquals("900.0", node.findValuesAsText("initial").get(0));
 	}
 	
-//	@Test
-//	public void testGetAccountById() {
-//		Response response = GET("/accounts/read/1");
-//		assertEquals(1, getTotalObjectsIn(response));
-//	}
-	
-//	@Test
-//	public void testUpdateAccount() {
-//	    String expected = "";
-//		Request req = newRequest();
-//		req.contentType = "application/json";
-//		req.params.put("id", "1");
-//		req.actionMethod = "PUT";
-//		
-//	    Response response = POST(req, "/accounts/update/1");//, "application/json", "{\"id\":1,\"name\":\"Cheque Account2\",\"number\":\"01548726554\",\"initial\":76.22}");
-//		assertEquals(expected, response.out.toString());
-//	}
+	@Test
+	public void testUpdateAccountNumberAndInitial() {
+		String body = "{data:{\"id\":" + citibank.id + ",\"name\":\"Citibank\",\"number\":\"17599\",\"initial\":85.90}}";
+	    Response response = POST("/accounts/update", "application/json", body);
+		
+	    JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+	    JsonNode data = getNode("data", response);
+	    assertEquals("Citibank", data.findValuesAsText("name").get(0));
+		assertEquals("17599", data.findValuesAsText("number").get(0));
+		assertEquals("85.9", data.findValuesAsText("initial").get(0));
+	}
 }

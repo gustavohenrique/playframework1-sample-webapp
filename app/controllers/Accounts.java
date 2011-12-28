@@ -17,16 +17,22 @@ public class Accounts extends Users {
         Binder.register(JsonObject.class, new GsonBinder());
     }
 	
-	public static void read() {
-		List<Account> accounts = Account.find("byUser", user).fetch();
-		jsonOk(accounts, ConverterUtil.toLong(accounts.size()));
+	public static void read(Long id) {
+		if (id != null) {
+			Account account = Account.find("byUserAndId", user, id).first();
+			jsonOk(account, 1l);
+		}
+		else {
+			List<Account> accounts = Account.find("byUser", user).fetch();
+			jsonOk(accounts, ConverterUtil.toLong(accounts.size()));
+		}
 	}
 	
-	public static void update(Long accountId, JsonObject body) {
+	public static void update(JsonObject body) {
 		Gson gson = new GsonBuilder().serializeNulls().create();
 		Account submited = gson.fromJson(body.get("data"), Account.class);
 		
-		Account account = Account.findById(submited.getId());
+		Account account = Account.findById(submited.id);
 		account.name = submited.name;
 		account.number = submited.number;
 		account.initial = submited.initial;

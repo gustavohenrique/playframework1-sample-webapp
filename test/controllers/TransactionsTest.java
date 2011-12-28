@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import play.mvc.Http.Response;
 
-public class TransactionsTest extends AbstractFunctionalTest {
+public class TransactionsTest extends FixturesAndLogin {
 
 	@Test
 	public void testGetCategories() {
