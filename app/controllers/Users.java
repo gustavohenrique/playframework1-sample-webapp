@@ -65,12 +65,6 @@ public class Users extends JsonController {
 		}
 	}
 
-	private static User getSubmitedUser(JsonObject body) {
-		Gson gson = new GsonBuilder().serializeNulls().create();
-		User submited = gson.fromJson(body.get("data"), User.class);
-		return submited;
-	}
-	
 	public static void authenticate() {
 		if (validation.hasErrors()) {
             flash.keep("url");
@@ -138,6 +132,12 @@ public class Users extends JsonController {
 		}
 		catch (Exception e) {}
 		return null;
+	}
+	
+	private static User getSubmitedUser(JsonObject body) {
+		Gson gson = new GsonBuilder().serializeNulls().create();
+		User submited = gson.fromJson(body.get("data"), User.class);
+		return submited;
 	}
 	
 }

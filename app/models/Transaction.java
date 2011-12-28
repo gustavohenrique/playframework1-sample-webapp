@@ -2,20 +2,16 @@ package models;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -27,7 +23,7 @@ import play.db.jpa.Model;
 public class Transaction extends Model {
 	
 	@Required
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	public User user;
 
 	@MaxSize(250)

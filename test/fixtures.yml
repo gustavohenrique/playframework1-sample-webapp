@@ -10,6 +10,7 @@ Account(citibank):
     name: Citibank
     number: 25739904721
     initial: 900.0
+    disabled: false
 
 Account(itau):
     user: admin
@@ -17,6 +18,7 @@ Account(itau):
     name: Itau
     number: 6254
     initial: 900.5
+    disabled:
 
 Category(food):
     user: admin
