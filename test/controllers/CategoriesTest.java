@@ -74,20 +74,16 @@ public class CategoriesTest extends FixturesAndLogin {
 	    JsonNode success = getNode("success", response);
 	    assertEquals("false", success.toString());
 	}
-	/*
+	
 	@Test
-	public void testUpdateCategoryNumberAndInitial() {
-		String body = "{data:{\"id\":" + citibank.id + ",\"name\":\"Citibank\",\"number\":\"17599\",\"initial\":85.90}}";
+	public void testUpdateCategoryName() {
+		String body = "{data:{\"name\":\"Fast Food\", \"id\":" + food.id + "}}";
 	    Response response = POST("/categories/update", "application/json", body);
 		
 	    JsonNode success = getNode("success", response);
 	    assertEquals("true", success.toString());
 	    
 	    JsonNode data = getNode("data", response);
-	    assertEquals("Citibank", data.findValuesAsText("name").get(0));
-		assertEquals("17599", data.findValuesAsText("number").get(0));
-		assertEquals("85.9", data.findValuesAsText("initial").get(0));
-		assertEquals("false", data.findValuesAsText("disabled").get(0));
+	    assertEquals("Fast Food", data.findValuesAsText("name").get(0));
 	}
-	*/
 }

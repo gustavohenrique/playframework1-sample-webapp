@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.List;
 
-import models.Account;
+import models.Category;
 import models.Category;
 import models.User;
 import play.data.binding.Binder;
@@ -62,22 +62,20 @@ public class Categories extends Users {
 		}
 	}
 	
-//	public static void update(JsonObject body) {
-//		Account submited = getSubmitedAccount(body);
-//		
-//		Account account = Account.findById(submited.id);
-//		account.name = submited.name;
-//		account.number = submited.number;
-//		account.initial = submited.initial;
-//		
-//	    validation.valid(account);
-//	    if(validation.hasErrors()) {
-//	    	jsonError("Validation error: "+validation.errors().get(0).toString());
-//	    }
-//	    
-//	    account.save();
-//		jsonOk(account, 1l);
-//	}
+	public static void update(JsonObject body) {
+		Category submited = getSubmitedCategory(body);
+		
+		Category category = Category.findById(submited.id);
+		category.name = submited.name;
+		
+	    validation.valid(category);
+	    if(validation.hasErrors()) {
+	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    }
+	    
+	    category.save();
+		jsonOk(category, 1l);
+	}
 	
 	private static Category getSubmitedCategory(JsonObject body) {
 		Gson gson = new GsonBuilder().serializeNulls().create();
