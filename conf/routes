@@ -19,6 +19,11 @@ POST    /accounts/create                        Accounts.create
 DELETE  /accounts/delete/{<[0-9]+>id}           Accounts.delete
 PUT     /accounts/update                        Accounts.update
 
+GET     /categories/read/{<[0-9]+>id}           Categories.read
+POST    /categories/create                      Categories.create
+DELETE  /categories/delete/{<[0-9]+>id}         Categories.delete
+PUT     /categories/update                      Categories.update
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
