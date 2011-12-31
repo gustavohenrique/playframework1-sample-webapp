@@ -3,7 +3,9 @@ package controllers;
 import models.Account;
 import models.Category;
 import models.Payee;
+import models.Transaction;
 
+import org.codehaus.jackson.JsonNode;
 import org.junit.Test;
 
 import play.mvc.Http.Response;
@@ -12,28 +14,47 @@ public class TransactionsTest extends FixturesAndLogin {
 
 	private Account citibank;
 	
+	private Transaction transaction;
+	
 	public void setUp() {
 		super.setUp();
 		citibank = Account.find("byName", "Citibank").first();
+		transaction = Transaction.find("byDescription", "Chocolate").first();
 	}
 	
 	@Test
-	public void testGetCategories() {
-	    Response response = GET("/transactions/categories");
-		assertEquals(10, getTotalObjectsIn(response));
+	public void testDontGetTransactionsIfDontHaveAccount() {
+		Response response = GET("/transactions/read/account/0");
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("false", success.toString());
 	}
 	
 	@Test
-	public void testGetPayees() {
-	    Response response = GET("/transactions/payees");
-	    assertEquals(9, getTotalObjectsIn(response));
+	public void testGetAllTransactionsAccordingOfAccount() {
+		Response response = GET("/transactions/read/account/" + citibank.id);
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+		
+		JsonNode data = getNode("data", response);
+		assertEquals(7, data.findValuesAsText("description").size());
+		assertEquals(7, data.findValuesAsText("amount").size());
 	}
 	
 	@Test
-	public void testGetTransactionsAccordingOfAccount() {
-		Response response = GET("/transactions/read/" + citibank.getId());
-		assertEquals(7, getTotalObjectsIn(response));
+	public void testGetTransactionById() {
+		Response response = GET("/transactions/read/" + transaction.id + "/account/" + citibank.id);
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals(1, data.findValuesAsText("description").size());
+		assertEquals(1, data.findValuesAsText("amount").size());
 	}
+	
+	/*
 	
 	@Test
 	public void testGetTransactionsPaginated() {
@@ -72,5 +93,5 @@ public class TransactionsTest extends FixturesAndLogin {
 		Response response = GET("/transactions/read?accountId=" + citibank.getId()+"&startDate=2011-08-02&endDate=2011-08-02");
 		assertEquals(1, getTotalObjectsIn(response));
 	}
-	
+	*/
 }

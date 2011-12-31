@@ -53,7 +53,7 @@ public class Transaction extends Model {
 		this.amount = new BigDecimal(amount);
 	}
 	
-	public static List<Transaction> filterByAccount(Account account) {
+	/*public static List<Transaction> filterByAccount(Account account) {
 		TransactionFilterOptions config = new TransactionFilterOptions();
 		config.setAccount(account);
 		return filter(config);
@@ -79,15 +79,16 @@ public class Transaction extends Model {
 		config.setAccount(account);
 		config.setCategory(category);
 		return filter(config);
-	}
+	}*/
 	
 	public static List<Transaction> filter(TransactionFilterOptions config) {
 		
-		if (config == null || config.getAccount() == null) {
+		if (config == null || config.getUserId() == 0 || config.getAccountId() == 0) {
 			return null;
 		}
 		
-		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE account_id='" + config.getAccount().getId() + "' ");
+		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE user_id='" + config.getUserId()
+				+ "' AND account_id='" + config.getAccountId() + "' ");
 
 		if (isNotNull(config.getStart())) {
 			sql.append("AND transactionDate >= '" + formatDate(config.getStart()) + "' ");
@@ -97,12 +98,16 @@ public class Transaction extends Model {
 			sql.append("AND transactionDate <= '" + formatDate(config.getEnd()) + "' ");
 		}
 		
-		if (isNotNull(config.getPayee())) {
-			sql.append("AND payee_id = '" + config.getPayee().getId() + "' ");
+		if (isBiggerThanZero(config.getTransactionId())) {
+			sql.append("AND id = '" + config.getTransactionId() + "' ");
 		}
 		
-		if (isNotNull(config.getCategory())) {
-			sql.append("AND category_id = '" + config.getCategory().getId() + "' ");
+		if (isBiggerThanZero(config.getPayeeId())) {
+			sql.append("AND payee_id = '" + config.getPayeeId() + "' ");
+		}
+		
+		if (isBiggerThanZero(config.getCategoryId())) {
+			sql.append("AND category_id = '" + config.getCategoryId() + "' ");
 		}
 		
 		String orderBy = "transactionDate, amount";
@@ -125,5 +130,9 @@ public class Transaction extends Model {
 	
 	public static boolean isNotNull(Object object) {
 		return object != null;
+	}
+	
+	private static boolean isBiggerThanZero(Long value) {
+		return value != null && value > 0;
 	}
 }

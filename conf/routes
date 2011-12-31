@@ -9,10 +9,16 @@ POST    /users/create                           Users.create
 
 POST    /importers/upload                       Importers.upload
 
-GET     /                                       Transactions.index
-GET     /transactions/read/{accountId}          Transactions.read
-POST    /transactions/create/{accountId}        Transactions.create
-DELETE  /transactions/delete/{accountId}        Transactions.delete
+#GET     /                                       Transactions.index
+#GET     /transactions/read/{accountId}          Transactions.read
+#POST    /transactions/create/{accountId}        Transactions.create
+#DELETE  /transactions/delete/{accountId}        Transactions.delete
+
+GET     /transactions/read/account/{<[0-9]+>accountId}                  Transactions.read
+GET     /transactions/read/{<[0-9]+>id}/account/{<[0-9]+>accountId}     Transactions.read
+POST    /transactions/create/account/{accountId}                        Transactions.create
+DELETE  /transactions/delete/{<[0-9]+>id}/account/{accountId}           Transactions.delete
+PUT     /transactions/update/account/{accountId}                        Transactions.update
 
 GET     /accounts/read/{<[0-9]+>id}             Accounts.read
 POST    /accounts/create                        Accounts.create

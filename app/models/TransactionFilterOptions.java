@@ -5,9 +5,11 @@ import java.util.Date;
 
 public class TransactionFilterOptions {
 
-	private Account account;
-	private Payee payee;
-	private Category category;
+	private Long userId;
+	private Long accountId;
+	private Long transactionId;
+	private Long payeeId;
+	private Long categoryId;
 	
 	private Date start;
 	private Date end;
@@ -16,30 +18,6 @@ public class TransactionFilterOptions {
 	private int limitPage = 31;
 	
 	private String orderBy;
-	
-	public Account getAccount() {
-		return account;
-	}
-	
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-	
-	public Payee getPayee() {
-		return payee;
-	}
-	
-	public void setPayee(Payee payee) {
-		this.payee = payee;
-	}
-	
-	public Category getCategory() {
-		return category;
-	}
-	
-	public void setCategory(Category category) {
-		this.category = category;
-	}
 	
 	public Date getStart() {
 		if (start == null) {
@@ -95,5 +73,45 @@ public class TransactionFilterOptions {
 
 	public void setOrderBy(String orderBy) {
 		this.orderBy = orderBy;
+	}
+
+	public Long getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
+
+	public Long getPayeeId() {
+		return payeeId;
+	}
+
+	public void setPayeeId(Long payeeId) {
+		this.payeeId = payeeId;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getTransactionId() {
+		return transactionId;
+	}
+
+	public void setTransactionId(Long transactionId) {
+		this.transactionId = transactionId;
 	}
 }

@@ -30,14 +30,15 @@ public class Transactions extends Users {
 		render();
 	}
 	
-	public static void read(Long accountId) {
+	public static void read(Long id, Long accountId) {
 		try {
-			Account account = Account.findById(accountId);
 			TransactionFilterOptions options = new TransactionFilterOptions();
-			options.setAccount(account);
+			options.setUserId(user.id);
+			options.setTransactionId(id);
+			options.setAccountId(accountId);
 			options.setPagination(params.get("start"), params.get("limit"));
-			options.setCategory(getCategory(params.get("category")));
-			options.setPayee(getPayee(params.get("payee")));
+			options.setCategoryId(ConverterUtil.toLong(params.get("category")));
+			options.setPayeeId(ConverterUtil.toLong(params.get("payee")));
 			options.setStart(ConverterUtil.toDate(params.get("startDate")));
 			options.setEnd(ConverterUtil.toDate(params.get("endDate")));
 	
@@ -45,6 +46,7 @@ public class Transactions extends Users {
 	    	if (transactions == null || transactions.size() == 0) {
 	    		jsonError("No transactions found");
 	    	}
+	    	
 	    	jsonOk(transactions, Transaction.count());
 		}
 		catch (Exception e) {
@@ -71,25 +73,5 @@ public class Transactions extends Users {
 		
 	}
 	
-	public static void create(String accountId) {
-		System.out.println(params); 
-	}
 	
-	public static void categories() {
-		List<Category> categories = Category.find("order by name").fetch();
-		jsonOk(categories, ConverterUtil.toLong(categories.size()));
-	}
-	
-	public static void payees() {
-		List<Payee> payees = Payee.find("order by name").fetch();
-		jsonOk(payees, ConverterUtil.toLong((payees.size())));
-	}
-	
-	private static Category getCategory(String id) {
-		return Category.findById(ConverterUtil.toLong(id));
-	}
-	
-	private static Payee getPayee(String id) {
-		return Payee.findById(ConverterUtil.toLong(id));
-	}
 }
