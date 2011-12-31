@@ -24,6 +24,11 @@ POST    /categories/create                      Categories.create
 DELETE  /categories/delete/{<[0-9]+>id}         Categories.delete
 PUT     /categories/update                      Categories.update
 
+GET     /payees/read/{<[0-9]+>id}               Payees.read
+POST    /payees/create                          Payees.create
+DELETE  /payees/delete/{<[0-9]+>id}             Payees.delete
+PUT     /payees/update                          Payees.update
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

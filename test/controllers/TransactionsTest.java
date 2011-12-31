@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Account;
 import models.Category;
 import models.Payee;
 
@@ -9,6 +10,13 @@ import play.mvc.Http.Response;
 
 public class TransactionsTest extends FixturesAndLogin {
 
+	private Account citibank;
+	
+	public void setUp() {
+		super.setUp();
+		citibank = Account.find("byName", "Citibank").first();
+	}
+	
 	@Test
 	public void testGetCategories() {
 	    Response response = GET("/transactions/categories");

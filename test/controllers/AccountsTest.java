@@ -1,11 +1,20 @@
 package controllers;
 
+import models.Account;
+
 import org.codehaus.jackson.JsonNode;
 import org.junit.Test;
 
 import play.mvc.Http.Response;
 
 public class AccountsTest extends FixturesAndLogin {
+	
+	private Account citibank;
+	
+	public void setUp() {
+		super.setUp();
+		citibank = Account.find("byName", "Citibank").first();
+	}
 	
 	@Test
 	public void testGetAllAccountsByUser() {
