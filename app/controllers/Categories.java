@@ -42,48 +42,46 @@ public class Categories extends Users {
 	}
 	
 	public static void create(JsonObject body) {
-		Account submited = getSubmitedAccount(body);
+		Category submited = getSubmitedCategory(body);
 		
-		Account account = new Account();
-		account.user = user;
-		account.name = submited.name;
-		account.number = submited.number;
-		account.initial = submited.initial;
+		Category category = new Category();
+		category.user = user;
+		category.name = submited.name;
 		
-		validation.valid(account);
+		validation.valid(category);
 	    if(validation.hasErrors()) {
 	    	jsonError("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    try {
-	    	account.save();
-	    	jsonOk(account, 1l);
+	    	category.save();
+	    	jsonOk(category, 1l);
 	    }
 	    catch (Exception e) {
 	    	jsonError("");
 		}
 	}
 	
-	public static void update(JsonObject body) {
-		Account submited = getSubmitedAccount(body);
-		
-		Account account = Account.findById(submited.id);
-		account.name = submited.name;
-		account.number = submited.number;
-		account.initial = submited.initial;
-		
-	    validation.valid(account);
-	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
-	    }
-	    
-	    account.save();
-		jsonOk(account, 1l);
-	}
+//	public static void update(JsonObject body) {
+//		Account submited = getSubmitedAccount(body);
+//		
+//		Account account = Account.findById(submited.id);
+//		account.name = submited.name;
+//		account.number = submited.number;
+//		account.initial = submited.initial;
+//		
+//	    validation.valid(account);
+//	    if(validation.hasErrors()) {
+//	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+//	    }
+//	    
+//	    account.save();
+//		jsonOk(account, 1l);
+//	}
 	
-	private static Account getSubmitedAccount(JsonObject body) {
+	private static Category getSubmitedCategory(JsonObject body) {
 		Gson gson = new GsonBuilder().serializeNulls().create();
-		return gson.fromJson(body.get("data"), Account.class);
+		return gson.fromJson(body.get("data"), Category.class);
 	}
 	
 }

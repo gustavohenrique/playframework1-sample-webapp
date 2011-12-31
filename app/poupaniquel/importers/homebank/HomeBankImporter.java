@@ -93,7 +93,7 @@ public class HomeBankImporter {
 		private void parserCategory(HierarchicalStreamReader reader, HomeBank homeBank) {
 			Category category = new Category();
 			category.key = Integer.valueOf(reader.getAttribute("key"));
-			category.parent = Integer.valueOf(reader.getAttribute("parent"));
+//			category.parent = Integer.valueOf(reader.getAttribute("parent"));
 			category.name = reader.getAttribute("name");
 			homeBank.addCategory(category);
 		}

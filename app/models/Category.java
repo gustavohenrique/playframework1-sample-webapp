@@ -3,6 +3,7 @@ package models;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -20,8 +21,7 @@ public class Category extends Model {
 	
 	public int key;
 	
-	public int parent;
-	
+	@Column(unique=true)
 	public String name;
 	
 	@Override

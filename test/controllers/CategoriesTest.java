@@ -54,22 +54,27 @@ public class CategoriesTest extends FixturesAndLogin {
 		assertNull(category);
 	}
 	
-	/*
 	@Test
 	public void testCreateCategory() {
-		String body = "{data:{\"name\":\"Banco do Brasil\",\"number\":\"16468\",\"initial\":15.85}}";
+		String body = "{data:{\"name\":\"Other Category\"}}";
 	    Response response = POST("/categories/create", "application/json", body);
 		
 	    JsonNode success = getNode("success", response);
 	    assertEquals("true", success.toString());
 	    
 	    JsonNode data = getNode("data", response);
-	    assertEquals("Banco do Brasil", data.findValuesAsText("name").get(0));
-		assertEquals("16468", data.findValuesAsText("number").get(0));
-		assertEquals("15.85", data.findValuesAsText("initial").get(0));
-		assertEquals("false", data.findValuesAsText("disabled").get(0));
+	    assertEquals("Other Category", data.findValuesAsText("name").get(0));
 	}
 	
+	@Test
+	public void testDontDuplicateCategory() {
+		String body = "{data:{\"name\":\"Food\"}}";
+	    Response response = POST("/categories/create", "application/json", body);
+		
+	    JsonNode success = getNode("success", response);
+	    assertEquals("false", success.toString());
+	}
+	/*
 	@Test
 	public void testUpdateCategoryNumberAndInitial() {
 		String body = "{data:{\"id\":" + citibank.id + ",\"name\":\"Citibank\",\"number\":\"17599\",\"initial\":85.90}}";
