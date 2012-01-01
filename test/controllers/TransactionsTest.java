@@ -54,44 +54,80 @@ public class TransactionsTest extends FixturesAndLogin {
 		assertEquals(1, data.findValuesAsText("amount").size());
 	}
 	
-	/*
 	
 	@Test
-	public void testGetTransactionsPaginated() {
-		Response response = GET("/transactions/read?accountId=" + citibank.getId() + "&start=1&limit=2");
-		assertEquals(2, getTotalObjectsIn(response));
+	public void testPaginateAllTransactions() {
+		Response response = GET("/transactions/read/account/" + citibank.id + "?start=1&limit=2");
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals(2, data.findValuesAsText("description").size());
+		assertEquals(2, data.findValuesAsText("amount").size());
 	}
+	
 	
 	@Test
 	public void testGetTransactionsFilteredByCategory() {
 		Category category = Category.find("byName", "Food").first();
-		Response response = GET("/transactions/read?accountId=" + citibank.getId()+"&category=" + category.getId());
-		assertEquals(4, getTotalObjectsIn(response));
+		Response response = GET("/transactions/read/account/" + citibank.id + "?category=" + category.id);
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals(4, data.findValuesAsText("description").size());
+		assertEquals(4, data.findValuesAsText("amount").size());
 	}
+	
 	
 	@Test
 	public void testGetTransactionsFilteredByPayee() {
 		Payee payee = Payee.find("byName", "Americanas").first();
-		Response response = GET("/transactions/read?accountId=" + citibank.getId()+"&payee=" + payee.getId());
-		assertEquals(1, getTotalObjectsIn(response));
+		Response response = GET("/transactions/read/account/" + citibank.id + "?payee=" + payee.id);
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals(1, data.findValuesAsText("description").size());
+		assertEquals(1, data.findValuesAsText("amount").size());
 	}
 	
 	@Test
 	public void testGetTransactionsFilteredByStartDateUntilNow() {
-		Response response = GET("/transactions/read?accountId=" + citibank.getId()+"&startDate=2011-08-06");
-		assertEquals(1, getTotalObjectsIn(response));
+		Response response = GET("/transactions/read/account/" + citibank.id + "?startDate=2011-08-06");
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals(1, data.findValuesAsText("description").size());
+		assertEquals(1, data.findValuesAsText("amount").size());
 	}
 	
 	@Test
 	public void testGetTransactionsFilteredByEndDate() {
-		Response response = GET("/transactions/read?accountId=" + citibank.getId()+"&endDate=2011-08-02");
-		assertEquals(3, getTotalObjectsIn(response));
+		Response response = GET("/transactions/read/account/" + citibank.id + "?endDate=2011-08-02");
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals(3, data.findValuesAsText("description").size());
+		assertEquals(3, data.findValuesAsText("amount").size());
 	}
 	
 	@Test
 	public void testGetTransactionsFilteredByDateInterval() {
-		Response response = GET("/transactions/read?accountId=" + citibank.getId()+"&startDate=2011-08-02&endDate=2011-08-02");
-		assertEquals(1, getTotalObjectsIn(response));
+		Response response = GET("/transactions/read/account/" + citibank.id + "?startDate=2011-08-02&endDate=2011-08-02");
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals(1, data.findValuesAsText("description").size());
+		assertEquals(1, data.findValuesAsText("amount").size());
 	}
-	*/
 }
