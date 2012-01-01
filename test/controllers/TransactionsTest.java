@@ -130,4 +130,20 @@ public class TransactionsTest extends FixturesAndLogin {
 		assertEquals(1, data.findValuesAsText("description").size());
 		assertEquals(1, data.findValuesAsText("amount").size());
 	}
+	
+	@Test
+	public void testDeleteById() {
+		Response response = DELETE("/transactions/delete/" + transaction.id + "/account/" + citibank.id);
+		
+		JsonNode success = getNode("success", response);
+	    assertEquals("true", success.toString());
+	    
+		JsonNode data = getNode("data", response);
+		assertEquals("Chocolate", data.findValuesAsText("description").get(0));
+		assertEquals("-50.0", data.findValuesAsText("amount").get(0));
+		assertEquals("admin@localhost.com", data.findValuesAsText("username").get(0));
+		
+		Transaction chocolate = Transaction.find("byDescription", "Chocolate").first();
+		assertNull(chocolate);
+	}
 }

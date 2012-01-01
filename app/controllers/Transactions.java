@@ -54,23 +54,16 @@ public class Transactions extends Users {
 		}
     }
 	
-	public static void delete(Long accountId, JsonObject body) {
-		Transaction submited = null;
+	public static void delete(Long id, Long accountId) {
 		try {
-			Gson gson = new GsonBuilder()
-			 .registerTypeAdapter(Date.class, new DateDeserializer())
-			 .serializeNulls()
-		     .create();
-	
-			submited = gson.fromJson(body.get("data"), Transaction.class);
-			Transaction transaction = Transaction.findById(submited.getId());
+			Account account = Account.findById(accountId);
+			Transaction transaction = Transaction.find("byUserAndIdAndAccount", user, id, account).first();
 			transaction.delete();
 			jsonOk(transaction, 1l);
 		}
 		catch (Exception e) {
 			jsonError(e.getMessage());
 		}
-		
 	}
 	
 	
