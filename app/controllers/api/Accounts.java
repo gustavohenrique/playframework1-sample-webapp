@@ -3,9 +3,9 @@ package controllers.api;
 import java.util.List;
 
 import models.Account;
-import models.User;
 import play.data.binding.Binder;
 import utils.ConverterUtil;
+import utils.ExtJS;
 import utils.GsonBinder;
 
 import com.google.gson.Gson;
@@ -21,11 +21,11 @@ public class Accounts extends Users {
 	public static void read(Long id) {
 		if (id != null) {
 			Account account = Account.find("byUserAndIdAndDisabled", user, id, false).first();
-			jsonOk(account, 1l);
+			ExtJS.success(account, 1l);
 		}
 		else {
 			List<Account> accounts = Account.find("byUserAndDisabled", user, false).fetch();
-			jsonOk(accounts, ConverterUtil.toLong(accounts.size()));
+			ExtJS.success(accounts, ConverterUtil.toLong(accounts.size()));
 		}
 	}
 	
@@ -34,10 +34,10 @@ public class Accounts extends Users {
 			Account account = Account.find("byUserAndId", user, id).first();
 			account.disabled = true;
 			account.save();
-			jsonOk(account, 1l);
+			ExtJS.success(account, 1l);
 		}
 		catch (Exception e) {
-			jsonError(e.getMessage());
+			ExtJS.error(e.getMessage());
 		}
 	}
 	
@@ -52,15 +52,15 @@ public class Accounts extends Users {
 		
 		validation.valid(account);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    try {
 	    	account.save();
-	    	jsonOk(account, 1l);
+	    	ExtJS.success(account, 1l);
 	    }
 	    catch (Exception e) {
-	    	jsonError("");
+	    	ExtJS.error("");
 		}
 	}
 	
@@ -74,11 +74,11 @@ public class Accounts extends Users {
 		
 	    validation.valid(account);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    account.save();
-		jsonOk(account, 1l);
+		ExtJS.success(account, 1l);
 	}
 	
 	private static Account getSubmitedAccount(JsonObject body) {

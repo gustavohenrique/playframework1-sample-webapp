@@ -3,10 +3,9 @@ package controllers.api;
 import java.util.List;
 
 import models.Category;
-import models.Category;
-import models.User;
 import play.data.binding.Binder;
 import utils.ConverterUtil;
+import utils.ExtJS;
 import utils.GsonBinder;
 
 import com.google.gson.Gson;
@@ -22,11 +21,11 @@ public class Categories extends Users {
 	public static void read(Long id) {
 		if (id != null) {
 			Category category = Category.find("byUserAndId", user, id).first();
-			jsonOk(category, 1l);
+			ExtJS.success(category, 1l);
 		}
 		else {
 			List<Category> categories = Category.find("byUser", user).fetch();
-			jsonOk(categories, ConverterUtil.toLong(categories.size()));
+			ExtJS.success(categories, ConverterUtil.toLong(categories.size()));
 		}
 	}
 	
@@ -34,10 +33,10 @@ public class Categories extends Users {
 		try {
 			Category category = Category.find("byUserAndId", user, id).first();
 			category.delete();
-			jsonOk(category, 1l);
+			ExtJS.success(category, 1l);
 		}
 		catch (Exception e) {
-			jsonError(e.getMessage());
+			ExtJS.error(e.getMessage());
 		}
 	}
 	
@@ -50,15 +49,15 @@ public class Categories extends Users {
 		
 		validation.valid(category);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    try {
 	    	category.save();
-	    	jsonOk(category, 1l);
+	    	ExtJS.success(category, 1l);
 	    }
 	    catch (Exception e) {
-	    	jsonError("");
+	    	ExtJS.error("");
 		}
 	}
 	
@@ -70,11 +69,11 @@ public class Categories extends Users {
 		
 	    validation.valid(category);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    category.save();
-		jsonOk(category, 1l);
+		ExtJS.success(category, 1l);
 	}
 	
 	private static Category getSubmitedCategory(JsonObject body) {

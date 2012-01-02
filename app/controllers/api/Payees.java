@@ -3,10 +3,9 @@ package controllers.api;
 import java.util.List;
 
 import models.Payee;
-import models.Payee;
-import models.User;
 import play.data.binding.Binder;
 import utils.ConverterUtil;
+import utils.ExtJS;
 import utils.GsonBinder;
 
 import com.google.gson.Gson;
@@ -22,11 +21,11 @@ public class Payees extends Users {
 	public static void read(Long id) {
 		if (id != null) {
 			Payee payee = Payee.find("byUserAndId", user, id).first();
-			jsonOk(payee, 1l);
+			ExtJS.success(payee, 1l);
 		}
 		else {
 			List<Payee> payees = Payee.find("byUser", user).fetch();
-			jsonOk(payees, ConverterUtil.toLong(payees.size()));
+			ExtJS.success(payees, ConverterUtil.toLong(payees.size()));
 		}
 	}
 	
@@ -34,10 +33,10 @@ public class Payees extends Users {
 		try {
 			Payee payee = Payee.find("byUserAndId", user, id).first();
 			payee.delete();
-			jsonOk(payee, 1l);
+			ExtJS.success(payee, 1l);
 		}
 		catch (Exception e) {
-			jsonError(e.getMessage());
+			ExtJS.error(e.getMessage());
 		}
 	}
 	
@@ -50,15 +49,15 @@ public class Payees extends Users {
 		
 		validation.valid(payee);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    try {
 	    	payee.save();
-	    	jsonOk(payee, 1l);
+	    	ExtJS.success(payee, 1l);
 	    }
 	    catch (Exception e) {
-	    	jsonError("");
+	    	ExtJS.error("");
 		}
 	}
 	
@@ -70,11 +69,11 @@ public class Payees extends Users {
 		
 	    validation.valid(payee);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    payee.save();
-		jsonOk(payee, 1l);
+		ExtJS.success(payee, 1l);
 	}
 	
 	private static Payee getSubmitedPayee(JsonObject body) {

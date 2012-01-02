@@ -6,11 +6,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
-
 import models.Account;
 import models.HomeBank;
 import poupaniquel.importers.homebank.HomeBankDao;
 import poupaniquel.importers.homebank.HomeBankImporter;
+import utils.ExtJS;
 
 public class Importers extends Users {
 	
@@ -27,12 +27,12 @@ public class Importers extends Users {
 				
 				response.contentType = "text/html";
 				List<Account> a = Account.findAll();
-				jsonOk("File was successful imported!");
+				ExtJS.success("File was successful imported!");
 			}
 			catch (Exception e) {
-				jsonError(e.getMessage());
+			    ExtJS.error(e.getMessage());
 			}
     	}
-    	jsonError("Validation error");
+    	ExtJS.error("Validation error");
     }
 }

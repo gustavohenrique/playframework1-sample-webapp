@@ -5,13 +5,15 @@ import play.data.binding.Binder;
 import play.data.validation.Required;
 import play.libs.Codec;
 import play.mvc.Before;
+import play.mvc.Controller;
+import utils.ExtJS;
 import utils.GsonBinder;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-public class Users extends JsonController {
+public class Users extends Controller {
 	
 	protected static User user;
 	
@@ -23,12 +25,12 @@ public class Users extends JsonController {
     static void checkAccess() {
         if (! session.contains("token")) {
             flash.put("url", "GET".equals(request.method) ? request.url : "/");
-            jsonError("Access denied");
+            ExtJS.error("Access denied");
         }
         
         user = getUserAccount(session.get("token"));
         if (! exists(user)) {
-            jsonError("User not found");
+            ExtJS.error("User not found");
         }
     }
 	
@@ -42,15 +44,15 @@ public class Users extends JsonController {
 		
 		validation.valid(user);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    try {
 	    	user.save();
-	    	jsonOk(user, 1l);
+	    	ExtJS.success(user, 1l);
 	    }
 	    catch (Exception e) {
-	    	jsonError("");
+	    	ExtJS.error("");
 		}
 	}
 
@@ -67,10 +69,10 @@ public class Users extends JsonController {
     		User user = getUserAccount(username, password);
 	        if (user != null && user.id > 0) {
 	        	session.put("token", createToken(username, String.valueOf(user.id)));
-	        	jsonOk(user, 1l);
+	        	ExtJS.success(user, 1l);
 	        }
         }
-		jsonError("Login failed");
+		ExtJS.error("Login failed");
 	}
 
 	public static void authenticate(JsonObject body) {
@@ -78,15 +80,15 @@ public class Users extends JsonController {
 		
 		validation.valid(user);
 	    if(validation.hasErrors()) {
-	    	jsonError("Validation error: "+validation.errors().get(0).toString());
+	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
     	User user = getUserAccount(submited.username, submited.password);
         if (user != null && user.id > 0) {
         	session.put("token", createToken(submited.username, String.valueOf(user.id)));
-        	jsonOk(user, 1l);
+        	ExtJS.success(user, 1l);
         }
-    	jsonError("Login failed");
+    	ExtJS.error("Login failed");
 	}
 	
 	

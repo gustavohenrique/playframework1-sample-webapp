@@ -9,6 +9,7 @@ import models.TransactionFilterOptions;
 import play.data.binding.Binder;
 import utils.ConverterUtil;
 import utils.DateDeserializer;
+import utils.ExtJS;
 import utils.GsonBinder;
 
 import com.google.gson.Gson;
@@ -36,13 +37,13 @@ public class Transactions extends Users {
 	
 	    	List<Transaction> transactions = Transaction.filter(options);
 	    	if (transactions == null || transactions.size() == 0) {
-	    		jsonError("No transactions found");
+	    		ExtJS.error("No transactions found");
 	    	}
 	    	
-	    	jsonOk(transactions, Transaction.count());
+	    	ExtJS.success(transactions, Transaction.count());
 		}
 		catch (Exception e) {
-			jsonError(e.getMessage());
+			ExtJS.error(e.getMessage());
 		}
     }
 	
@@ -51,10 +52,10 @@ public class Transactions extends Users {
 			Account account = Account.findById(accountId);
 			Transaction transaction = Transaction.find("byUserAndIdAndAccount", user, id, account).first();
 			transaction.delete();
-			jsonOk(transaction, 1l);
+			ExtJS.success(transaction, 1l);
 		}
 		catch (Exception e) {
-			jsonError(e.getMessage());
+			ExtJS.error(e.getMessage());
 		}
 	}
 	
@@ -73,15 +74,15 @@ public class Transactions extends Users {
         
         validation.valid(transaction);
         if(validation.hasErrors()) {
-            jsonError("Validation error: "+validation.errors().get(0).toString());
+            ExtJS.error("Validation error: "+validation.errors().get(0).toString());
         }
         
         try {
             transaction.save();
-            jsonOk(transaction, 1l);
+            ExtJS.success(transaction, 1l);
         }
         catch (Exception e) {
-            jsonError(e.getMessage());
+            ExtJS.error(e.getMessage());
         }
     }
 	
@@ -99,11 +100,11 @@ public class Transactions extends Users {
         
         validation.valid(transaction);
         if(validation.hasErrors()) {
-            jsonError("Validation error: "+validation.errors().get(0).toString());
+            ExtJS.error("Validation error: "+validation.errors().get(0).toString());
         }
         
         transaction.save();
-        jsonOk(transaction, 1l);
+        ExtJS.success(transaction, 1l);
     }
 	
 	private static Transaction getSubmitedTransaction(JsonObject body) {
