@@ -169,7 +169,7 @@ public class TransactionsTest extends FixturesAndLogin {
 	
 	@Test
     public void testCreateTransactionWithAllFields() {
-        String body = "{data:{\"description\":\"my transaction\",\"amount\":\"100.0\",\"transactionDate\":\"2012-01-02\"," +
+        String body = "{data:{\"description\":\"my transaction\",\"amount\":\"100.0\",\"transactionDate\":\"2012-01-02\",\"payment\":1," +
                         "\"payee\":{\"id\":" + payee.id + ",\"name\":\"" + payee.name + "\"}," +
                         "\"category\":{\"id\":" + category.id + ",\"name\":\"" + category.name + "\"}," +
                         "\"account\":{\"id\":" + citibank.id + ",\"name\":\"" + citibank.name + "\",\"number\":\"" + citibank.number + "\",\"initial\":" + citibank.initial + "}}}";
@@ -196,5 +196,22 @@ public class TransactionsTest extends FixturesAndLogin {
         
         Transaction persisted = Transaction.find("byDescription", "my transaction").first();
         assertNull(persisted);
+    }
+	
+	@Test
+    public void testUpdateTransaction() {
+	    String body = "{data:{\"id\":" + transaction.id + ",\"description\":\"my transaction\",\"amount\":\"123.50\",\"transactionDate\":\"2012-01-02\"," +
+                "\"payee\":{\"id\":" + payee.id + ",\"name\":\"" + payee.name + "\"}," +
+                "\"category\":{\"id\":" + category.id + ",\"name\":\"" + category.name + "\"}," +
+                "\"account\":{\"id\":" + citibank.id + ",\"name\":\"" + citibank.name + "\",\"number\":\"" + citibank.number + "\",\"initial\":" + citibank.initial + "}}}";
+
+        Response response = POST("/transactions/update", "application/json", body);
+        
+        JsonNode success = getNode("success", response);
+        assertEquals("true", success.toString());
+        
+        JsonNode data = getNode("data", response);
+        assertEquals("123.5", data.findValuesAsText("amount").get(0));
+        assertEquals("Jan 2, 2012 12:00:00 AM", data.findValuesAsText("transactionDate").get(0));
     }
 }

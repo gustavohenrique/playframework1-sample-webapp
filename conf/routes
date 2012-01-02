@@ -18,7 +18,7 @@ GET     /transactions/read/account/{<[0-9]+>accountId}                  Transact
 GET     /transactions/read/{<[0-9]+>id}/account/{<[0-9]+>accountId}     Transactions.read
 POST    /transactions/create                                            Transactions.create
 DELETE  /transactions/delete/{<[0-9]+>id}/account/{<[0-9]+>accountId}   Transactions.delete
-PUT     /transactions/update/account/{accountId}                        Transactions.update
+PUT     /transactions/update                                            Transactions.update
 
 GET     /accounts/read/{<[0-9]+>id}             Accounts.read
 POST    /accounts/create                        Accounts.create

@@ -5,15 +5,10 @@ import java.util.List;
 
 import models.Account;
 import models.Transaction;
-import models.Category;
-import models.Payee;
-import models.Transaction;
 import models.TransactionFilterOptions;
 import play.data.binding.Binder;
-import play.mvc.Controller;
 import utils.ConverterUtil;
 import utils.DateDeserializer;
-import utils.ExtJSReturn;
 import utils.GsonBinder;
 
 import com.google.gson.Gson;
@@ -74,8 +69,11 @@ public class Transactions extends Users {
         transaction.user = user;
         transaction.description = submited.description;
         transaction.amount = submited.amount;
-        transaction.account = submited.account;
         transaction.transactionDate = submited.transactionDate;
+        transaction.account = submited.account;
+        transaction.category = submited.category;
+        transaction.payee = submited.payee;
+        transaction.payment = submited.payment;
         
         validation.valid(transaction);
         if(validation.hasErrors()) {
@@ -89,6 +87,27 @@ public class Transactions extends Users {
         catch (Exception e) {
             jsonError(e.getMessage());
         }
+    }
+	
+	public static void update(JsonObject body) {
+        Transaction submited = getSubmitedTransaction(body);
+        
+        Transaction transaction = Transaction.find("byUserAndIdAndAccount", user, submited.id, submited.account).first();
+        transaction.description = submited.description;
+        transaction.amount = submited.amount;
+        transaction.transactionDate = submited.transactionDate;
+        transaction.account = submited.account;
+        transaction.category = submited.category;
+        transaction.payee = submited.payee;
+        transaction.payment = submited.payment;
+        
+        validation.valid(transaction);
+        if(validation.hasErrors()) {
+            jsonError("Validation error: "+validation.errors().get(0).toString());
+        }
+        
+        transaction.save();
+        jsonOk(transaction, 1l);
     }
 	
 	private static Transaction getSubmitedTransaction(JsonObject body) {
