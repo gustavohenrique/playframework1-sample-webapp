@@ -6,6 +6,8 @@ import java.util.List;
 import models.Account;
 import models.Transaction;
 import play.data.binding.Binder;
+import play.mvc.Controller;
+import play.mvc.With;
 import pojo.TransactionFilterOptions;
 import utils.ConverterUtil;
 import utils.DateDeserializer;
@@ -16,8 +18,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import controllers.Secure;
 
-public class Transactions extends Users {
+@With(Secure.class)
+public class Transactions extends Controller {
 	
 	static {
         Binder.register(JsonObject.class, new GsonBinder());
@@ -26,7 +30,7 @@ public class Transactions extends Users {
 	public static void read(Long id, Long accountId) {
 		try {
 			TransactionFilterOptions options = new TransactionFilterOptions();
-			options.setUserId(user.id);
+			options.setUserId(Secure.user.id);
 			options.setTransactionId(id);
 			options.setAccountId(accountId);
 			options.setPagination(params.get("start"), params.get("limit"));
@@ -50,7 +54,7 @@ public class Transactions extends Users {
 	public static void delete(Long id, Long accountId) {
 		try {
 			Account account = Account.findById(accountId);
-			Transaction transaction = Transaction.find("byUserAndIdAndAccount", user, id, account).first();
+			Transaction transaction = Transaction.find("byUserAndIdAndAccount", Secure.user, id, account).first();
 			transaction.delete();
 			ExtJS.success(transaction, 1l);
 		}
@@ -63,7 +67,7 @@ public class Transactions extends Users {
         Transaction submited = getSubmitedTransaction(body);
         
         Transaction transaction = new Transaction();
-        transaction.user = user;
+        transaction.user = Secure.user;
         transaction.description = submited.description;
         transaction.amount = submited.amount;
         transaction.transactionDate = submited.transactionDate;
@@ -89,7 +93,7 @@ public class Transactions extends Users {
 	public static void update(JsonObject body) {
         Transaction submited = getSubmitedTransaction(body);
         
-        Transaction transaction = Transaction.find("byUserAndIdAndAccount", user, submited.id, submited.account).first();
+        Transaction transaction = Transaction.find("byUserAndIdAndAccount", Secure.user, submited.id, submited.account).first();
         transaction.description = submited.description;
         transaction.amount = submited.amount;
         transaction.transactionDate = submited.transactionDate;

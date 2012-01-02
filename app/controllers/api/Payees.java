@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.Payee;
 import play.data.binding.Binder;
+import play.mvc.With;
 import utils.ConverterUtil;
 import utils.ExtJS;
 import utils.GsonBinder;
@@ -12,6 +13,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import controllers.Secure;
+
+@With(Secure.class)
 public class Payees extends Users {
 	
 	static {
@@ -20,18 +24,18 @@ public class Payees extends Users {
 	
 	public static void read(Long id) {
 		if (id != null) {
-			Payee payee = Payee.find("byUserAndId", user, id).first();
+			Payee payee = Payee.find("byUserAndId", Secure.user, id).first();
 			ExtJS.success(payee, 1l);
 		}
 		else {
-			List<Payee> payees = Payee.find("byUser", user).fetch();
+			List<Payee> payees = Payee.find("byUser", Secure.user).fetch();
 			ExtJS.success(payees, ConverterUtil.toLong(payees.size()));
 		}
 	}
 	
 	public static void delete(Long id) {
 		try {
-			Payee payee = Payee.find("byUserAndId", user, id).first();
+			Payee payee = Payee.find("byUserAndId", Secure.user, id).first();
 			payee.delete();
 			ExtJS.success(payee, 1l);
 		}
@@ -44,7 +48,7 @@ public class Payees extends Users {
 		Payee submited = getSubmitedPayee(body);
 		
 		Payee payee = new Payee();
-		payee.user = user;
+		payee.user = Secure.user;
 		payee.name = submited.name;
 		
 		validation.valid(payee);

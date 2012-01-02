@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.Account;
 import play.data.binding.Binder;
+import play.mvc.With;
 import utils.ConverterUtil;
 import utils.ExtJS;
 import utils.GsonBinder;
@@ -12,6 +13,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import controllers.Secure;
+
+@With(Secure.class)
 public class Accounts extends Users {
 	
 	static {
@@ -20,18 +24,18 @@ public class Accounts extends Users {
 	
 	public static void read(Long id) {
 		if (id != null) {
-			Account account = Account.find("byUserAndIdAndDisabled", user, id, false).first();
+			Account account = Account.find("byUserAndIdAndDisabled", Secure.user, id, false).first();
 			ExtJS.success(account, 1l);
 		}
 		else {
-			List<Account> accounts = Account.find("byUserAndDisabled", user, false).fetch();
+			List<Account> accounts = Account.find("byUserAndDisabled", Secure.user, false).fetch();
 			ExtJS.success(accounts, ConverterUtil.toLong(accounts.size()));
 		}
 	}
 	
 	public static void delete(Long id) {
 		try {
-			Account account = Account.find("byUserAndId", user, id).first();
+			Account account = Account.find("byUserAndId", Secure.user, id).first();
 			account.disabled = true;
 			account.save();
 			ExtJS.success(account, 1l);
@@ -45,7 +49,7 @@ public class Accounts extends Users {
 		Account submited = getSubmitedAccount(body);
 		
 		Account account = new Account();
-		account.user = user;
+		account.user = Secure.user;
 		account.name = submited.name;
 		account.number = submited.number;
 		account.initial = submited.initial;

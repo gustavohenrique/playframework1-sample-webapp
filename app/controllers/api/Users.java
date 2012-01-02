@@ -4,7 +4,6 @@ import models.User;
 import play.data.binding.Binder;
 import play.data.validation.Required;
 import play.libs.Codec;
-import play.mvc.Before;
 import play.mvc.Controller;
 import utils.ExtJS;
 import utils.GsonBinder;
@@ -13,25 +12,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+
 public class Users extends Controller {
-	
-	protected static User user;
 	
 	static {
         Binder.register(JsonObject.class, new GsonBinder());
-    }
-	
-	@Before(unless={"authenticate", "logout", "create"})
-    static void checkAccess() {
-        if (! session.contains("token")) {
-            flash.put("url", "GET".equals(request.method) ? request.url : "/");
-            ExtJS.error("Access denied");
-        }
-        
-        user = getUserAccount(session.get("token"));
-        if (! exists(user)) {
-            ExtJS.error("User not found");
-        }
     }
 	
 	public static void create(JsonObject body) {
@@ -78,7 +63,7 @@ public class Users extends Controller {
 	public static void authenticate(JsonObject body) {
 		User submited = getSubmitedUser(body);
 		
-		validation.valid(user);
+		validation.valid(submited);
 	    if(validation.hasErrors()) {
 	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
@@ -89,11 +74,6 @@ public class Users extends Controller {
         	ExtJS.success(user, 1l);
         }
     	ExtJS.error("Login failed");
-	}
-	
-	
-	private static boolean exists(User user) {
-		return user != null;
 	}
 	
 	private static String createToken(String username, String id) {
@@ -108,21 +88,6 @@ public class Users extends Controller {
 		catch (Exception e) {
 			return null;
 		}
-	}
-	
-	private static User getUserAccount(String token) {
-		try {
-			String[] splited = token.split("-");
-			String username = splited[0];
-			String encrypted = splited[1];
-			
-			User user = User.find("byUsername", username).first();
-			if (Codec.hexSHA1(user.username).equals(encrypted)) {
-				return user;
-			}
-		}
-		catch (Exception e) {}
-		return null;
 	}
 	
 	private static User getSubmitedUser(JsonObject body) {

@@ -7,12 +7,13 @@ import importers.homebank.HomeBankImporter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.List;
 
-import models.Account;
 import models.HomeBank;
+import play.mvc.With;
 import utils.ExtJS;
+import controllers.Secure;
 
+@With(Secure.class)
 public class Importers extends Users {
 	
     public static void upload(File file) {
@@ -22,12 +23,11 @@ public class Importers extends Users {
 	    	try {
 				InputStream xmlFile = new FileInputStream(file);
 				HomeBank homeBank = new HomeBankImporter().fromXml(xmlFile);
-				homeBank.setUser(user);
+				homeBank.setUser(Secure.user);
 				
 				new HomeBankDao().persist(homeBank);
 				
 				response.contentType = "text/html";
-				List<Account> a = Account.findAll();
 				ExtJS.success("File was successful imported!");
 			}
 			catch (Exception e) {
