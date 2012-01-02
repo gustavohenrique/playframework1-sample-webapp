@@ -1,18 +1,15 @@
-package controllers;
+package controllers.api;
+
+import models.User;
+import play.data.binding.Binder;
+import play.data.validation.Required;
+import play.libs.Codec;
+import play.mvc.Before;
+import utils.GsonBinder;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.mysql.jdbc.Messages;
-
-import models.Account;
-import models.User;
-import play.data.binding.Binder;
-import play.data.validation.Required;
-import play.data.validation.Valid;
-import play.libs.Codec;
-import play.mvc.Before;
-import utils.GsonBinder;
 
 public class Users extends JsonController {
 	
@@ -22,26 +19,18 @@ public class Users extends JsonController {
         Binder.register(JsonObject.class, new GsonBinder());
     }
 	
-	@Before(unless={"login", "authenticate", "logout", "signup", "create"})
+	@Before(unless={"authenticate", "logout", "create"})
     static void checkAccess() {
         if (! session.contains("token")) {
             flash.put("url", "GET".equals(request.method) ? request.url : "/");
-            login();
+            jsonError("Access denied");
         }
         
         user = getUserAccount(session.get("token"));
         if (! exists(user)) {
-        	login();
+            jsonError("User not found");
         }
     }
-	
-	public static void login() {
-		render();
-	}
-	
-	public static void signup() {
-		render();
-	}
 	
 	public static void create(JsonObject body) {
 		User submited = getSubmitedUser(body);

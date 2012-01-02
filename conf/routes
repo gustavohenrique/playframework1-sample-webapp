@@ -2,38 +2,42 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-POST    /users/authenticate                     Users.authenticate
-GET     /users/login                            Users.login
-POST    /users/create                           Users.create
+# Users
+POST    /users/authenticate                     api.Users.authenticate
+POST    /users/create                           api.Users.create
 
-POST    /importers/upload                       Importers.upload
+# Importers
+POST    /importers/upload                       api.Importers.upload
 
-#GET     /                                       Transactions.index
-#GET     /transactions/read/{accountId}          Transactions.read
-#POST    /transactions/create/{accountId}        Transactions.create
-#DELETE  /transactions/delete/{accountId}        Transactions.delete
+# Accounts
+GET     /accounts/read/{<[0-9]+>id}             api.Accounts.read
+POST    /accounts/create                        api.Accounts.create
+DELETE  /accounts/delete/{<[0-9]+>id}           api.Accounts.delete
+PUT     /accounts/update                        api.Accounts.update
 
-GET     /transactions/read/account/{<[0-9]+>accountId}                  Transactions.read
-GET     /transactions/read/{<[0-9]+>id}/account/{<[0-9]+>accountId}     Transactions.read
-POST    /transactions/create                                            Transactions.create
-DELETE  /transactions/delete/{<[0-9]+>id}/account/{<[0-9]+>accountId}   Transactions.delete
-PUT     /transactions/update                                            Transactions.update
+# Categories
+GET     /categories/read/{<[0-9]+>id}           api.Categories.read
+POST    /categories/create                      api.Categories.create
+DELETE  /categories/delete/{<[0-9]+>id}         api.Categories.delete
+PUT     /categories/update                      api.Categories.update
 
-GET     /accounts/read/{<[0-9]+>id}             Accounts.read
-POST    /accounts/create                        Accounts.create
-DELETE  /accounts/delete/{<[0-9]+>id}           Accounts.delete
-PUT     /accounts/update                        Accounts.update
+# Payees
+GET     /payees/read/{<[0-9]+>id}               api.Payees.read
+POST    /payees/create                          api.Payees.create
+DELETE  /payees/delete/{<[0-9]+>id}             api.Payees.delete
+PUT     /payees/update                          api.Payees.update
 
-GET     /categories/read/{<[0-9]+>id}           Categories.read
-POST    /categories/create                      Categories.create
-DELETE  /categories/delete/{<[0-9]+>id}         Categories.delete
-PUT     /categories/update                      Categories.update
+# Transactions
+GET     /transactions/read/account/{<[0-9]+>accountId}                  api.Transactions.read
+GET     /transactions/read/{<[0-9]+>id}/account/{<[0-9]+>accountId}     api.Transactions.read
+POST    /transactions/create                                            api.Transactions.create
+DELETE  /transactions/delete/{<[0-9]+>id}/account/{<[0-9]+>accountId}   api.Transactions.delete
+PUT     /transactions/update                                            api.Transactions.update
 
-GET     /payees/read/{<[0-9]+>id}               Payees.read
-POST    /payees/create                          Payees.create
-DELETE  /payees/delete/{<[0-9]+>id}             Payees.delete
-PUT     /payees/update                          Payees.update
+# Home Page
+GET     /                                       Application.index
+GET     /login                                  Application.login
+GET     /signup                                 Application.signup
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -42,4 +46,5 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Catch all
+*       /{controller}/{action}                  api.{controller}.{action}
 *       /{controller}/{action}                  {controller}.{action}

@@ -1,4 +1,4 @@
-package controllers;
+package controllers.api;
 
 import java.util.Date;
 import java.util.List;
@@ -21,10 +21,6 @@ public class Transactions extends Users {
 	static {
         Binder.register(JsonObject.class, new GsonBinder());
     }
-	
-	public static void index() {
-		render();
-	}
 	
 	public static void read(Long id, Long accountId) {
 		try {

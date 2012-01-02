@@ -1,4 +1,4 @@
-package controllers;
+package controllers.api;
 
 import play.mvc.Controller;
 import utils.ExtJSReturn;
