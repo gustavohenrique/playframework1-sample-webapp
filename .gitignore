@@ -10,6 +10,7 @@ eclipse
 db
 .settings
 .precompiled
+.classpath
 precompiled
 logs
 lib
