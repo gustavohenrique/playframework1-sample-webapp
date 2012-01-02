@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import models.Account;
+import models.Transaction;
 import models.Category;
 import models.Payee;
 import models.Transaction;
@@ -66,5 +67,36 @@ public class Transactions extends Users {
 		}
 	}
 	
+	public static void create(JsonObject body) {
+        Transaction submited = getSubmitedTransaction(body);
+        
+        Transaction transaction = new Transaction();
+        transaction.user = user;
+        transaction.description = submited.description;
+        transaction.amount = submited.amount;
+        transaction.account = submited.account;
+        transaction.transactionDate = submited.transactionDate;
+        
+        validation.valid(transaction);
+        if(validation.hasErrors()) {
+            jsonError("Validation error: "+validation.errors().get(0).toString());
+        }
+        
+        try {
+            transaction.save();
+            jsonOk(transaction, 1l);
+        }
+        catch (Exception e) {
+            jsonError(e.getMessage());
+        }
+    }
 	
+	private static Transaction getSubmitedTransaction(JsonObject body) {
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Date.class, new DateDeserializer())
+            .serializeNulls()
+            .create();
+
+       return gson.fromJson(body.get("data"), Transaction.class);
+    }
 }

@@ -35,6 +35,7 @@ public class Transaction extends Model {
 	@Required
 	public BigDecimal amount;
 	
+	@Required
 	@OneToOne
 	public Account account;
 	
