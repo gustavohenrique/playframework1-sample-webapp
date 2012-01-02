@@ -17,6 +17,7 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.JPA;
 import play.db.jpa.Model;
+import pojo.TransactionFilterOptions;
 
 
 @Entity(name="transactions")

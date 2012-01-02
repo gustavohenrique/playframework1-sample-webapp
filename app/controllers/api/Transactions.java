@@ -5,8 +5,8 @@ import java.util.List;
 
 import models.Account;
 import models.Transaction;
-import models.TransactionFilterOptions;
 import play.data.binding.Binder;
+import pojo.TransactionFilterOptions;
 import utils.ConverterUtil;
 import utils.DateDeserializer;
 import utils.ExtJS;

@@ -1,6 +1,9 @@
 package controllers.api;
 
 
+import importers.homebank.HomeBankDao;
+import importers.homebank.HomeBankImporter;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -8,8 +11,6 @@ import java.util.List;
 
 import models.Account;
 import models.HomeBank;
-import poupaniquel.importers.homebank.HomeBankDao;
-import poupaniquel.importers.homebank.HomeBankImporter;
 import utils.ExtJS;
 
 public class Importers extends Users {
@@ -33,6 +34,7 @@ public class Importers extends Users {
 			    ExtJS.error(e.getMessage());
 			}
     	}
+    	
     	ExtJS.error("Validation error");
     }
 }

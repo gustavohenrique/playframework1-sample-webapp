@@ -1,4 +1,4 @@
-package poupaniquel.importers.homebank;
+package importers.homebank;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,7 +9,6 @@ import models.Category;
 import models.HomeBank;
 import models.Payee;
 import models.Transaction;
-import models.User;
 import play.db.jpa.GenericModel.JPAQuery;
 import play.db.jpa.JPA;
 

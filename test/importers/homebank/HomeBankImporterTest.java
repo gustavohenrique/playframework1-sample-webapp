@@ -1,4 +1,4 @@
-package poupaniquel.importers.homebank;
+package importers.homebank;
 
 
 import java.io.InputStream;
