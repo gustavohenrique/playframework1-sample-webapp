@@ -11,6 +11,8 @@ db
 .settings
 .precompiled
 .classpath
+.project
+.settings
 precompiled
 logs
 lib
