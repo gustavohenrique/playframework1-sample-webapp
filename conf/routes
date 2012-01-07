@@ -36,8 +36,8 @@ PUT     /transactions/update                                            api.Tran
 
 # Home Page
 GET     /                                       Application.index
-GET     /login                                  Application.login
-GET     /signup                                 Application.signup
+GET     /login                                  Auth.login
+GET     /signup                                 Auth.signup
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

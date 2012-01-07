@@ -41,16 +41,4 @@ public class Secure extends Controller {
         catch (Exception e) {}
         return null;
     }
-
-    public static void login() {
-        render();
-    }
-    
-    public static void signup() {
-        render();
-    }
-    
-    public static void index() {
-        render();
-    }
 }
