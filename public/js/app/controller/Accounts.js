@@ -19,7 +19,7 @@ Ext.define('PoupaNiquel.controller.Accounts', {
   	    	    click: this.add
   	        },
   	        'accountsGrid button[action=delete]': {
-	    	    click: this.delete
+	    	    click: this.destoy
 	        },
     	})
     },
@@ -51,9 +51,9 @@ Ext.define('PoupaNiquel.controller.Accounts', {
         editing.startEdit(0, 0);
     },
     
-    delete: function(button) {
+    destoy: function(button) {
     	var grid = button.up('accountsGrid'),
-	        record = grid.getSelectionModel().getSelection(),
+	        record = grid.getSelectionModel().getSelection()[0],
             store = grid.getStore();
         
         if (record) {

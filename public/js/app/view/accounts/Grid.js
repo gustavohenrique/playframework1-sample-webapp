@@ -3,9 +3,9 @@ Ext.define('PoupaNiquel.view.accounts.Grid', {
     alias: 'widget.accountsGrid',
     
     border: true,
-    selModel: {
-        selType: 'cellmodel'
-    },
+//    selModel: {
+//        selType: 'cellmodel'
+//    },
     
     columns: [{
     	xtype: 'rownumberer',

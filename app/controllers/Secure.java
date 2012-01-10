@@ -18,6 +18,8 @@ public class Secure extends Controller {
         }
         
         user = getUserAccount(session.get("token"));
+        user.password = null; // remove password from response
+        
         if (! exists(user)) {
             ExtJS.error("User not found. Please go to login page!");
         }

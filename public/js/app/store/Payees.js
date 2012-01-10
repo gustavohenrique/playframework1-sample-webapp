@@ -9,18 +9,21 @@ Ext.define('PoupaNiquel.store.Payees', {
     proxy: {
         type: 'rest',
         api: {
-        	read : '/transactions/payees',
+        	read : '/payees/read',
+        	create : '/payees/create',
+            update: '/payees/update',
+            destroy: '/payees/delete'
         },
+        
         reader: {
             type: 'json',
             root: 'data',
             successProperty: 'success'
         },
-    
-        listeners: {
-            exception: function(proxy, response, operation){
-                //alert(operation.getError());
-            }
-        }
+        
+        writer: {
+            type: 'json',
+            root: 'data',
+        },
     }
 });

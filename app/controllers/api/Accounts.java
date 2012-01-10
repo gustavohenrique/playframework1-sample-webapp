@@ -68,10 +68,10 @@ public class Accounts extends Users {
 		}
 	}
 	
-	public static void update(JsonObject body) {
+	public static void update(Long id, JsonObject body) {
 		Account submited = getSubmitedAccount(body);
 		
-		Account account = Account.findById(submited.id);
+		Account account = Account.findById(id);
 		account.name = submited.name;
 		account.number = submited.number;
 		account.initial = submited.initial;

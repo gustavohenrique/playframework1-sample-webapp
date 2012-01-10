@@ -9,18 +9,19 @@ Ext.define('PoupaNiquel.store.Categories', {
     proxy: {
         type: 'rest',
         api: {
-        	read : '/transactions/categories',
+        	read : '/categories/read',
+        	create : '/categories/create',
+            update: '/categories/update',
+            destroy: '/categories/delete'
         },
         reader: {
             type: 'json',
             root: 'data',
             successProperty: 'success'
         },
-    
-        listeners: {
-            exception: function(proxy, response, operation){
-                //alert(operation.getError());
-            }
+        writer: {
+            type: 'json',
+            root: 'data',
         }
     }
 });

@@ -13,7 +13,7 @@ POST    /importers/upload                       api.Importers.upload
 GET     /accounts/read/{<[0-9]+>id}             api.Accounts.read
 POST    /accounts/create                        api.Accounts.create
 DELETE  /accounts/delete/{<[0-9]+>id}           api.Accounts.delete
-PUT     /accounts/update                        api.Accounts.update
+PUT     /accounts/update/{<[0-9]+>id}           api.Accounts.update
 
 # Categories
 GET     /categories/read/{<[0-9]+>id}           api.Categories.read
