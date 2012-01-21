@@ -85,8 +85,8 @@ public class AccountsTest extends FixturesAndLogin {
 	
 	@Test
 	public void testUpdateAccountNumberAndInitial() {
-		String body = "{data:{\"id\":" + citibank.id + ",\"name\":\"Citibank\",\"number\":\"17599\",\"initial\":85.90}}";
-	    Response response = POST("/accounts/update", "application/json", body);
+		String body = "{data:{\"name\":\"Citibank\",\"number\":\"17599\",\"initial\":85.90}}";
+	    Response response = POST("/accounts/update/"+citibank.id, "application/json", body);
 		
 	    JsonNode success = getNode("success", response);
 	    assertEquals("true", success.toString());

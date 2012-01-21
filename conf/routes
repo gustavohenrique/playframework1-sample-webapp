@@ -19,13 +19,13 @@ PUT     /accounts/update/{<[0-9]+>id}           api.Accounts.update
 GET     /categories/read/{<[0-9]+>id}           api.Categories.read
 POST    /categories/create                      api.Categories.create
 DELETE  /categories/delete/{<[0-9]+>id}         api.Categories.delete
-PUT     /categories/update                      api.Categories.update
+PUT     /categories/update/{<[0-9]+>id}         api.Categories.update
 
 # Payees
 GET     /payees/read/{<[0-9]+>id}               api.Payees.read
 POST    /payees/create                          api.Payees.create
 DELETE  /payees/delete/{<[0-9]+>id}             api.Payees.delete
-PUT     /payees/update                          api.Payees.update
+PUT     /payees/update/{<[0-9]+>id}             api.Payees.update
 
 # Transactions
 GET     /transactions/read/account/{<[0-9]+>accountId}                  api.Transactions.read

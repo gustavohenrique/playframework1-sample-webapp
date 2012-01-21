@@ -1,15 +1,14 @@
-//var editing = Ext.create('Ext.grid.plugin.editing');
 var editing = Ext.create('Ext.grid.plugin.CellEditing');
 
-Ext.define('PoupaNiquel.controller.Accounts', {
+Ext.define('PoupaNiquel.controller.Categories', {
     extend: 'Ext.app.Controller',
 
-    models: ['Account'],
-    stores: ['Accounts'],
-    views:  ['accounts.Grid', 'common.MdiWindow'],
+    models: ['Category'],
+    stores: ['Categories'],
+    views:  ['categories.Grid', 'common.MdiWindow'],
     
     refs: [{
-    	ref: 'accountsGrid',
+    	ref: 'categoriesGrid',
     	selector: 'grid'
     }],
     
@@ -19,22 +18,23 @@ Ext.define('PoupaNiquel.controller.Accounts', {
   	    	    click: this.add
   	        },
   	        'grid button[action=delete]': {
-	    	    click: this.delete
+	    	    click: function() { console.log('dfsfsd');}
 	        },
-    	})
+    	});
+    	console.log(this);
     },
     
     showPanel: function() {
     	var viewport = Ext.ComponentManager.get('viewportCenter'),
-    	    panel = Ext.ComponentManager.get('accountsPanel');
+    	    panel = Ext.ComponentManager.get('categoriesPanel');
     	
     	if (panel == null) {
        	    panel = Ext.create('widget.mdiWindow', {
-	    		id: 'accountsPanel',
-	            title: 'Accounts',
+	    		id: 'categoriesPanel',
+	            title: 'Categories',
 	            items: [{
-	            	xtype: 'accountsGrid',
-	            	store: this.getAccountsStore(),
+	            	xtype: 'categoriesGrid',
+	            	store: this.getCategoriesStore(),
 	            	plugins: [editing],
 	            }]
 	    	});
@@ -44,22 +44,23 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     },
     
     add: function(button) {
-    	var grid = button.up('accountsGrid'),
+    	var grid = button.up('categoriesGrid'),
     	    account = Ext.create('PoupaNiquel.model.Account');
     	
     	grid.getStore().insert(0, account);
         editing.startEdit(0, 0);
     },
     
-    delete: function(button) {
-    	var grid = button.up('accountsGrid'),
-	        record = grid.getSelectionModel().getSelection()[0],
-            store = grid.getStore();
-        
-        if (record) {
-        	store.remove(record);
-            store.sync();
-        }
+    delete: function() {
+    	alert('dsfs');
+//    	var grid = button.up('categoriesGrid'),
+//	        record = grid.getSelectionModel().getSelection()[0],
+//            store = grid.getStore();
+//        
+//        if (record) {
+//        	store.remove(record);
+//            store.sync();
+//        }
     }
     
 });

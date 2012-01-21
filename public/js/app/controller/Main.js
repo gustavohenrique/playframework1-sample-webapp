@@ -16,7 +16,10 @@ Ext.define('PoupaNiquel.controller.Main', {
 		    
 		    'button[action=import]': {
 		        click: this.openImport
-		    }
+		    },
+		    'button[action=categories]': {
+		        click: this.openCategories
+		    },
     	})
     },
     
@@ -30,5 +33,9 @@ Ext.define('PoupaNiquel.controller.Main', {
     
     openImport: function() {
     	this.getController('Importers').showPanel();
-    }
+    },
+    
+    openCategories: function() {
+    	this.getController('Categories').showPanel();
+    },
 });
