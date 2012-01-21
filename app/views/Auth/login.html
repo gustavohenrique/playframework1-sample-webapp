@@ -4,32 +4,32 @@
 
 #{set 'script'}
 <script type="text/javascript">
-Ext.Loader.setConfig({enabled:true});
-
-Ext.application({
-    name: 'PoupaNiquel',
-    appFolder: '/public/js/app',
-    autoCreateViewport: false,
-
-    controllers: ['Users'],
-    
-    launch: function() {
-        viewport = Ext.create('Ext.container.Viewport', {
-            id: 'viewport',
-            layout: 'border',
-            items: [{
-                id: 'viewportCenter',
-                region: 'center',
-                border: false,
-                autoScroll: true,
-                items: [{
-                    xtype: 'login',
-                    autoShow: 'true'
-                }]
-
-            }]
-        });
-    }
+$(document).ready(function(){
+    $("#window").kendoWindow({
+        title: "Login",
+        width: "200px",
+        height: "200px",
+    });
 });
 </script>
 #{/}
+<div style="background-color: #EEF;">
+    <div class="login-box">
+      <div class="login-hd">Poupaniquel Login</div>
+        <div class="login-box-top">
+            #{form action:@save(object._key())
+            <form id="form" action="@{Users.authenticate}" method="post">
+            <p>
+                <input type="text" id="username"  class="full" value="" name="username" required="required" placeholder="Username" />
+            </p>
+            <p>
+                <input type="password" id="password" class="full" value="" name="password" required="required" placeholder="Password" />
+            </p>
+            <p class="clearfix">
+                <button class="button button-gray fr" type="submit">Login</button>
+            </p>
+        </form>
+        <ul><li><strong>HELP:</strong>&nbsp;<a href="#">I forgot my password.</a></li></ul>
+        </div>
+    </div>
+</div>

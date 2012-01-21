@@ -3,35 +3,5 @@
 #{set title:'Transactions'/}
 
 #{set 'script'}
-<script type="text/javascript">
-Ext.Loader.setConfig({enabled:true});
 
-Ext.application({
-    name: 'PoupaNiquel',
-    appFolder: '/public/js/app',
-    autoCreateViewport: false,
-
-    controllers: ['Main', 'Transactions', 'Accounts', 'Categories'],
-    
-    launch: function() {
-        viewport = Ext.create('Ext.container.Viewport', {
-            id: 'viewport',
-            layout: 'border',
-            
-            items: [{
-                region: 'north',
-                height: 45,
-                xtype: 'mainTop',
-                border: true,
-            }, {
-                id: 'viewportCenter',
-                region: 'center',
-                border: false,
-                autoScroll: true,
-
-            }]
-        });
-    }
-});
-</script>
 #{/}

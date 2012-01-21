@@ -1,0 +1,142 @@
+/* styling for the image wrapper  */
+#image_wrap {
+    /* dimensions */
+    width:657px;
+    margin:15px 0 15px 38px;
+    padding:15px 0;
+
+    /* centered */
+    text-align:center;
+
+    /* some "skinning" */
+    background-color:#efefef;
+    border:2px solid #fff;
+    outline:1px solid #ddd;
+    -moz-ouline-radius:4px;
+}
+
+
+/*
+    root element for the scrollable.
+    when scrolling occurs this element stays still.
+*/
+.scrollable {
+    float:left; 
+    
+    /* required settings */
+    position:relative;
+    overflow:hidden;
+    width: 660px;
+    height:120px;
+
+    /* custom decorations */
+    border:1px solid #ccc;
+    background: #f7f7f7;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#eaeaea));
+    background: -moz-linear-gradient(top,  #f7f7f7,  #eaeaea);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea');
+}
+
+/*
+    root element for scrollable items. Must be absolutely positioned
+    and it should have a extremely large width to accomodate scrollable items.
+    it's enough that you set the width and height for the root element and
+    not for this element.
+*/
+.scrollable .items {
+    /* this cannot be too large */
+    width:20000em;
+    position:absolute;
+    clear:both;
+}
+
+.items div {
+    float:left;
+    width:660px;
+}
+
+/* single scrollable item */
+.scrollable img {
+    float:left;
+    margin:20px 6px 20px 17px;
+    background-color:#fff;
+    padding:2px;
+    border:1px solid #ccc;
+    width:100px;
+    height:75px;
+    
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    -khtml-border-radius:4px;
+    border-radius:4px;
+}
+
+/* active item */
+.scrollable .active {
+    border:1px solid #000;
+    position:relative;
+    cursor:default;
+}
+
+/* prev, next, prevPage and nextPage buttons */
+a.browse {
+    display:block;
+    width:30px;
+    line-height:30px;
+    height:30px;
+    padding: 0;
+    float:left;
+    margin:40px 5px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+/* right */
+a.right                 { clear:right; margin-right: 0px;}
+
+
+/* left */
+a.left                { margin-left: 0px; } 
+
+/* disabled navigational button */
+a.disabled, a.disabled:hover, a.disabled:active {
+    background: #fefefe;
+    cursor: normal;
+}     
+
+
+/* the overlayed element */
+.apple_overlay {
+    
+    /* initially overlay is hidden */
+    display:none;
+    
+    /* growing background image */
+    background-image:url(../images/overlay/white.png);
+    
+    /* 
+        width after the growing animation finishes
+        height is automatically calculated
+    */
+    width:640px;        
+    
+    /* some padding to layout nested elements nicely  */
+    padding:35px;
+
+    /* a little styling */    
+    font-size:11px;
+}
+
+/* default close button positioned on upper right corner */
+.apple_overlay .close {
+    background-image:url(../images/overlay/close.png);
+    position:absolute; right:10px; top:10px;
+    cursor:pointer;
+    height:35px;
+    width:35px;
+}
+
+.apple_overlay.black {
+    background-image:url(../images/overlay/transparent.png);        
+    color:#fff;
+}

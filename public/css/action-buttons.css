@@ -1,0 +1,169 @@
+ul.action-buttons {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul.action-buttons li {
+    display: inline;
+}
+.action-button {
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e1e1e1));
+    background: -moz-linear-gradient(top,  #f7f7f7,  #e1e1e1);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e1e1e1');
+
+    -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+    -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+
+    cursor: pointer;
+    display: inline-block;
+    text-indent: -999em;
+    outline: none !important;
+    -moz-box-sizing: border-box !important;
+    /* IE7 hack */
+    zoom: 1;
+    *display: inline;
+}
+.action-button:hover, .action-button:focus {
+    border: 1px solid #aaa;
+    background: #ececec;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#ccc));
+    background: -moz-linear-gradient(top,  #f1f1f1,  #ccc);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#cccccc');
+}
+.action-button:active, .action-button.active {
+    background: #ddd;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#f1f1f1));
+    background: -moz-linear-gradient(top,  #ccc,  #f1f1f1);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#f1f1f1');
+}
+.action-button span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+.action-button span.accept {
+    background: transparent url(../images/icons/accept.png) no-repeat center center;
+}
+.action-button span.add {
+    background: transparent url(../images/icons/add.png) no-repeat center center;
+}
+.action-button span.arrow-refresh {
+    background: transparent url(../images/icons/arrow_refresh.png) no-repeat center center;
+}
+.action-button span.bin {
+    background: transparent url(../images/icons/bin.png) no-repeat center center;
+}
+.action-button span.bin-closed {
+    background: transparent url(../images/icons/bin_closed.png) no-repeat center center;
+}
+.action-button span.bin-empty {
+    background: transparent url(../images/icons/bin_empty.png) no-repeat center center;
+}
+.action-button span.database-add {
+    background: transparent url(../images/icons/database_add.png) no-repeat center center;
+}
+.action-button span.database-delete {
+    background: transparent url(../images/icons/database_delete.png) no-repeat center center;
+}
+.action-button span.database-edit {
+    background: transparent url(../images/icons/database_edit.png) no-repeat center center;
+}
+.action-button span.date {
+    background: transparent url(../images/icons/date.png) no-repeat center center;
+}
+.action-button span.date-add {
+    background: transparent url(../images/icons/date_add.png) no-repeat center center;
+}
+.action-button span.date-delete {
+    background: transparent url(../images/icons/date_delete.png) no-repeat center center;
+}
+.action-button span.date-edit {
+    background: transparent url(../images/icons/date_edit.png) no-repeat center center;
+}
+.action-button span.delete {
+    background: transparent url(../images/icons/delete.png) no-repeat center center;
+}
+.action-button span.disk {
+    background: transparent url(../images/icons/disk.png) no-repeat center center;
+}
+.action-button span.email {
+    background: transparent url(../images/icons/email.png) no-repeat center center;
+}
+.action-button span.email-add {
+    background: transparent url(../images/icons/email_add.png) no-repeat center center;
+}
+.action-button span.email-attach {
+    background: transparent url(../images/icons/email_attach.png) no-repeat center center;
+}
+.action-button span.email-delete {
+    background: transparent url(../images/icons/email_delete.png) no-repeat center center;
+}
+.action-button span.email-edit {
+    background: transparent url(../images/icons/email_edit.png) no-repeat center center;
+}
+.action-button span.email-error {
+    background: transparent url(../images/icons/email_error.png) no-repeat center center;
+}
+.action-button span.email-go {
+    background: transparent url(../images/icons/email_go.png) no-repeat center center;
+}
+.action-button span.email-link {
+    background: transparent url(../images/icons/email_link.png) no-repeat center center;
+}
+.action-button span.email-open {
+    background: transparent url(../images/icons/email_open.png) no-repeat center center;
+}
+.action-button span.help {
+    background: transparent url(../images/icons/help.png) no-repeat center center;
+}
+.action-button span.information {
+    background: transparent url(../images/icons/information.png) no-repeat center center;
+}
+.action-button span.pencil {
+    background: transparent url(../images/icons/pencil.png) no-repeat center center;
+}
+.action-button span.user {
+    background: transparent url(../images/icons/user.png) no-repeat center center;
+}
+.action-button span.user-add {
+    background: transparent url(../images/icons/user_add.png) no-repeat center center;
+}
+.action-button span.user-delete {
+    background: transparent url(../images/icons/user_delete.png) no-repeat center center;
+}
+.action-button span.user-edit {
+    background: transparent url(../images/icons/user_edit.png) no-repeat center center;
+}
+.action-button span.vcard {
+    background: transparent url(../images/icons/vcard.png) no-repeat center center;
+}
+.action-button span.vcard-add {
+    background: transparent url(../images/icons/vcard_delete.png) no-repeat center center;
+}
+.action-button span.vcard-delete {
+    background: transparent url(../images/icons/vcard_delete.png) no-repeat center center;
+}
+.action-button span.vcard-edit {
+    background: transparent url(../images/icons/vcard_edit.png) no-repeat center center;
+}
+.action-button span.wrench {
+    background: transparent url(../images/icons/wrench.png) no-repeat center center;
+}
+.action-button span.wrench-orange {
+    background: transparent url(../images/icons/wrench_orange.png) no-repeat center center;
+}
+.action-button span.zoom {
+    background: transparent url(../images/icons/zoom.png) no-repeat center center;
+}

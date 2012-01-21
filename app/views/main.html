@@ -1,10 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" media="screen" href="@{'/public/js/extjs/resources/css/ext-all-gray.css'}" />
-<link rel="stylesheet" media="screen" href="@{'/public/css/icons.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/css/reset.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/css/style.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/css/messages.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/css/forms.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/css/tables.css'}" />
 
-<script src="@{'/public/js/extjs/ext-all-debug.js'}"></script>
+<script src="@{'/public/js/html5.js'}"></script>
+<script src="@{'/public/js/jquery.tools.min.js'}"></script>
+
+<!--[if lte IE 9]>
+<link rel="stylesheet" media="screen" href="@{'/public/css/ie.css'}" />
+<script src="@{'/public/js/ie.js'}"></script>
+<![endif]-->
+<!--[if IE 8]>
+<link rel="stylesheet" media="screen" href="@{'/public/css/ie8.css'}" />
+<![endif]-->
+
+<script src="@{'/public/js/global.js'}"></script>
 
 #{get 'script' /}
 

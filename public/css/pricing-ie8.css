@@ -1,0 +1,10 @@
+
+.pricing-table header .popular {
+    top: -14px; left: -13px;
+    height: 16px;
+}
+    
+    .pricing-table article:hover .popular,
+    .pricing-table article.selected .popular {
+        top: -13px; left: -13px;
+    }
