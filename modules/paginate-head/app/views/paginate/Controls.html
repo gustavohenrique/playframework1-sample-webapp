@@ -1,0 +1,44 @@
+%{
+int __firstPage = 1;
+int __currentPage = _items.pageNumber;
+int __pagesDisplayed = _items.pagesDisplayed;
+int __pagesBeforeMiddle = __pagesDisplayed / 2;
+int __maxPage = _items.pageCount;
+if (__currentPage > (__pagesDisplayed / 2)) {
+	__firstPage = __currentPage - __pagesBeforeMiddle;
+}
+int __lastPage = __currentPage + (__pagesDisplayed - __pagesBeforeMiddle - 1);
+if (__currentPage < (__pagesDisplayed - __pagesBeforeMiddle)) {
+	__lastPage = __pagesDisplayed;
+}
+if (__lastPage > __maxPage) {
+	__lastPage = __maxPage;
+}
+boolean __hasPrev = _items.hasPreviousPage;
+boolean __hasNext = _items.hasNextPage;
+String __firstURL = __hasPrev ? _items.getCallbackURL(1) : "#";
+String __prevURL = __hasPrev ? _items.getCallbackURL(__currentPage-1) : "#";
+String __nextURL = __hasNext ? _items.getCallbackURL(__currentPage+1) : "#";
+String __lastURL = __hasNext ? _items.getCallbackURL(__maxPage) : "#";
+%}
+<div class="pagination-container">
+	<ul class="pagination clearfix">
+%{ if (_items.boundaryControlsEnabled) { %}	
+		<li class="${__currentPage == 1 ? 'first' : 'first'}"><a href="${__firstURL}" class="button-blue">&{'play-paginate.first'}</a></li>
+%{ } %}
+		<li class="${__hasPrev ? 'prev' : 'prev'}"><a href="${__prevURL}" class="button-blue">&{'play-paginate.prev'}</a></li>
+%{
+for (__idx = __firstPage; __idx <= __lastPage; __idx++) {
+boolean __active = __currentPage == __idx;
+%}
+		<li class="page"><a class="${__active ? 'button-blue current' : 'button-blue'}" href="${_items.getCallbackURL(__idx)}">${__idx}</a></li>
+%{
+}
+%}
+		<li class="${__hasNext ? 'page' : 'page'}"><a href="${__nextURL}" class="button-blue">&{'play-paginate.next'}</a></li>
+%{ if (_items.boundaryControlsEnabled) { %}	
+		<li class="${__currentPage == __maxPage ? 'last' : 'last'}"><a href="${__lastURL}" class="button-blue">&{'play-paginate.last'}</a></li>
+%{ } %}
+	</ul>
+</div>
+

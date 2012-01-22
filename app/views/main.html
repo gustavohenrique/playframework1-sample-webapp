@@ -41,12 +41,12 @@
         <div id="main-nav">
             <ul class="clearfix">
                 <li #{if title == 'Dashboard'}class="active"#{/}><a href="dashboard.html">Dashboard</a></li>
-                <li #{if title == 'Accounts'}class="active"#{/}>#{a @crud.Accounts.list() }Accounts#{/a}</a></li>
+                <li #{if title == 'Accounts'}class="active"#{/}>#{a @Accounts.list() }Accounts#{/a}</a></li>
                 <li #{if title == 'Categories'}class="active"#{/}><a href="forms.html">Categories</a></li>
                 <li #{if title == 'Payees'}class="active"#{/}><a href="tables.html">Payees</a></li>
                 <li #{if title == 'Payments'}class="active"#{/}><a href="grids.html">Payment Types</a></li>
                 <li #{if title == 'Transactions'}class="active"#{/}><a href="media.html">Transactions</a></li>
-                <li #{if title == 'Imports'}class="active"#{/}><a href="pricing.html">Imports</a></li>
+                <li #{if title == 'Imports'}class="active"#{/}>#{a @Importers.index() }Imports#{/a}</a></li>
                 <li id="quick-links">
                     <a href="#">Quick Links<span>↓</span></a>
                     <ul>

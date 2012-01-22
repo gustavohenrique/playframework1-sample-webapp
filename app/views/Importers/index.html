@@ -1,0 +1,38 @@
+#{extends 'main.html'/}
+
+#{set title:'Imports'/}
+
+#{set 'menu'}
+ <div id="page-subheader">
+    <div class="wrapper">
+        <h2>Import data from file</h2>
+    </div>
+</div>
+#{/}
+
+<section id="content">
+    <div class="wrapper">
+        <form id="form" action="/importers/upload" method="POST" class="form panel" enctype="multipart/form-data">
+        
+            #{if flash.error}
+                <div class="message error">${flash.error}</div>
+            #{/if}
+            #{if flash.success}
+                <div class="message success">${flash.success}</div>
+            #{/if}
+            <header><h2>Homebank file (.xhb)</h2></header>
+        
+            <hr>
+            <fieldset>
+                <dl>
+                    <dt></dt><dd><label>Select a homebank file</label>
+                    <input type="file" name="file" value="${flash.file}" required="required"></dd>
+                    
+                </dl>    
+            </fieldset>
+            <hr>
+            <button class="button button-green" type="submit">Upload</button>
+        
+        </form>
+    </div>
+</section>

@@ -1,0 +1,109 @@
+h1. paginate
+
+paginate (http://github.com/lmcalpin/Play--Paginate) is a replacement for the standard #{list/} Play! tag.
+
+h2. Getting Started
+
+To include paginate in an existing project add the following lines to your **conf/application.conf** file
+
+bc. 
+module.paginate=${play.path}/modules/paginate-head
+
+h2. Using paginate
+
+You can use paginate by creating an instance of a Paginator object.  Two are provided for you, though you can always create your own:
+
+**play.modules.paginate.ModelPaginator** is used to paginate standard Play! JPA-based models.
+
+bc. public static void index() {
+      ModelPaginator paginator = new ModelPaginator(TheModel.class);
+      render(paginator);
+    }
+
+You can also provide a JPA-QL WHERE clause and/or an ORDER clause to sort and filter the results.
+
+bc. ModelPaginator entities = new ModelPaginator(Foo.class, "foo=?", "bar").orderBy("ID DESC"));
+    render(entities);
+
+**play.modules.paginate.ValuePaginator ** is used to wrap any existing List.
+
+bc. public static void index() {
+      List<T> realList = ...;
+      ValuePaginator paginator = new ValuePaginator(realList);
+      render(paginator);
+    }
+
+You can also simply provide a standard Java Collections API List, and behind the scenes, it will be autoboxed into a ValuePaginator.
+
+bc. public static void index() {
+      List<T> realList = ...;
+      render(realList);
+    }
+
+From your view, include the pagination list and controls:
+
+bc. #{paginate.list items:paginator, as:'r'} 
+    ... ${r} // or whatever 
+    #{/paginate.list} 
+    #{paginate.controls items:paginator /} 
+
+If you would like to use the default stylesheet, include this somewhere in your layout:
+
+bc. <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/play-pagination.css'}"> 
+
+If you would like to include a summary "Displaying rows X to Y", you may include the 
+summary tag:
+
+bc. #{paginate.summary items:paginator/}
+
+You can use the standard Play! #{else} tag with #{paginate.list}.  
+The contents within this tag will be rendered if the collection is empty:
+
+bc. #{paginate.list items:emptyCollection, as:'doesntmatter'}
+      This content won't be displayed
+    #{/paginate.list}
+    #{else}
+      Empty list!
+    #{/else}
+
+h2. Customization
+
+Pagination controls are controlled by the view paginate/Controls.html and can be overridden in your project.
+
+The following properties are available to customize pagination display:
+
+- get/setBoundaryControlsEnabled: determines whether the First and Last buttons are displayed
+- get/setPagesDisplayed: customizes the number of pages that show up between the forward/backward controls
+- get/setPageSize: determines the number of rows we display per page
+ 
+*Request Parameters*
+
+By default, paginator uses the "page" request parameter to determine what page you are viewing.  If you would
+like to override that, you can add a "paginator.parameter.name" entry to your application.conf:
+
+  paginator.parameter.name=__pagenumber
+
+However, using the default page request parameter will paginate every single pagination control on the page.
+To avoid that, you need to invoke the setParameterName() method in your controller.
+
+  ModelPaginator entities = new ModelPaginator(...);
+  entities.setParameterName("foo");
+  render(entities);
+  
+The example above will use the request parameter "foo" to capture the current page number for the ModelPaginator
+associated with the variable named "entities."
+
+There is currently no way to change the parameter name used for Lists that are autoboxed into ValuePaginators.
+
+*Query Cache*
+
+The JPA paginators try to use Hibernate's query cache, if you have one configured.  You can disable this by 
+adding "paginator.jpa.useQueryCache=false" to your application.conf.
+
+h2. Row Count Summary
+
+An additional summary tag is available if you would like to display the message: "Displaying rows X to Y 
+out of Z records."
+
+  #{paginate.summary items:paginator /}
+

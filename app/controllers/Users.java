@@ -8,6 +8,8 @@ import play.libs.Codec;
 
 public class Users extends Secure.Security {
 	
+	public static User user;
+
 	public static void signup() {
 		render();
 	}
@@ -26,7 +28,7 @@ public class Users extends Secure.Security {
 	    
 	    try {
 	    	newUser.save();
-	    	redirect("/");
+	    	redirect("/login");
 	    }
 	    catch (Exception e) {
 	    	signup();
@@ -34,10 +36,14 @@ public class Users extends Secure.Security {
 	}
 
 	public static boolean authenticate(String username, String password) {
-		User user = getUserAccount(username, password);
+		user = getUserAccount(username, password);
 	    return (user != null && user.id > 0);
 	}
 
+	public static User getConnected() {
+		return User.find("byUsername", Users.connected()).first();
+	}
+	
 	private static User getUserAccount(@Required String username, @Required String password) {
 		try {
 			String encrypted = Codec.hexSHA1(password);
@@ -46,5 +52,5 @@ public class Users extends Secure.Security {
 		catch (Exception e) {
 			return null;
 		}
-	}	
+	}
 }

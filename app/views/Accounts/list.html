@@ -1,0 +1,85 @@
+#{extends 'main.html' /}
+
+#{set title: 'Accounts' /}
+
+#{set 'menu'}
+ <div id="page-subheader">
+    <div class="wrapper">
+        <h2>Accounts</h2>
+        <input type="text" value="" name="q" placeholder="Search in #{get 'title' /}...">
+    </div>
+</div>
+#{/}
+
+<section id="content">
+    <div class="wrapper">
+        <!-- Left column/section -->
+    
+        <section class="grid_6 first">
+    
+            <div class="columns leading">
+                <div class="grid_6 first">
+                    <h3>Total of ${total} Accounts</h3>
+                    <hr>
+                    
+                    #{ifnot entities}
+                        <div class="message warning">
+                            <h3>No data found.</h3>
+                        </div>
+                    #{/ifnot}
+                    #{else}
+                    
+                        <table class="paginate sortable full">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Number</th>
+                                    <th>Initial</th>
+                                    <th>Type</th>
+                                    <th>Disabled</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody style="display: table-row-group;">
+                                
+                                #{paginate.list items:entities, as:'entity'} 
+                                <tr>
+                                    <td>${entity.name}</td>
+                                    <td>${entity.number}</td>
+                                    <td>${entity.initial}</td>
+                                    <td>${entity.type}</td>
+                                    <td>${entity.disabled}</td>
+                                </tr>
+                                #{/paginate.list}
+                                
+                            </tbody>
+                        </table>
+                        
+                        #{paginate.controls items:entities /}
+                    
+                    #{/else}
+               </div>
+               <div class="clear">&nbsp;</div>
+           </div>
+        </section>
+    
+        <!-- Right column/section -->
+        <aside class="grid_2">
+            <div class="accordion top">
+                <h2 class="current">First pane</h2>
+                <div style="display:block" class="pane">... pane content ...</div>
+ 
+                <h2>Second pane</h2>
+                <div class="pane">... pane content ...</div>
+ 
+                <h2>Third pane</h2>
+                <div class="pane">... pane content ...</div>
+            </div>
+        </aside>
+
+        <!-- End of Right column/section -->
+        <div class="clear"></div>
+        <div id="push"></div>
+ 
+    </div>
+</section>

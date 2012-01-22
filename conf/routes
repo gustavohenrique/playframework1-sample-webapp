@@ -7,10 +7,10 @@
 #POST    /users/create                           Users.create
 
 # Importers
-POST    /importers/upload                       api.Importers.upload
+#POST    /importers/upload                       Importers.upload
 
 # Accounts
-GET     /accounts/list                          crud.Accounts.list
+#GET     /accounts/list                          crud.Accounts.list
 GET     /accounts/read/{<[0-9]+>id}             api.Accounts.read
 POST    /accounts/create                        api.Accounts.create
 DELETE  /accounts/delete/{<[0-9]+>id}           api.Accounts.delete
