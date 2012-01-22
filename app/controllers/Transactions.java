@@ -1,32 +1,56 @@
-package controllers.crud;
+package controllers;
 
 import java.util.Date;
 import java.util.List;
 
 import models.Account;
+import models.Category;
+import models.Payee;
 import models.Transaction;
 import models.User;
-import play.data.binding.Binder;
+import play.modules.paginate.ValuePaginator;
 import play.mvc.Controller;
 import play.mvc.With;
 import pojo.TransactionFilterOptions;
 import utils.ConverterUtil;
 import utils.DateDeserializer;
 import utils.ExtJS;
-import utils.GsonBinder;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import controllers.Secure;
-
 @With(Secure.class)
 public class Transactions extends Controller {
 	
-	static {
-        Binder.register(JsonObject.class, new GsonBinder());
-    }
+	public static void list() {
+		try {
+			User user = Users.getConnected();
+			TransactionFilterOptions options = new TransactionFilterOptions();
+			options.setUserId(user.id);
+			
+			options.setAccountId(ConverterUtil.toLong(params.get("account")));
+			options.setPagination(params.get("start"), params.get("limit"));
+			options.setCategoryId(ConverterUtil.toLong(params.get("category")));
+			options.setPayeeId(ConverterUtil.toLong(params.get("payee")));
+			options.setStart(ConverterUtil.toDate(params.get("startDate")));
+			options.setEnd(ConverterUtil.toDate(params.get("endDate")));
+	
+	    	List<Transaction> transactions = Transaction.filter(options);
+	    	ValuePaginator entities = new ValuePaginator(transactions);
+	    	int total = transactions.size();
+
+	    	List<Account> accounts = Account.find("byUserAndDisabled", user, false).fetch();
+	    	List<Account> categories = Category.find("byUser", user).fetch();
+	    	List<Account> payees = Payee.find("byUser", user).fetch();
+	    	
+	    	render(entities, total, accounts, categories, payees);
+	    	
+		}
+		catch (Exception e) {
+			render();
+		}
+	}
 	
 	public static void read(Long id, Long accountId) {
 		try {

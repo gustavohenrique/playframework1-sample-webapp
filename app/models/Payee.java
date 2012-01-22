@@ -35,4 +35,9 @@ public class Payee extends Model {
 		return super.delete();
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 }

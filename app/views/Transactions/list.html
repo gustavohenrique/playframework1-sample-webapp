@@ -1,0 +1,140 @@
+#{extends 'main.html' /}
+
+#{set title: 'Transactions' /}
+
+#{set 'menu'}
+ <div id="page-subheader">
+    <div class="wrapper">
+        <h2>Transactions</h2>
+        <input type="text" value="" name="q" placeholder="Search in #{get 'title' /}...">
+    </div>
+</div>
+#{/}
+
+<section id="content">
+    <div class="wrapper">
+        <!-- Left column/section -->
+    
+        <section class="grid_6 first">
+    
+            <div class="columns leading">
+                <div class="grid_6 first">
+                    <h3>#{paginate.summary items:entities /}</h3>
+                    <hr>
+                    
+                    #{ifnot entities}
+                        <div class="message warning">
+                            <h3>No data found.</h3>
+                        </div>
+                    #{/ifnot}
+                    #{else}
+                    
+                        #{paginate.controls items:entities /}
+                        
+                        <table class="paginate sortable full">
+                            <thead>
+                                <tr>
+                                    <th>&{'date'}</th>
+                                    <th width="250">Description</th>
+                                    <th>Amount</th>
+                                    <th>Account</th>
+                                    <th>Category</th>
+                                    <th>Payee</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody style="display: table-row-group;">
+                                
+                                #{paginate.list items:entities, as:'entity'} 
+                                <tr>
+                                    <td>${entity.transactionDate.format()}</td>
+                                    <td>${entity.description}</td>
+                                    <td><span style="color:#{if entity.amount > 0}green#{/}#{else}red#{/}">${entity.amount}</span></td>
+                                    <td>${entity.account}</td>
+                                    <td>${entity.category}</td>
+                                    <td>${entity.payee}</td>
+                                </tr>
+                                #{/paginate.list}
+                                
+                            </tbody>
+                        </table>
+                        
+                        #{paginate.controls items:entities /}
+                    
+                    #{/else}
+               </div>
+               <div class="clear">&nbsp;</div>
+           </div>
+        </section>
+    
+        <!-- Right column/section -->
+        <aside class="grid_2">
+            <div class="accordion top">
+                <h2 class="current">Filter</h2>
+                <div style="display:block" class="pane">
+                    #{form @Transactions.list() , id:'form'} 
+                        <p>
+                            <input type="date" id="startDate" class="full" value="${flash.startDate}" name="startDate" placeholder="Start date" />
+                        </p>
+                        <p>
+                            <input type="date" id="endDate" class="full" value="${flash.endDate}" name="endDate" placeholder="End date" />
+                        </p>
+                        <p>
+                            <select id="account" class="full" name="account" placeholder="Account">
+                                <option value="0">Accounts</option>
+                                #{list items:accounts, as:'model'}
+                                    <option value="${model.id}" #{if model.id == flash.account}selected="true"#{/}>
+                                        ${model.name}
+                                    </option>
+                                #{/list}
+                            </select>
+                        </p>
+                        
+                        <p>
+                            <select id="category" class="full" name="category" placeholder="Account">
+                                <option value="0">Categories</option>
+                                #{list items:categories, as:'model'}
+                                    <option value="${model.id}" #{if model.id == flash.category}selected="true"#{/}>
+                                        ${model.name}
+                                    </option>
+                                #{/list}
+                            </select>
+                        </p>
+                        
+                        <p>
+                            <select id="payee" class="full" name="account" placeholder="Account">
+                                <option value="0">Payees</option>
+                                #{list items:payees, as:'model'}
+                                    <option value="${model.id}" #{if model.id == flash.payee}selected="true"#{/}>
+                                        ${model.name}
+                                    </option>
+                                #{/list}
+                            </select>
+                        </p>
+                        
+                        <p>
+                            <button class="button button-blue" type="submit">Filter</button>
+                            <button class="button button-gray" onclick="window.redirect.href='/transactions/list'">Clear</button>
+                        </p>
+                    #{/form}
+                </div>
+ 
+                <!-- 
+                <h2>Order By</h2>
+                <div class="pane">... pane content ...</div>
+                 -->
+            </div>
+        </aside>
+
+        <!-- End of Right column/section -->
+        <div class="clear"></div>
+        <div id="push"></div>
+ 
+    </div>
+</section>
+
+<script type="text/javascript">
+$(":date").dateinput({
+    format: "&{'js.date.format'}",
+}); 
+</script>

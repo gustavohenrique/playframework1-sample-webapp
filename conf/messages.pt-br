@@ -2,5 +2,5 @@
 # For example, for French create a messages.fr file
 #
 validation.required=%s is required
-date=Date
-js.date.format=yyyy/mm/dd
+date=Data
+js.date.format=dd/mm/yyyy

@@ -34,4 +34,8 @@ public class Category extends Model {
 		return super.delete();
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

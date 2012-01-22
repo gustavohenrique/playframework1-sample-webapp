@@ -3,6 +3,9 @@ package utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import play.Play;
+import play.i18n.Lang;
+
 public class ConverterUtil {
 
 	public static Long toLong(String value) {
@@ -25,7 +28,9 @@ public class ConverterUtil {
 	
 	public static Date toDate(String date) {
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String lang = Lang.get();
+			String dateFormat = Play.configuration.getProperty("date.format."+lang);
+			SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 			return formatter.parse(date);
 		}
 		catch (Exception e) { 

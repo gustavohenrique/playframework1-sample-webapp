@@ -34,4 +34,9 @@ public class Account extends Model {
 	
 	public String type;
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 }

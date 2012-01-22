@@ -85,12 +85,15 @@ public class Transaction extends Model {
 	
 	public static List<Transaction> filter(TransactionFilterOptions config) {
 		
-		if (config == null || config.getUserId() == 0 || config.getAccountId() == 0) {
+		if (config == null || config.getUserId() == 0) {
 			return null;
 		}
 		
-		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE user_id='" + config.getUserId()
-				+ "' AND account_id='" + config.getAccountId() + "' ");
+		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE user_id='" + config.getUserId()+ "' ");
+		
+		if (isNotNull(config.getAccountId()) && config.getAccountId() > 0) {
+			sql.append("AND account_id='" + config.getAccountId() + "' ");
+		}
 
 		if (isNotNull(config.getStart())) {
 			sql.append("AND transactionDate >= '" + formatDate(config.getStart()) + "' ");
