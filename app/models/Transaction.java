@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -18,6 +17,7 @@ import play.data.validation.Required;
 import play.db.jpa.JPA;
 import play.db.jpa.Model;
 import pojo.TransactionFilterOptions;
+import utils.ConverterUtil;
 
 
 @Entity(name="transactions")
@@ -91,16 +91,16 @@ public class Transaction extends Model {
 		
 		StringBuffer sql = new StringBuffer("SELECT t FROM transactions t WHERE user_id='" + config.getUserId()+ "' ");
 		
-		if (isNotNull(config.getAccountId()) && config.getAccountId() > 0) {
-			sql.append("AND account_id='" + config.getAccountId() + "' ");
-		}
-
 		if (isNotNull(config.getStart())) {
-			sql.append("AND transactionDate >= '" + formatDate(config.getStart()) + "' ");
+			sql.append("AND transactionDate >= '" + formatToMySQL(config.getStart()) + "' ");
 		}
 		
 		if (isNotNull(config.getEnd())) {
-			sql.append("AND transactionDate <= '" + formatDate(config.getEnd()) + "' ");
+			sql.append("AND transactionDate <= '" + formatToMySQL(config.getEnd()) + "' ");
+		}
+		
+		if (isBiggerThanZero(config.getAccountId())) {
+			sql.append("AND account_id='" + config.getAccountId() + "' ");
 		}
 		
 		if (isBiggerThanZero(config.getTransactionId())) {
@@ -128,8 +128,8 @@ public class Transaction extends Model {
 		return query.getResultList(); 
 	}
 
-	public static String formatDate(Date date) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+	public static String formatToMySQL(Date date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormat.format(date);
 	}
 	

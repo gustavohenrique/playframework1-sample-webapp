@@ -24,11 +24,10 @@ import com.google.gson.JsonObject;
 public class Transactions extends Controller {
 	
 	public static void list() {
-		try {
 			User user = Users.getConnected();
+			
 			TransactionFilterOptions options = new TransactionFilterOptions();
 			options.setUserId(user.id);
-			
 			options.setAccountId(ConverterUtil.toLong(params.get("account")));
 			options.setPagination(params.get("start"), params.get("limit"));
 			options.setCategoryId(ConverterUtil.toLong(params.get("category")));
@@ -46,10 +45,6 @@ public class Transactions extends Controller {
 	    	
 	    	render(entities, total, accounts, categories, payees);
 	    	
-		}
-		catch (Exception e) {
-			render();
-		}
 	}
 	
 	public static void read(Long id, Long accountId) {

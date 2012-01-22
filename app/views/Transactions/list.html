@@ -136,5 +136,9 @@
 <script type="text/javascript">
 $(":date").dateinput({
     format: "&{'js.date.format'}",
+    selectors: true,                // whether month/year dropdowns are shown
+    speed: 'fast',                  // calendar reveal speed
+    firstDay: 1,
+    yearRange: [-10, 5]
 }); 
 </script>

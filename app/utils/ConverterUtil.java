@@ -28,13 +28,27 @@ public class ConverterUtil {
 	
 	public static Date toDate(String date) {
 		try {
-			String lang = Lang.get();
-			String dateFormat = Play.configuration.getProperty("date.format."+lang);
-			SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-			return formatter.parse(date);
+			SimpleDateFormat dateFormat = getDateFormatFromFileConfig();
+			return dateFormat.parse(date);
 		}
 		catch (Exception e) { 
 			return null;
 		}
+	}
+	
+	public static String fromDate(Date date) {
+		try {
+			SimpleDateFormat dateFormat = getDateFormatFromFileConfig();
+			return dateFormat.format(date);
+		}
+		catch (Exception e) { 
+			return null;
+		}
+	}
+
+	private static SimpleDateFormat getDateFormatFromFileConfig() {
+		String lang = Lang.get();
+		String format = Play.configuration.getProperty("date.format."+lang);
+		return new SimpleDateFormat(format);
 	}
 }
