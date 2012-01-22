@@ -2,6 +2,7 @@
 *~
 *.swp
 *.bkp
+*.pyc
 tmp
 test-result
 *classes*
