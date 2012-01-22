@@ -3,8 +3,8 @@
 # ~~~~
 
 # Users
-POST    /users/authenticate                     api.Users.authenticate
-POST    /users/create                           api.Users.create
+#POST    /users/authenticate                     Users.authenticate
+#POST    /users/create                           Users.create
 
 # Importers
 POST    /importers/upload                       api.Importers.upload
@@ -35,9 +35,8 @@ DELETE  /transactions/delete/{<[0-9]+>id}/account/{<[0-9]+>accountId}   api.Tran
 PUT     /transactions/update                                            api.Transactions.update
 
 # Home Page
-GET     /                                       Application.index
-GET     /login                                  Auth.login
-GET     /signup                                 Auth.signup
+#GET     /                                       Application.index
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -46,5 +45,6 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Catch all
-*       /{controller}/{action}                  api.{controller}.{action}
+*      /                                        module:secure
+#*       /{controller}/{action}                  api.{controller}.{action}
 *       /{controller}/{action}                  {controller}.{action}

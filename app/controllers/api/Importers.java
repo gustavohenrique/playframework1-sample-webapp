@@ -9,9 +9,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import models.HomeBank;
+import models.User;
 import play.mvc.With;
 import utils.ExtJS;
 import controllers.Secure;
+import controllers.Users;
 
 @With(Secure.class)
 public class Importers extends Users {
@@ -23,7 +25,7 @@ public class Importers extends Users {
 	    	try {
 				InputStream xmlFile = new FileInputStream(file);
 				HomeBank homeBank = new HomeBankImporter().fromXml(xmlFile);
-				homeBank.setUser(Secure.user);
+				homeBank.setUser(new User());
 				
 				new HomeBankDao().persist(homeBank);
 				

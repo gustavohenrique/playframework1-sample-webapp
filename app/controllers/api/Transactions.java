@@ -5,6 +5,7 @@ import java.util.List;
 
 import models.Account;
 import models.Transaction;
+import models.User;
 import play.data.binding.Binder;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -30,7 +31,7 @@ public class Transactions extends Controller {
 	public static void read(Long id, Long accountId) {
 		try {
 			TransactionFilterOptions options = new TransactionFilterOptions();
-			options.setUserId(Secure.user.id);
+			options.setUserId(new User().id);
 			options.setTransactionId(id);
 			options.setAccountId(accountId);
 			options.setPagination(params.get("start"), params.get("limit"));
@@ -54,7 +55,7 @@ public class Transactions extends Controller {
 	public static void delete(Long id, Long accountId) {
 		try {
 			Account account = Account.findById(accountId);
-			Transaction transaction = Transaction.find("byUserAndIdAndAccount", Secure.user, id, account).first();
+			Transaction transaction = Transaction.find("byUserAndIdAndAccount", new User(), id, account).first();
 			transaction.delete();
 			ExtJS.success(transaction, 1l);
 		}
@@ -67,7 +68,7 @@ public class Transactions extends Controller {
         Transaction submited = getSubmitedTransaction(body);
         
         Transaction transaction = new Transaction();
-        transaction.user = Secure.user;
+        transaction.user = new User();
         transaction.description = submited.description;
         transaction.amount = submited.amount;
         transaction.transactionDate = submited.transactionDate;
@@ -93,7 +94,7 @@ public class Transactions extends Controller {
 	public static void update(JsonObject body) {
         Transaction submited = getSubmitedTransaction(body);
         
-        Transaction transaction = Transaction.find("byUserAndIdAndAccount", Secure.user, submited.id, submited.account).first();
+        Transaction transaction = Transaction.find("byUserAndIdAndAccount", new User(), submited.id, submited.account).first();
         transaction.description = submited.description;
         transaction.amount = submited.amount;
         transaction.transactionDate = submited.transactionDate;

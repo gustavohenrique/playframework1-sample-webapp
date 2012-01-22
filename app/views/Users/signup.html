@@ -1,0 +1,40 @@
+#{extends 'main.html'/}
+
+#{set title:'Sign Up'/}
+
+
+<section id="content">
+    <div style="width:430px; margin:0 auto">
+
+        <form id="form" action="@{create}" method="POST" class="form panel">
+        
+            #{if flash.error}
+                <div class="message error">&{flash.error}</div>
+            #{/if}
+            #{if flash.success}
+                <div class="message success">&{flash.success}</div>
+            #{/if}
+            <header><h2>Poupaniquel Sign Up</h2></header>
+        
+            <hr>
+            <fieldset>
+                <dl>
+                    <dt></dt><dd><label>username *</label>
+                    <input type="text" name="user.username" value="${flash.username}" required="required"></dd>
+                    
+                    <dt></dt><dd><label>Password *</label>
+                    <input type="password" name="user.password" value="${flash.username}" required="required"></dd>
+                    
+                    <dt></dt><dd><label>Password check *</label>
+                    <input type="password" name="user.password2" value="${flash.username}" data-equals="password"></dd>
+                    
+                </dl>    
+            </fieldset>
+        
+            <hr>
+            <button class="button button-green" type="submit">Register</button>
+            <button class="button button-gray" type="reset">Reset</button>
+        </form>
+
+    </div>
+</section>

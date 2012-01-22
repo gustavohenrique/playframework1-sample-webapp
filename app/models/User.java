@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -15,6 +16,9 @@ public class User extends Model {
 	
 	@Required
     public String password;
+	
+	@Transient
+	public String password2;
     
     public String fullname;
     

@@ -3,20 +3,12 @@ package controllers.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import models.Account;
 import models.User;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 
-import play.mvc.Http;
-import play.mvc.Http.Request;
 import play.mvc.Http.Response;
-import play.mvc.Scope;
-import play.mvc.Scope.Params;
-import play.mvc.Scope.Session;
 import play.test.Fixtures;
 import play.test.FunctionalTest;
 
@@ -30,8 +22,8 @@ public class UsersTest extends FunctionalTest {
 	
 	@Test
 	public void testAccessDeniedForNonAuthenticatedUsers() {
-		Response response = GET("/accounts/read");
-		assertFalse(isLogged(response));
+		Response response = GET("/application/index");
+		assertFalse(isUserAuthenticatedIn(response));
 	}
 	
 	@Test
@@ -42,7 +34,7 @@ public class UsersTest extends FunctionalTest {
 		
 		Response response = POST("/users/authenticate", parameters);
 		
-		assertFalse(isLogged(response));
+		assertFalse(isUserAuthenticatedIn(response));
 	}
 	
 	@Test
@@ -52,45 +44,37 @@ public class UsersTest extends FunctionalTest {
 		parameters.put("password", "123456");
 		
 		Response response = POST("/users/authenticate", parameters);
+		assertEquals("200", response.status.toString());
 
-		assertTrue(isLogged(response));
+		assertTrue(isUserAuthenticatedIn(response));
 	}
 	
 	@Test
 	public void testCreateUserOnlyRequiredFields() {
-		String body = "{data:{\"username\":\"eu@gustavohenrique.net\",\"password\":\"123456\"}}";
-	    Response response = POST("/users/create", "application/json", body);		
-
-		assertTrue(isSucccess(response));
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("user.username", "eu@gustavohenrique.net");
+		parameters.put("user.password", "123456");
 		
+	    Response response = POST("/users/create", parameters);
+	    assertEquals("302", response.status.toString());
+
 		User user = User.find("byUsername", "eu@gustavohenrique.net").first();
 		assertNotNull(user);
 	}
 	
 	@Test
 	public void testFailTryingDuplicateUsername() {
-		String body = "{data:{\"username\":\"admin@localhost.com\",\"password\":\"123456\"}}";
-		Response response = POST("/users/create", "application/json", body);
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("user.username", "admin@localhost.com");
+		parameters.put("user.password", "123456");
+		
+		POST("/users/create", parameters);
 
-		assertFalse(isSucccess(response));
 		assertEquals(1, User.find("byUsername", "admin@localhost.com").fetch().size());
 	}
 	
-	private boolean isLogged(Response response) {
-		String expected = "c3477dd38d89ed0eb1080c867f8b9cee04a41aab-%00token%3Aadmin%40localhost.com-bc256625e0963e3cfa9cd7d91268529b903f4b3a%00";
-		String sessionValue = response.cookies.get("PLAY_SESSION").value;
-		return sessionValue.equals(expected);
+	private boolean isUserAuthenticatedIn(Response response) {
+		return "true".equals(getContent(response));
 	}
 	
-	private boolean isSucccess(Response response) {
-		try {
-			String json = getContent(response).toString();
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode firstNode = mapper.readTree(json).findValue("success");
-			return "true".equals(firstNode.toString());
-		}
-		catch (Exception e) {
-			return false;
-		}
-	}
 }
