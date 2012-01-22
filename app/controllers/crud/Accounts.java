@@ -1,4 +1,4 @@
-package controllers.api;
+package controllers.crud;
 
 import java.util.List;
 
@@ -19,18 +19,15 @@ import controllers.Users;
 @With(Secure.class)
 public class Accounts extends Users {
 	
-	static {
-        Binder.register(JsonObject.class, new GsonBinder());
-    }
+	public static void list() {
+		List<Account> models = Account.find("byUserAndDisabled", null, false).fetch();
+		render(models);
+	}
 	
 	public static void read(Long id) {
 		if (id != null) {
 			Account account = Account.find("byUserAndIdAndDisabled", null , id, false).first();
-			ExtJS.success(account, 1l);
-		}
-		else {
-			List<Account> accounts = Account.find("byUserAndDisabled", null, false).fetch();
-			ExtJS.success(accounts, ConverterUtil.toLong(accounts.size()));
+			render(account);
 		}
 	}
 	

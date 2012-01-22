@@ -1,8 +1,8 @@
-package controllers.api;
+package controllers.crud;
 
 import java.util.List;
 
-import models.Payee;
+import models.Category;
 import models.User;
 import play.data.binding.Binder;
 import play.mvc.With;
@@ -18,7 +18,7 @@ import controllers.Secure;
 import controllers.Users;
 
 @With(Secure.class)
-public class Payees extends Users {
+public class Categories extends Users {
 	
 	static {
         Binder.register(JsonObject.class, new GsonBinder());
@@ -26,20 +26,20 @@ public class Payees extends Users {
 	
 	public static void read(Long id) {
 		if (id != null) {
-			Payee payee = Payee.find("byUserAndId", new User(), id).first();
-			ExtJS.success(payee, 1l);
+			Category category = Category.find("byUserAndId", new User(), id).first();
+			ExtJS.success(category, 1l);
 		}
 		else {
-			List<Payee> payees = Payee.find("byUser", new User()).fetch();
-			ExtJS.success(payees, ConverterUtil.toLong(payees.size()));
+			List<Category> categories = Category.find("byUser", new User()).fetch();
+			ExtJS.success(categories, ConverterUtil.toLong(categories.size()));
 		}
 	}
 	
 	public static void delete(Long id) {
 		try {
-			Payee payee = Payee.find("byUserAndId", new User(), id).first();
-			payee.delete();
-			ExtJS.success(payee, 1l);
+			Category category = Category.find("byUserAndId", new User(), id).first();
+			category.delete();
+			ExtJS.success(category, 1l);
 		}
 		catch (Exception e) {
 			ExtJS.error(e.getMessage());
@@ -47,20 +47,20 @@ public class Payees extends Users {
 	}
 	
 	public static void create(JsonObject body) {
-		Payee submited = getSubmitedPayee(body);
+		Category submited = getSubmitedCategory(body);
 		
-		Payee payee = new Payee();
-		payee.user = new User();
-		payee.name = submited.name;
+		Category category = new Category();
+		category.user = new User();
+		category.name = submited.name;
 		
-		validation.valid(payee);
+		validation.valid(category);
 	    if(validation.hasErrors()) {
 	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
 	    try {
-	    	payee.save();
-	    	ExtJS.success(payee, 1l);
+	    	category.save();
+	    	ExtJS.success(category, 1l);
 	    }
 	    catch (Exception e) {
 	    	ExtJS.error("");
@@ -68,23 +68,23 @@ public class Payees extends Users {
 	}
 	
 	public static void update(JsonObject body) {
-		Payee submited = getSubmitedPayee(body);
+		Category submited = getSubmitedCategory(body);
 		
-		Payee payee = Payee.findById(submited.id);
-		payee.name = submited.name;
+		Category category = Category.findById(submited.id);
+		category.name = submited.name;
 		
-	    validation.valid(payee);
+	    validation.valid(category);
 	    if(validation.hasErrors()) {
 	    	ExtJS.error("Validation error: "+validation.errors().get(0).toString());
 	    }
 	    
-	    payee.save();
-		ExtJS.success(payee, 1l);
+	    category.save();
+		ExtJS.success(category, 1l);
 	}
 	
-	private static Payee getSubmitedPayee(JsonObject body) {
+	private static Category getSubmitedCategory(JsonObject body) {
 		Gson gson = new GsonBuilder().serializeNulls().create();
-		return gson.fromJson(body.get("data"), Payee.class);
+		return gson.fromJson(body.get("data"), Category.class);
 	}
 	
 }

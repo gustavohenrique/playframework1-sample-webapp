@@ -1,0 +1,100 @@
+#{extends 'main.html' /}
+
+#{set title: 'Accounts' /}
+
+#{set 'menu'}
+ <div id="page-subheader">
+    <div class="wrapper">
+        <h2>Accounts</h2>
+        <input type="text" value="" name="q" placeholder="Search in #{get 'title' /}...">
+    </div>
+</div>
+#{/}
+
+<section id="content">
+    <div class="wrapper">
+        <!-- Left column/section -->
+    
+        <section class="grid_6 first">
+    
+            <div class="columns leading">
+                <div class="grid_6 first">
+                    <h3>Total of ${models?.size} Accounts</h3>
+                    <hr>
+                    
+                    #{ifnot models}
+                        <div class="message warning">
+                            <h3>No data found.</h3>
+                        </div>
+                    #{/ifnot}
+                    #{else}
+                    
+                    <table class="sortable full">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Number</th>
+                                <th>Initial</th>
+                                <th>Type</th>
+                                <th>Disabled</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody style="display: table-row-group;">
+                            #{list items:models, as:'model'}
+                            <tr>
+                                <td>${model.name}</td>
+                                <td>${model.number}</td>
+                                <td>${model.initial}</td>
+                                <td>${model.type}</td>
+                                <td>${model.disabled}</td>
+                            </tr>
+                            #{/list}
+                        </tbody>
+                    </table>
+                    <ul class="pagination clearfix">
+                        <li class="first">
+                            <a href="#" class="button-blue">First</a>
+                        </li>
+                        <li class="prev">
+                            <a href="#" class="button-blue">«</a>
+                        </li>
+                        <li class="page">
+                            <a href="#" class="button-blue current">1</a>
+                        </li><li class="page">
+                            <a href="#" class="button-blue">2</a>
+                        </li>
+                        <li class="page">
+                            <a href="#" class="button-blue">»</a>
+                        </li>
+                        <li class="last">
+                            <a href="#" class="button-blue">Last</a>
+                        </li>
+                    </ul>
+    
+                    #{/else}
+               </div>
+               <div class="clear">&nbsp;</div>
+           </div>
+        </section>
+    
+        <!-- Right column/section -->
+        <aside class="grid_2">
+            <div class="accordion top">
+                <h2 class="current">First pane</h2>
+                <div style="display:block" class="pane">... pane content ...</div>
+ 
+                <h2>Second pane</h2>
+                <div class="pane">... pane content ...</div>
+ 
+                <h2>Third pane</h2>
+                <div class="pane">... pane content ...</div>
+            </div>
+        </aside>
+
+        <!-- End of Right column/section -->
+        <div class="clear"></div>
+        <div id="push"></div>
+ 
+    </div>
+</section>

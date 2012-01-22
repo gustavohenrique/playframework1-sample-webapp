@@ -21,13 +21,51 @@
 
 <script src="@{'/public/js/global.js'}"></script>
 
-#{get 'script' /}
+#{get 'moreScripts' /}
 
 <title>PoupaNiquel #{get 'title' /}</title>
 
 </head>
 
+#{if session.username}
+<header id="page-header">
+    <div class="wrapper">
+        <div id="util-nav">
+            <ul>
+                <li>Logged in as ${session.username}:</li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <h1>Poupaniquel</h1>
+        <div id="main-nav">
+            <ul class="clearfix">
+                <li #{if title == 'Dashboard'}class="active"#{/}><a href="dashboard.html">Dashboard</a></li>
+                <li #{if title == 'Accounts'}class="active"#{/}>#{a @crud.Accounts.list() }Accounts#{/a}</a></li>
+                <li #{if title == 'Categories'}class="active"#{/}><a href="forms.html">Categories</a></li>
+                <li #{if title == 'Payees'}class="active"#{/}><a href="tables.html">Payees</a></li>
+                <li #{if title == 'Payments'}class="active"#{/}><a href="grids.html">Payment Types</a></li>
+                <li #{if title == 'Transactions'}class="active"#{/}><a href="media.html">Transactions</a></li>
+                <li #{if title == 'Imports'}class="active"#{/}><a href="pricing.html">Imports</a></li>
+                <li id="quick-links">
+                    <a href="#">Quick Links<span>↓</span></a>
+                    <ul>
+                        <li><a href="#">New Transaction</a></li>
+                        <li><a href="#">Drafts</a></li>
+                        <li><a href="#">Upload</a></li>
+                        <li><a href="#">Comments</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    #{get 'menu' /}
+   
+</header>
+#{/}
+
 <body>
-#{doLayout/}
+    #{doLayout/}
 </body>
+
 </html>
