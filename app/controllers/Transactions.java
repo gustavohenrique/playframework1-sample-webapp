@@ -29,7 +29,7 @@ public class Transactions extends Controller {
 			TransactionFilterOptions options = new TransactionFilterOptions();
 			options.setUserId(user.id);
 			options.setAccountId(ConverterUtil.toLong(params.get("account")));
-			options.setPagination(params.get("start"), params.get("limit"));
+//			options.setPagination(params.get("start"), params.get("limit"));
 			options.setCategoryId(ConverterUtil.toLong(params.get("category")));
 			options.setPayeeId(ConverterUtil.toLong(params.get("payee")));
 			options.setStart(ConverterUtil.toDate(params.get("startDate")));
@@ -46,7 +46,7 @@ public class Transactions extends Controller {
 	    	if ("POST".equals(request.method)) {
 	    		params.flash();
 	    	}
-	    	
+	    	entities.setPageSize(30);
 	    	render(entities, total, accounts, categories, payees);
 	    	
 	}

@@ -37,9 +37,6 @@
                                     <th>&{'date'}</th>
                                     <th>Description</th>
                                     <th>Amount</th>
-                                    <th>Account</th>
-                                    <th>Category</th>
-                                    <th>Payee</th>
                                 </tr>
                             </thead>
                             
@@ -47,12 +44,12 @@
                                 
                                 #{paginate.list items:entities, as:'entity'} 
                                 <tr>
-                                    <td>${entity.transactionDate.format()}</td>
-                                    <td>${entity.description}</td>
-                                    <td><span style="color:#{if entity.amount > 0}green#{/}#{else}red#{/}">${entity.amount}</span></td>
-                                    <td>${entity.account}</td>
-                                    <td>${entity.category}</td>
-                                    <td>${entity.payee}</td>
+                                    <td style="vertical-align:middle;">${entity.transactionDate.format()}</td>
+                                    <td>
+                                        ${entity.description}<br/>
+                                        <!-- [${entity.account}] [${entity.category}] [${entity.payee}]  -->  
+                                    </td>
+                                    <td style="vertical-align:middle;" align="right"><span style="color:#{if entity.amount > 0}green#{/}#{else}red#{/}">${entity.amount}</span></td>
                                 </tr>
                                 #{/paginate.list}
                                 

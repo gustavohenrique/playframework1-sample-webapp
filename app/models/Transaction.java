@@ -93,8 +93,8 @@ public class Transaction extends Model {
 		sql.append("ORDER BY " + orderBy);
 		
 		Query query = JPA.em().createQuery(sql.toString());
-		query.setFirstResult(config.getStartPage());
-		query.setMaxResults(config.getLimitPage());
+//		query.setFirstResult(config.getStartPage());
+//		query.setMaxResults(config.getLimitPage());
 
 		return query.getResultList(); 
 	}
