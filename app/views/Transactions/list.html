@@ -34,13 +34,16 @@
                         <table class="paginate sortable full">
                             <thead>
                                 <tr>
-                                    <th>&{'date'}</th>
+                                    <th width="80">&{'date'}</th>
                                     <th>Description</th>
-                                    <th>Amount</th>
+                                    <th width="100">Amount</th>
+                                    <th width="100">Balance</th>
                                 </tr>
                             </thead>
                             
                             <tbody style="display: table-row-group;">
+                            
+                                %{ BigDecimal balance = 0 %}
                                 
                                 #{paginate.list items:entities, as:'entity'} 
                                 <tr>
@@ -49,11 +52,24 @@
                                         ${entity.description}<br/>
                                         <!-- [${entity.account}] [${entity.category}] [${entity.payee}]  -->  
                                     </td>
-                                    <td style="vertical-align:middle;" align="right"><span style="color:#{if entity.amount > 0}green#{/}#{else}red#{/}">${entity.amount}</span></td>
+                                    <td width="100" style="vertical-align:middle;" align="right"><span style="color:#{if entity.amount > 0}green#{/}#{else}red#{/}">${entity.amount}</span></td>
+                                    
+                                    %{ balance = balance + entity.amount %}
+                                    <td width="100" style="vertical-align:middle;" align="right"><span style="color:#{if balance > 0}green#{/}#{else}red#{/}">${balance}</span></td>
                                 </tr>
                                 #{/paginate.list}
-                                
                             </tbody>
+                            <tfoot>
+                                
+                                <tr class="subtotal">
+                                    <td colspan="3">Subtotal</td>
+                                    <td align="right"><span style="color:#{if subtotal > 0}green#{/}#{else}red#{/}">${subtotal}</span></td>
+                                </tr>
+                                <tr class="total">
+                                    <td colspan="3" style="border-bottom-left-radius: 5px;">Total</td>
+                                    <td align="right" style="border-bottom-right-radius: 5px;"><span style="color:#{if totalAmount > 0}green#{/}#{else}red#{/}">${totalAmount}</span></td>
+                                </tr>
+                            </tfoot>
                         </table>
                         
                         #{paginate.controls items:entities /}

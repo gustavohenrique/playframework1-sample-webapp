@@ -49,11 +49,11 @@
                                     <td>${entity.initial}</td>
                                     <td>${entity.type}</td>
                                     <td>
-                                        #{if entity.enabled == 'true'}
-                                            <a title="accept" class="action-button" href="#"><span class="accept"></span></a>
+                                        #{if entity.enabled == true}
+                                            &{'yes'}
                                         #{/if}
                                         #{else}
-                                            <a title="delete" class="action-button" href="#"><span class="delete"></span></a>
+                                            &{'no'}
                                         #{/else}
                                     </td>
                                 </tr>

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import models.Category;
 import models.Payee;
 import models.Transaction;
 import models.User;
+import play.db.jpa.JPA;
 import play.modules.paginate.ValuePaginator;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -37,7 +39,6 @@ public class Transactions extends Controller {
 	
 	    	List<Transaction> transactions = Transaction.filter(options);
 	    	ValuePaginator entities = new ValuePaginator(transactions);
-	    	int total = transactions.size();
 
 	    	List<Account> accounts = Account.find("byUserAndEnabled", user, true).fetch();
 	    	List<Account> categories = Category.find("byUser", user).fetch();
@@ -47,8 +48,24 @@ public class Transactions extends Controller {
 	    		params.flash();
 	    	}
 	    	entities.setPageSize(30);
-	    	render(entities, total, accounts, categories, payees);
 	    	
+	    	BigDecimal subtotal = calculateSubtotalIn(transactions);
+	    	BigDecimal totalAmount = calculateTotalAmount(user);
+	    	
+	    	render(entities, totalAmount, subtotal, accounts, categories, payees);
+	    	
+	}
+	
+	private static BigDecimal calculateSubtotalIn(List<Transaction> transactions) {
+        BigDecimal subtotal = BigDecimal.ZERO;
+        for (Transaction transaction : transactions) {
+            subtotal = subtotal.add(transaction.amount);
+        }
+        return subtotal;
+    }
+
+    private static BigDecimal calculateTotalAmount(User user) {
+	    return (BigDecimal) JPA.em().createNativeQuery("SELECT SUM(t.amount) FROM transactions t where t.user_id = "+user.id).getSingleResult();    
 	}
 	
 	public static void read(Long id, Long accountId) {

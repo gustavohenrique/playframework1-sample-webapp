@@ -69,3 +69,13 @@ table.paginate tbody tr:nth-child(odd) td {
 table.paginate td.column-selected {
     background: #ffffc0 !important;
 }
+
+table tfoot tr.subtotal td {
+    background-color: #eef;
+    font-weight: bold;
+}
+
+table tfoot tr.total td {
+    background-color: #e2e2e2;
+    font-weight: bold;
+}
