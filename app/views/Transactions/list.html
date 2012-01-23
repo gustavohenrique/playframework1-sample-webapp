@@ -38,6 +38,7 @@
                                     <th>Description</th>
                                     <th width="100">Amount</th>
                                     <th width="100">Balance</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             
@@ -56,6 +57,12 @@
                                     
                                     %{ balance = balance + entity.amount %}
                                     <td width="100" style="vertical-align:middle;" align="right"><span style="color:#{if balance > 0}green#{/}#{else}red#{/}">${balance}</span></td>
+                                    
+                                    <td width="70" align="right">
+                                        <img src="@{'/public/images/icons/application_view_list.png'}"/>
+                                        <img src="@{'/public/images/icons/application_edit.png'}"/>
+                                        <img src="@{'/public/images/icons/application_delete.png'}"/>
+                                    </td>
                                 </tr>
                                 #{/paginate.list}
                             </tbody>
@@ -64,10 +71,12 @@
                                 <tr class="subtotal">
                                     <td colspan="3">Subtotal</td>
                                     <td align="right"><span style="color:#{if subtotal > 0}green#{/}#{else}red#{/}">${subtotal}</span></td>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr class="total">
                                     <td colspan="3" style="border-bottom-left-radius: 5px;">Total</td>
                                     <td align="right" style="border-bottom-right-radius: 5px;"><span style="color:#{if totalAmount > 0}green#{/}#{else}red#{/}">${totalAmount}</span></td>
+                                    <td>&nbsp;</td>
                                 </tr>
                             </tfoot>
                         </table>

@@ -17,4 +17,4 @@ db
 precompiled
 logs
 lib
-modules/secure
+secure
