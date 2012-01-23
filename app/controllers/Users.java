@@ -8,8 +8,6 @@ import play.libs.Codec;
 
 public class Users extends Secure.Security {
 	
-	public static User user;
-
 	public static void signup() {
 		render();
 	}
@@ -36,7 +34,7 @@ public class Users extends Secure.Security {
 	}
 
 	public static boolean authenticate(String username, String password) {
-		user = getUserAccount(username, password);
+		User user = getUserAccount(username, password);
 	    return (user != null && user.id > 0);
 	}
 

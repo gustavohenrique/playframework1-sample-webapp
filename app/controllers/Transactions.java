@@ -39,9 +39,13 @@ public class Transactions extends Controller {
 	    	ValuePaginator entities = new ValuePaginator(transactions);
 	    	int total = transactions.size();
 
-	    	List<Account> accounts = Account.find("byUserAndDisabled", user, false).fetch();
+	    	List<Account> accounts = Account.find("byUserAndEnabled", user, true).fetch();
 	    	List<Account> categories = Category.find("byUser", user).fetch();
 	    	List<Account> payees = Payee.find("byUser", user).fetch();
+	    	
+	    	if ("POST".equals(request.method)) {
+	    		params.flash();
+	    	}
 	    	
 	    	render(entities, total, accounts, categories, payees);
 	    	

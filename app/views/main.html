@@ -7,6 +7,7 @@
 <link rel="stylesheet" media="screen" href="@{'/public/css/messages.css'}" />
 <link rel="stylesheet" media="screen" href="@{'/public/css/forms.css'}" />
 <link rel="stylesheet" media="screen" href="@{'/public/css/tables.css'}" />
+<link rel="stylesheet" media="screen" href="@{'/public/css/action-buttons.css'}" />
 
 <script src="@{'/public/js/html5.js'}"></script>
 <script src="@{'/public/js/jquery.tools.min.js'}"></script>
@@ -45,7 +46,7 @@
                 <li #{if title == 'Categories'}class="active"#{/}><a href="forms.html">Categories</a></li>
                 <li #{if title == 'Payees'}class="active"#{/}><a href="tables.html">Payees</a></li>
                 <li #{if title == 'Payments'}class="active"#{/}><a href="grids.html">Payment Types</a></li>
-                <li #{if title == 'Transactions'}class="active"#{/}><a href="media.html">Transactions</a></li>
+                <li #{if title == 'Transactions'}class="active"#{/}>#{a @Transactions.list() }Transactions#{/a}</a></li>
                 <li #{if title == 'Imports'}class="active"#{/}>#{a @Importers.index() }Imports#{/a}</a></li>
                 <li id="quick-links">
                     <a href="#">Quick Links<span>↓</span></a>

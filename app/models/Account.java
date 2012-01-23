@@ -21,7 +21,7 @@ public class Account extends Model {
 	
 	public int key;
 	
-	public boolean disabled;
+	public boolean enabled;
 	
 	@Required
 	@MaxSize(50)

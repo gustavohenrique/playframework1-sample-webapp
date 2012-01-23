@@ -17,7 +17,6 @@ import play.data.validation.Required;
 import play.db.jpa.JPA;
 import play.db.jpa.Model;
 import pojo.TransactionFilterOptions;
-import utils.ConverterUtil;
 
 
 @Entity(name="transactions")
@@ -54,34 +53,6 @@ public class Transaction extends Model {
 		this.description = description;
 		this.amount = new BigDecimal(amount);
 	}
-	
-	/*public static List<Transaction> filterByAccount(Account account) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		return filter(config);
-	}
-	
-	public static List<Transaction> filterByDateInterval(Account account, Date start, Date end) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		config.setStart(start);
-		config.setEnd(end);
-		return filter(config);
-	}
-	
-	public static List<Transaction> filterByPayee(Account account, Payee payee) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		config.setPayee(payee);
-		return filter(config);
-	}
-	
-	public static List<Transaction> filterByCategory(Account account, Category category) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		config.setCategory(category);
-		return filter(config);
-	}*/
 	
 	public static List<Transaction> filter(TransactionFilterOptions config) {
 		

@@ -35,7 +35,7 @@
                             <thead>
                                 <tr>
                                     <th>&{'date'}</th>
-                                    <th width="250">Description</th>
+                                    <th>Description</th>
                                     <th>Amount</th>
                                     <th>Account</th>
                                     <th>Category</th>
@@ -72,7 +72,7 @@
             <div class="accordion top">
                 <h2 class="current">Filter</h2>
                 <div style="display:block" class="pane">
-                    #{form @Transactions.list() , id:'form'} 
+                    #{form @Transactions.list() , id:'filterForm', name:'filterForm'} 
                         <p>
                             <input type="date" id="startDate" class="full" value="${flash.startDate}" name="startDate" placeholder="Start date" />
                         </p>
@@ -80,10 +80,10 @@
                             <input type="date" id="endDate" class="full" value="${flash.endDate}" name="endDate" placeholder="End date" />
                         </p>
                         <p>
-                            <select id="account" class="full" name="account" placeholder="Account">
+                            <select id="account" class="full" name="account">
                                 <option value="0">Accounts</option>
                                 #{list items:accounts, as:'model'}
-                                    <option value="${model.id}" #{if model.id == flash.account}selected="true"#{/}>
+                                    <option value="${model.id}" #{if model?.id.toString() == flash.account}selected="true"#{/}>
                                         ${model.name}
                                     </option>
                                 #{/list}
@@ -91,10 +91,10 @@
                         </p>
                         
                         <p>
-                            <select id="category" class="full" name="category" placeholder="Account">
+                            <select id="category" class="full" name="category">
                                 <option value="0">Categories</option>
                                 #{list items:categories, as:'model'}
-                                    <option value="${model.id}" #{if model.id == flash.category}selected="true"#{/}>
+                                    <option value="${model.id}" #{if model?.id.toString() == flash.category}selected="true"#{/}>
                                         ${model.name}
                                     </option>
                                 #{/list}
@@ -102,10 +102,10 @@
                         </p>
                         
                         <p>
-                            <select id="payee" class="full" name="account" placeholder="Account">
+                            <select id="payee" class="full" name="payee">
                                 <option value="0">Payees</option>
                                 #{list items:payees, as:'model'}
-                                    <option value="${model.id}" #{if model.id == flash.payee}selected="true"#{/}>
+                                    <option value="${model.id}" #{if model?.id.toString() == flash.payee}selected="true"#{/}>
                                         ${model.name}
                                     </option>
                                 #{/list}
@@ -114,7 +114,7 @@
                         
                         <p>
                             <button class="button button-blue" type="submit">Filter</button>
-                            <button class="button button-gray" onclick="window.redirect.href='/transactions/list'">Clear</button>
+                            <button class="button button-gray" type="reset" onclick="window.location.href='@{transactions.list()}'">Clear</button>
                         </p>
                     #{/form}
                 </div>

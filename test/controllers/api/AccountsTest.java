@@ -59,7 +59,7 @@ public class AccountsTest extends FixturesAndLogin {
 	
 	@Test
 	public void testDontGetAccountDisabled() {
-		citibank.disabled = true;
+		citibank.enabled = true;
 		citibank.save();
 		
 		Response response = GET("/accounts/read/" + citibank.id);

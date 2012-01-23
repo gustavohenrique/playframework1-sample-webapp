@@ -83,7 +83,7 @@ public class HomeBankDao {
 		for (Account account : accounts) {
 			if (notFound(Account.find("byName", account.name))) {
 				account.user = homeBank.getUser();
-				account.disabled = false;
+				account.enabled = true;
 				account.save();
 			}
 		}

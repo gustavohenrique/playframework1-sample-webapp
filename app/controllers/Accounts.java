@@ -1,9 +1,6 @@
 package controllers;
 
-import java.util.List;
-
 import models.Account;
-import models.User;
 import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -13,23 +10,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import controllers.Secure;
-
 @With(Secure.class)
 public class Accounts extends Controller {
 	
 	public static void list(Long page) {
-		ModelPaginator entities = new ModelPaginator(Account.class, "user=?", Users.getConnected()).orderBy("ID");
-		int total = entities.size();
-	    render(entities, total);
-
-//		List<Account> entities = Account.find("byUserAndDisabled", Users.getConnected(), false).fetch();
-//		render(entities);
+		ModelPaginator entities = new ModelPaginator(Account.class, "user=? and enabled=?", Users.getConnected(), true).orderBy("ID");
+	    render(entities);
 	}
 	
 	public static void read(Long id) {
 		if (id != null) {
-			Account account = Account.find("byUserAndIdAndDisabled", Users.getConnected() , id, false).first();
+			Account account = Account.find("byUserAndIdAndEnabled", Users.getConnected() , id, true).first();
 			render(account);
 		}
 	}
@@ -37,7 +28,7 @@ public class Accounts extends Controller {
 	public static void delete(Long id) {
 		try {
 			Account account = Account.find("byUserAndId", Users.getConnected(), id).first();
-			account.disabled = true;
+			account.enabled = true;
 			account.save();
 			ExtJS.success(account, 1l);
 		}

@@ -15,11 +15,11 @@
     <div class="wrapper">
         <!-- Left column/section -->
     
-        <section class="grid_6 first">
+        <section class="grid_8 first">
     
             <div class="columns leading">
-                <div class="grid_6 first">
-                    <h3>Total of ${total} Accounts</h3>
+                <div class="grid_8 first">
+                    <h3>#{paginate.summary items:entities /}</h3>
                     <hr>
                     
                     #{ifnot entities}
@@ -36,7 +36,7 @@
                                     <th>Number</th>
                                     <th>Initial</th>
                                     <th>Type</th>
-                                    <th>Disabled</th>
+                                    <th width="50">Enabled</th>
                                 </tr>
                             </thead>
                             
@@ -48,7 +48,14 @@
                                     <td>${entity.number}</td>
                                     <td>${entity.initial}</td>
                                     <td>${entity.type}</td>
-                                    <td>${entity.disabled}</td>
+                                    <td>
+                                        #{if entity.enabled == 'true'}
+                                            <a title="accept" class="action-button" href="#"><span class="accept"></span></a>
+                                        #{/if}
+                                        #{else}
+                                            <a title="delete" class="action-button" href="#"><span class="delete"></span></a>
+                                        #{/else}
+                                    </td>
                                 </tr>
                                 #{/paginate.list}
                                 
@@ -63,19 +70,6 @@
            </div>
         </section>
     
-        <!-- Right column/section -->
-        <aside class="grid_2">
-            <div class="accordion top">
-                <h2 class="current">First pane</h2>
-                <div style="display:block" class="pane">... pane content ...</div>
- 
-                <h2>Second pane</h2>
-                <div class="pane">... pane content ...</div>
- 
-                <h2>Third pane</h2>
-                <div class="pane">... pane content ...</div>
-            </div>
-        </aside>
 
         <!-- End of Right column/section -->
         <div class="clear"></div>
