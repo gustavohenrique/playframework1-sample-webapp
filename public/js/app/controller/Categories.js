@@ -52,9 +52,7 @@ Ext.define('PoupaNiquel.controller.Categories', {
     },
     
     add: function(button) {
-    	//var category = Ext.create('PoupaNiquel.model.Category');
     	this.getCategoriesGrid().getStore().insert(0, this.getCategoryModel().create());
-        //editing.startEdit(0, 0);
     },
     
     delete: function() {

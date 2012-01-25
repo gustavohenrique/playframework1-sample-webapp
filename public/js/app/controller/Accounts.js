@@ -44,14 +44,12 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     },
     
     add: function(button) {
-    	var account = Ext.create('PoupaNiquel.model.Account');
-    	
-    	this.getAccountsGrid().getStore().insert(0, account);
-        editing.startEdit(0, 0);
+    	//var account = Ext.create('PoupaNiquel.model.Account');
+    	this.getAccountsGrid().getStore().insert(0, this.getAccountModel().create());
     },
     
     delete: function(button) {
-    	var grid = button.up('accountsGrid'),
+    	var grid = this.getAccountsGrid(),
 	        record = grid.getSelectionModel().getSelection()[0],
             store = grid.getStore();
         
