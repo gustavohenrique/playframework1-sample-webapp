@@ -86,10 +86,10 @@ public class Transaction extends Model {
 			sql.append("AND category_id = '" + config.getCategoryId() + "' ");
 		}
 		
-		String orderBy = "transactionDate, amount";
-		if (isNotNull(config.getOrderBy())) {
-			orderBy = config.getOrderBy();
-		}
+		String orderBy = "t.transactionDate DESC, t.amount DESC";
+//		if (isNotNull(config.getOrderBy())) {
+//			orderBy = config.getOrderBy();
+//		}
 		sql.append("ORDER BY " + orderBy);
 		
 		Query query = JPA.em().createQuery(sql.toString());
