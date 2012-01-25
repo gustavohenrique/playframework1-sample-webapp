@@ -10,15 +10,15 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     
     refs: [{
     	ref: 'accountsGrid',
-    	selector: 'grid'
+    	selector: 'accountsGrid'
     }],
     
     init: function() {
     	this.control({
-    		'grid button[action=add]': {
+    		'accountsGrid button[action=add]': {
   	    	    click: this.add
   	        },
-  	        'grid button[action=delete]': {
+  	        'accountsGrid button[action=delete]': {
 	    	    click: this.delete
 	        },
     	})
@@ -44,10 +44,9 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     },
     
     add: function(button) {
-    	var grid = button.up('accountsGrid'),
-    	    account = Ext.create('PoupaNiquel.model.Account');
+    	var account = Ext.create('PoupaNiquel.model.Account');
     	
-    	grid.getStore().insert(0, account);
+    	this.getAccountsGrid().getStore().insert(0, account);
         editing.startEdit(0, 0);
     },
     

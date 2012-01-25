@@ -55,34 +55,6 @@ public class Transaction extends Model {
 		this.amount = new BigDecimal(amount);
 	}
 	
-	/*public static List<Transaction> filterByAccount(Account account) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		return filter(config);
-	}
-	
-	public static List<Transaction> filterByDateInterval(Account account, Date start, Date end) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		config.setStart(start);
-		config.setEnd(end);
-		return filter(config);
-	}
-	
-	public static List<Transaction> filterByPayee(Account account, Payee payee) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		config.setPayee(payee);
-		return filter(config);
-	}
-	
-	public static List<Transaction> filterByCategory(Account account, Category category) {
-		TransactionFilterOptions config = new TransactionFilterOptions();
-		config.setAccount(account);
-		config.setCategory(category);
-		return filter(config);
-	}*/
-	
 	public static List<Transaction> filter(TransactionFilterOptions config) {
 		
 		if (config == null || config.getUserId() == 0 || config.getAccountId() == 0) {
@@ -112,7 +84,7 @@ public class Transaction extends Model {
 			sql.append("AND category_id = '" + config.getCategoryId() + "' ");
 		}
 		
-		String orderBy = "transactionDate, amount";
+		String orderBy = "transactionDate DESC, amount DESC";
 		if (isNotNull(config.getOrderBy())) {
 			orderBy = config.getOrderBy();
 		}

@@ -24,11 +24,11 @@ public class Accounts extends Users {
 	
 	public static void read(Long id) {
 		if (id != null) {
-			Account account = Account.find("byUserAndIdAndDisabled", Secure.user, id, false).first();
+			Account account = Account.find("byUserAndIdAndEnabled", Secure.user, id, true).first();
 			ExtJS.success(account, 1l);
 		}
 		else {
-			List<Account> accounts = Account.find("byUserAndDisabled", Secure.user, false).fetch();
+			List<Account> accounts = Account.find("byUserAndEnabled", Secure.user, true).fetch();
 			ExtJS.success(accounts, ConverterUtil.toLong(accounts.size()));
 		}
 	}
@@ -36,7 +36,7 @@ public class Accounts extends Users {
 	public static void delete(Long id) {
 		try {
 			Account account = Account.find("byUserAndId", Secure.user, id).first();
-			account.disabled = true;
+			account.enabled = false;
 			account.save();
 			ExtJS.success(account, 1l);
 		}

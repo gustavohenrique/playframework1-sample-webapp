@@ -1,4 +1,6 @@
-var editing = Ext.create('Ext.grid.plugin.CellEditing');
+var editing = Ext.create('Ext.grid.plugin.CellEditing', {
+    clicksToEdit: 1,
+});
 
 Ext.define('PoupaNiquel.controller.Categories', {
     extend: 'Ext.app.Controller',
@@ -9,24 +11,24 @@ Ext.define('PoupaNiquel.controller.Categories', {
     
     refs: [{
     	ref: 'categoriesGrid',
-    	selector: 'grid'
+    	selector: 'categoriesGrid'
     }],
     
     init: function() {
     	this.control({
-    		'grid button[action=add]': {
+    		'categoriesGrid button[action=add]': {
   	    	    click: this.add
   	        },
-  	        'grid button[action=delete]': {
-	    	    click: function() { console.log('dfsfsd');}
+  	        'categoriesGrid button[action=delete]': {
+	    	    click: this.delete
 	        },
     	});
-    	console.log(this);
     },
     
     showPanel: function() {
     	var viewport = Ext.ComponentManager.get('viewportCenter'),
-    	    panel = Ext.ComponentManager.get('categoriesPanel');
+    	    panel = Ext.ComponentManager.get('categoriesPanel'),
+    	    store = this.getCategoriesStore();
     	
     	if (panel == null) {
        	    panel = Ext.create('widget.mdiWindow', {
@@ -34,33 +36,36 @@ Ext.define('PoupaNiquel.controller.Categories', {
 	            title: 'Categories',
 	            items: [{
 	            	xtype: 'categoriesGrid',
-	            	store: this.getCategoriesStore(),
+	            	store: store,
 	            	plugins: [editing],
 	            }]
 	    	});
+       	    
+       	    editing.on('edit', function(editor, e, eOpts) {
+       	    	console.debug(eOpts);
+       	    	store.sync();
+       	    });
+       	    
        	    viewport.add(panel);
        	    panel.show();
     	}
     },
     
     add: function(button) {
-    	var grid = button.up('categoriesGrid'),
-    	    account = Ext.create('PoupaNiquel.model.Account');
-    	
-    	grid.getStore().insert(0, account);
-        editing.startEdit(0, 0);
+    	//var category = Ext.create('PoupaNiquel.model.Category');
+    	this.getCategoriesGrid().getStore().insert(0, this.getCategoryModel().create());
+        //editing.startEdit(0, 0);
     },
     
     delete: function() {
-    	alert('dsfs');
-//    	var grid = button.up('categoriesGrid'),
-//	        record = grid.getSelectionModel().getSelection()[0],
-//            store = grid.getStore();
-//        
-//        if (record) {
-//        	store.remove(record);
-//            store.sync();
-//        }
+    	var grid = this.getCategoriesGrid(),
+	        record = grid.getSelectionModel().getSelection()[0],
+            store = grid.getStore();
+        
+        if (record) {
+        	store.remove(record);
+            store.sync();
+        }
     }
     
 });
