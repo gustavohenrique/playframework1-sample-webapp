@@ -15,10 +15,49 @@
     <div class="wrapper">
         <!-- Left column/section -->
     
-        <section class="grid_6 first">
-    
+        <section class="grid_8 first">
+        
+            <div class="accordion top" style="width:990px">
+                <h2 class="current">Filter</h2>
+                <div class="pane" style="display: block;">
+                
+                    <form action="/transactions/list" id="filterForm" name="filterForm" method="POST"> 
+                        <input type="date" style="width:90px" id="startDate" value="${flash.startDate}" name="startDate" placeholder="Start date" />
+                        <input type="date" style="width:90px" id="endDate" value="${flash.endDate}" name="endDate" placeholder="End date" />
+                        <select id="account" name="account">
+                            <option value="0">Accounts</option>
+                            #{list items:accounts, as:'model'}
+                                <option value="${model.id}" #{if model.id.toString() == flash.account}selected="true"#{/}>
+                                    ${model.name}
+                                </option>
+                            #{/list}
+                        </select>
+                    
+                        <select id="category" name="category">
+                            <option value="0">Categories</option>
+                            #{list items:categories, as:'model'}
+                                <option value="${model.id}" #{if model?.id.toString() == flash.category}selected="true"#{/}>
+                                    ${model.name}
+                                </option>
+                            #{/list}
+                        </select>
+                    
+                        <select id="payee" name="payee">
+                            <option value="0">Payees</option>
+                            #{list items:payees, as:'model'}
+                                <option value="${model.id}" #{if model?.id.toString() == flash.payee}selected="true"#{/}>
+                                    ${model.name}
+                                </option>
+                            #{/list}
+                        </select>
+                        <button class="button button-blue" type="submit">Filter</button>
+                        <button class="button button-gray" type="reset" onclick="window.location.href='@{transactions.list()}'">Clear</button>
+                    </form>
+                </div>
+            </div>
+
             <div class="columns leading">
-                <div class="grid_6 first">
+                <div class="grid_8 first">
                     <h3>#{paginate.summary items:entities /}</h3>
                     <hr>
                     
@@ -36,6 +75,9 @@
                                 <tr>
                                     <th width="80">&{'date'}</th>
                                     <th>Description</th>
+                                    <th>Account</th>
+                                    <th>Category</th>
+                                    <th>Payee</th>
                                     <th width="100">Amount</th>
                                     <th width="100">Balance</th>
                                     <th>&nbsp;</th>
@@ -49,17 +91,21 @@
                                 #{paginate.list items:entities, as:'entity'} 
                                 <tr>
                                     <td style="vertical-align:middle;">${entity.transactionDate.format()}</td>
-                                    <td>
+                                    <td width="300">
                                         ${entity.description}<br/>
                                         <!-- [${entity.account}] [${entity.category}] [${entity.payee}]  -->  
                                     </td>
-                                    <td width="100" style="vertical-align:middle;" align="right"><span style="color:#{if entity.amount > 0}green#{/}#{else}red#{/}">${entity.amount}</span></td>
+                                    
+                                    <td>${entity.account}</td>
+                                    <td>${entity.category}</td>
+                                    <td>${entity.payee}</td>
+                                    
+                                    <td style="vertical-align:middle;" align="right"><span style="color:#{if entity.amount > 0}green#{/}#{else}red#{/}">${entity.amount}</span></td>
                                     
                                     %{ balance = balance + entity.amount %}
-                                    <td width="100" style="vertical-align:middle;" align="right"><span style="color:#{if balance > 0}green#{/}#{else}red#{/}">${balance}</span></td>
+                                    <td style="vertical-align:middle;" align="right"><span style="color:#{if balance > 0}green#{/}#{else}red#{/}">${balance}</span></td>
                                     
-                                    <td width="70" align="right">
-                                        <img src="@{'/public/images/icons/application_view_list.png'}"/>
+                                    <td width="40" align="right">
                                         <img src="@{'/public/images/icons/application_edit.png'}"/>
                                         <img src="@{'/public/images/icons/application_delete.png'}"/>
                                     </td>
@@ -69,12 +115,12 @@
                             <tfoot>
                                 
                                 <tr class="subtotal">
-                                    <td colspan="3">Subtotal</td>
+                                    <td colspan="6">Subtotal</td>
                                     <td align="right"><span style="color:#{if subtotal > 0}green#{/}#{else}red#{/}">${subtotal}</span></td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr class="total">
-                                    <td colspan="3" style="border-bottom-left-radius: 5px;">Total</td>
+                                    <td colspan="6" style="border-bottom-left-radius: 5px;">Total</td>
                                     <td align="right" style="border-bottom-right-radius: 5px;"><span style="color:#{if totalAmount > 0}green#{/}#{else}red#{/}">${totalAmount}</span></td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -88,65 +134,6 @@
                <div class="clear">&nbsp;</div>
            </div>
         </section>
-    
-        <!-- Right column/section -->
-        <aside class="grid_2">
-            <div class="accordion top">
-                <h2 class="current">Filter</h2>
-                <div style="display:block" class="pane">
-                    #{form @Transactions.list() , id:'filterForm', name:'filterForm'} 
-                        <p>
-                            <input type="date" id="startDate" class="full" value="${flash.startDate}" name="startDate" placeholder="Start date" />
-                        </p>
-                        <p>
-                            <input type="date" id="endDate" class="full" value="${flash.endDate}" name="endDate" placeholder="End date" />
-                        </p>
-                        <p>
-                            <select id="account" class="full" name="account">
-                                <option value="0">Accounts</option>
-                                #{list items:accounts, as:'model'}
-                                    <option value="${model.id}" #{if model?.id.toString() == flash.account}selected="true"#{/}>
-                                        ${model.name}
-                                    </option>
-                                #{/list}
-                            </select>
-                        </p>
-                        
-                        <p>
-                            <select id="category" class="full" name="category">
-                                <option value="0">Categories</option>
-                                #{list items:categories, as:'model'}
-                                    <option value="${model.id}" #{if model?.id.toString() == flash.category}selected="true"#{/}>
-                                        ${model.name}
-                                    </option>
-                                #{/list}
-                            </select>
-                        </p>
-                        
-                        <p>
-                            <select id="payee" class="full" name="payee">
-                                <option value="0">Payees</option>
-                                #{list items:payees, as:'model'}
-                                    <option value="${model.id}" #{if model?.id.toString() == flash.payee}selected="true"#{/}>
-                                        ${model.name}
-                                    </option>
-                                #{/list}
-                            </select>
-                        </p>
-                        
-                        <p>
-                            <button class="button button-blue" type="submit">Filter</button>
-                            <button class="button button-gray" type="reset" onclick="window.location.href='@{transactions.list()}'">Clear</button>
-                        </p>
-                    #{/form}
-                </div>
- 
-                <!-- 
-                <h2>Order By</h2>
-                <div class="pane">... pane content ...</div>
-                 -->
-            </div>
-        </aside>
 
         <!-- End of Right column/section -->
         <div class="clear"></div>
