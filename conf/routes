@@ -32,7 +32,7 @@ GET     /transactions/read/account/{<[0-9]+>accountId}                  api.Tran
 GET     /transactions/read/{<[0-9]+>id}/account/{<[0-9]+>accountId}     api.Transactions.read
 POST    /transactions/create                                            api.Transactions.create
 DELETE  /transactions/delete/{<[0-9]+>id}/account/{<[0-9]+>accountId}   api.Transactions.delete
-PUT     /transactions/update                                            api.Transactions.update
+PUT     /transactions/update/{<[0-9]+>id}                               api.Transactions.update
 
 # Home Page
 GET     /                                       Application.index

@@ -3,13 +3,15 @@ package utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import play.mvc.Controller;
-import play.mvc.results.RenderJson;
+import models.User;
 
 public class ExtJS {
 
 	public static void success(Object data, Long size) {
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		ExclusionStrategyJson exclusion = new ExclusionStrategyJson();
+        exclusion.addClass(User.class);
 		
 		if (size > 0) {
 		    result.put("success", true);
@@ -21,7 +23,7 @@ public class ExtJS {
 		    result.put("message", "Object not found");
 		}
 		
-		throw new RenderJson(result);
+		throw new RenderJason(result, exclusion);
 	}
 	
 	public static void success(String message) {
@@ -29,7 +31,7 @@ public class ExtJS {
 		result.put("message", message);
 		result.put("success", true);
 
-		throw new RenderJson(result);
+		throw new RenderJason(result);
 	} 
 	
 	public static void error(String message){
@@ -37,6 +39,8 @@ public class ExtJS {
 		result.put("message", message);
 		result.put("success", false);
 
-		throw new RenderJson(result);
+		throw new RenderJason(result);
 	}
+	
+	
 }

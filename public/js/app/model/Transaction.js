@@ -15,16 +15,12 @@ function getId(object) {
 Ext.define('PoupaNiquel.model.Transaction', {
     extend: 'Ext.data.Model',
     fields: [
-    	'id','description', 'amount', 'payment', 'account', 'category', 'payee', {
-    		name: 'categoryId', mapping: function(transaction) { return getId(transaction.category); }
-	    }, {
-	    	name: 'categoryName', mapping: function(transaction) { return getName(transaction.category); }
-    	}, {
-    		name: 'payeeId', mapping: function(transaction) { return getId(transaction.payee); }
-	    }, {
-	    	name: 'payeeName', mapping: function(transaction) { return getName(transaction.payee); }
-    	}, {
-    		name: 'transactionDate', type: 'date', convert: function(value) {
+    	'id','description', 'amount', 'payment', 'account', 'category', 'payee', 
+    	{ name: 'categoryId', mapping: function(transaction) { return getId(transaction.category); } },
+	    { name: 'categoryName', mapping: function(transaction) { return getName(transaction.category); }	},
+	    { name: 'payeeId', mapping: function(transaction) { return getId(transaction.payee); } },
+	    { name: 'payeeName', mapping: function(transaction) { return getName(transaction.payee); } },
+	    { name: 'transactionDate', type: 'date', convert: function(value) {
     			if (value != "") {
 			        var dt = new Date(Date.parse(value));
 		            return Ext.Date.format(dt, "Y-m-d");
