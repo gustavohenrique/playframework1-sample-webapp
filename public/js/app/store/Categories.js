@@ -23,6 +23,13 @@ Ext.define('PoupaNiquel.store.Categories', {
         writer: {
             type: 'json',
             root: 'data',
+        },
+        
+        listeners: {
+            exception: function(proxy, response, operation){
+            	var message = Ext.JSON.decode(response.responseText).message;
+            	Ext.Msg.alert('Error', message);
+            }
         }
     }
 });

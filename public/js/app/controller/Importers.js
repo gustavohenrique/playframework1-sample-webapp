@@ -63,8 +63,8 @@ Ext.define('PoupaNiquel.controller.Importers', {
 	            
 	    	});
        	    viewport.add(panel);
-       	    panel.show();
     	}
+    	panel.show();
     },
     
     import: function(button) {

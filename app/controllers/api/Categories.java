@@ -2,6 +2,8 @@ package controllers.api;
 
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import models.Category;
 import play.data.binding.Binder;
 import play.mvc.With;
@@ -28,7 +30,7 @@ public class Categories extends Users {
 			ExtJS.success(category, 1l);
 		}
 		else {
-			List<Category> categories = Category.find("byUser", Secure.user).fetch();
+			List<Category> categories = Category.find("user_id=? order by name", Secure.user.id).fetch();
 			ExtJS.success(categories, ConverterUtil.toLong(categories.size()));
 		}
 	}
@@ -61,7 +63,7 @@ public class Categories extends Users {
 	    	ExtJS.success(category, 1l);
 	    }
 	    catch (Exception e) {
-	    	ExtJS.error("");
+	    	ExtJS.error("Duplicate entrie.");
 		}
 	}
 	

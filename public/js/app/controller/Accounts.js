@@ -1,6 +1,3 @@
-//var editing = Ext.create('Ext.grid.plugin.editing');
-var editing = Ext.create('Ext.grid.plugin.CellEditing');
-
 Ext.define('PoupaNiquel.controller.Accounts', {
     extend: 'Ext.app.Controller',
 
@@ -35,12 +32,12 @@ Ext.define('PoupaNiquel.controller.Accounts', {
 	            items: [{
 	            	xtype: 'accountsGrid',
 	            	store: this.getAccountsStore(),
-	            	plugins: [editing],
+	            	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
 	            }]
 	    	});
        	    viewport.add(panel);
-       	    panel.show();
     	}
+    	panel.show();
     },
     
     add: function(button) {

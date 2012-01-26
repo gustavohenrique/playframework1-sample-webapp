@@ -1,5 +1,5 @@
 var editing = Ext.create('Ext.grid.plugin.CellEditing', {
-    clicksToEdit: 1,
+    clicksToEdit: 2,
 });
 
 Ext.define('PoupaNiquel.controller.Categories', {
@@ -47,8 +47,8 @@ Ext.define('PoupaNiquel.controller.Categories', {
        	    });
        	    
        	    viewport.add(panel);
-       	    panel.show();
     	}
+    	panel.show();
     },
     
     add: function(button) {

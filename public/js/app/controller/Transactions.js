@@ -37,15 +37,18 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     showPanel: function() {
-    	var accountStore = this.getAccountsStore(),
-    	    panel = Ext.ComponentManager.get('transactionsPanel'),
-    	    tabs = new Array();
+    	var viewport = Ext.ComponentManager.get('viewportCenter'),
+	    	panel = Ext.ComponentManager.get('transactionsPanel'),
+	    	totalAccounts = this.getAccountsStore().data.length;
     	
-    	if (accountStore.data.length == 0) {
+    	if (totalAccounts == 0) {
     		Ext.Msg.alert('Error', 'No accounts found. Please add an account first.');
     	}
-    	else if (panel == null) {
-    		accountStore.each(function(record) {
+	
+    	if (panel == null && totalAccounts > 0) {
+    		var tabs = new Array();
+    		
+    		this.getAccountsStore().each(function(record) {
 	    		store = Ext.create('PoupaNiquel.store.Transactions');
 	    		store.proxy.extraParams.accountId = record.data.id;
 	    		store.accountId = record.data.id;
@@ -76,10 +79,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
 	            items: tabPanel
 	    	});
 	    	
-	    	var viewport = Ext.ComponentManager.get('viewportCenter');
 	    	viewport.add(panel);
-	    	panel.show();
-    	}
+		}
+    	panel.show();
+    	
+    	
     },
     
     filter: function(button) {

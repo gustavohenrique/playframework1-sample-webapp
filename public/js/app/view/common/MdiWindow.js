@@ -5,7 +5,7 @@ Ext.define('PoupaNiquel.view.common.MdiWindow', {
     height: '100%',
     width: '100%',
     closable: true,
-    closeAction: 'destroy',
+    closeAction: 'hide',
     plain: true,
     border: false,
     layout: 'fit',
@@ -14,16 +14,4 @@ Ext.define('PoupaNiquel.view.common.MdiWindow', {
     	return this.callParent(arguments);
     },
     
-    listeners: {
-        render: function() {
-        	var panels = Ext.ComponentQuery.query('mdiWindow');
-        	
-        	if (panels.length) {
-        		for (var i=0; i < panels.length; i++) {
-        			var item = panels[i];
-        		    if (item.id != this.id) item.close();
-        		};
-        	}
-        }
-    }
 });    

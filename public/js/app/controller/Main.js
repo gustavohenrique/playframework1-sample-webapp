@@ -2,40 +2,26 @@ Ext.Loader.setConfig({enabled:true});
 Ext.define('PoupaNiquel.controller.Main', {
     extend: 'Ext.app.Controller',
 
-    views: ['main.Top'],
+    views: ['main.MainToolbar'],
     
     init: function() {
     	this.control({
-	        'button[action=transactions]': {
-	            click: this.openTransactions
+	        'mainToolbar button[action=showPanel]': {
+	            click: this.showPanel
 	        },
-	        
-	        'button[action=accounts]': {
-		        click: this.openAccounts
-		    },
-		    
-		    'button[action=import]': {
-		        click: this.openImport
-		    },
-		    'button[action=categories]': {
-		        click: this.openCategories
-		    },
     	})
     },
     
-    openTransactions: function() {
-    	this.getController('Transactions').showPanel();
+    showPanel: function(button) {
+    	var panels = Ext.ComponentQuery.query('mdiWindow');
+    	
+    	if (panels.length) {
+    		for (var i=0; i < panels.length; i++) {
+    			var item = panels[i];
+    		    if (item.id != this.id) item.close();
+    		};
+    	}
+    	this.getController(button.controller).showPanel();
     },
     
-    openAccounts: function() {
-    	this.getController('Accounts').showPanel();
-    },
-    
-    openImport: function() {
-    	this.getController('Importers').showPanel();
-    },
-    
-    openCategories: function() {
-    	this.getController('Categories').showPanel();
-    },
 });

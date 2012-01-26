@@ -1,36 +1,41 @@
-Ext.define('PoupaNiquel.view.main.Top', {
+Ext.define('PoupaNiquel.view.main.MainToolbar', {
 	extend: 'Ext.toolbar.Toolbar',
-    alias: 'widget.mainTop',
+    alias: 'widget.mainToolbar',
     
     items: [{
     	cls:'x-btn-text-icon',
     	scale: 'large',
-    	action: 'transactions',
     	iconCls: 'transactions-icon',
-    	text: 'Transactions'
+    	text: 'Transactions',
+    	action: 'showPanel',
+    	controller: 'Transactions'
     }, {
     	cls:'x-btn-text-icon',
     	scale: 'large',
-    	action: 'accounts',
     	iconCls: 'accounts-icon',
-    	text: 'Accounts'
+    	text: 'Accounts',
+    	action: 'showPanel',
+    	controller: 'Accounts'
     }, {
     	cls:'x-btn-text-icon',
     	scale: 'large',
-    	action: 'categories',
     	iconCls: 'categories-icon',
-    	text: 'Categories'
+    	text: 'Categories',
+    	action: 'showPanel',
+    	controller: 'Categories'
     }, {
     	cls:'x-btn-text-icon',
     	scale: 'large',
     	iconCls: 'payees-icon',
-    	text: 'Payees'
+    	text: 'Payees',
+    	action: 'showPanel',
     }, '-', {
     	cls:'x-btn-text-icon',
     	scale: 'large',
-    	action: 'import',
     	iconCls: 'import-icon',
-    	text: 'Import'
+    	text: 'Import',
+    	action: 'showPanel',
+    	controller: 'Importers'
     }],
 
     initComponent: function() {
