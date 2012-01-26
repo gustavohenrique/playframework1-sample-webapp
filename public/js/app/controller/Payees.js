@@ -2,24 +2,24 @@ var editing = Ext.create('Ext.grid.plugin.CellEditing', {
     clicksToEdit: 2,
 });
 
-Ext.define('PoupaNiquel.controller.Categories', {
+Ext.define('PoupaNiquel.controller.Payees', {
     extend: 'Ext.app.Controller',
 
     models: ['Generic'],
-    stores: ['Categories'],
-    views:  ['categories.Grid', 'common.MdiWindow'],
+    stores: ['Payees'],
+    views:  ['payees.Grid', 'common.MdiWindow'],
     
     refs: [{
-    	ref: 'categoriesGrid',
-    	selector: 'categoriesGrid'
+    	ref: 'payeesGrid',
+    	selector: 'payeesGrid'
     }],
     
     init: function() {
     	this.control({
-    		'categoriesGrid button[action=add]': {
+    		'payeesGrid button[action=add]': {
   	    	    click: this.add
   	        },
-  	        'categoriesGrid button[action=delete]': {
+  	        'payeesGrid button[action=delete]': {
 	    	    click: this.delete
 	        },
     	});
@@ -27,15 +27,15 @@ Ext.define('PoupaNiquel.controller.Categories', {
     
     showPanel: function() {
     	var viewport = Ext.ComponentManager.get('viewportCenter'),
-    	    panel = Ext.ComponentManager.get('categoriesPanel'),
-    	    store = this.getCategoriesStore();
+    	    panel = Ext.ComponentManager.get('payeesPanel'),
+    	    store = this.getPayeesStore();
     	
     	if (panel == null) {
        	    panel = Ext.create('widget.mdiWindow', {
-	    		id: 'categoriesPanel',
-	            title: 'Categories',
+	    		id: 'payeesPanel',
+	            title: 'Payees',
 	            items: [{
-	            	xtype: 'categoriesGrid',
+	            	xtype: 'payeesGrid',
 	            	store: store,
 	            	plugins: [editing],
 	            }]
@@ -51,11 +51,11 @@ Ext.define('PoupaNiquel.controller.Categories', {
     },
     
     add: function(button) {
-    	this.getCategoriesGrid().getStore().insert(0, this.getGenericModel().create());
+    	this.getPayeesGrid().getStore().insert(0, this.getGenericModel().create());
     },
     
     delete: function() {
-    	var grid = this.getCategoriesGrid(),
+    	var grid = this.getPayeesGrid(),
 	        record = grid.getSelectionModel().getSelection()[0],
             store = grid.getStore();
         

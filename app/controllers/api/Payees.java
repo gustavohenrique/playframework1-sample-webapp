@@ -61,7 +61,7 @@ public class Payees extends Users {
 	    	ExtJS.success(payee, 1l);
 	    }
 	    catch (Exception e) {
-	    	ExtJS.error("");
+	        ExtJS.error("Duplicate entry.");
 		}
 	}
 	

@@ -63,7 +63,7 @@ public class Categories extends Users {
 	    	ExtJS.success(category, 1l);
 	    }
 	    catch (Exception e) {
-	    	ExtJS.error("Duplicate entrie.");
+	    	ExtJS.error("Duplicate entry.");
 		}
 	}
 	

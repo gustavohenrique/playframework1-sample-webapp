@@ -29,6 +29,7 @@ Ext.define('PoupaNiquel.view.main.MainToolbar', {
     	iconCls: 'payees-icon',
     	text: 'Payees',
     	action: 'showPanel',
+    	controller: 'Payees'
     }, '-', {
     	cls:'x-btn-text-icon',
     	scale: 'large',
