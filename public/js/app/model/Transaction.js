@@ -32,8 +32,8 @@ Ext.define('PoupaNiquel.model.Transaction', {
     
     associations: [
        { type: 'belongsTo', model: 'Account', primaryKey: 'id', foreignKey: 'account' },
-       { type: 'belongsTo', model: 'Generic', primaryKey: 'id', foreignKey: 'category' },
-       { type: 'belongsTo', model: 'Generic', primaryKey: 'id', foreignKey: 'payee' }
+       { type: 'belongsTo', model: 'Category', primaryKey: 'id', foreignKey: 'category' },
+       { type: 'belongsTo', model: 'Payee', primaryKey: 'id', foreignKey: 'payee' }
     ],
   
 });

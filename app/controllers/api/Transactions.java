@@ -107,8 +107,7 @@ public class Transactions extends Controller {
             ExtJS.error("Validation error: "+validation.errors().get(0).toString());
         }
         
-        transaction.save();
-        ExtJS.success(transaction, 1l);
+        ExtJS.success(Transaction.findById(transaction.id), 1l);
     }
 	
 	private static Transaction getSubmitedTransaction(JsonObject body) {

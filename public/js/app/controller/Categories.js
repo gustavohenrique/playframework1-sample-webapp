@@ -5,7 +5,7 @@ var editing = Ext.create('Ext.grid.plugin.CellEditing', {
 Ext.define('PoupaNiquel.controller.Categories', {
     extend: 'Ext.app.Controller',
 
-    models: ['Generic'],
+    models: ['Category'],
     stores: ['Categories'],
     views:  ['categories.Grid', 'common.MdiWindow'],
     
@@ -51,7 +51,7 @@ Ext.define('PoupaNiquel.controller.Categories', {
     },
     
     add: function(button) {
-    	this.getCategoriesGrid().getStore().insert(0, this.getGenericModel().create());
+    	this.getCategoriesGrid().getStore().insert(0, this.getCategoryModel().create());
     },
     
     delete: function() {

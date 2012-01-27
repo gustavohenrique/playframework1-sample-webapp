@@ -1,7 +1,7 @@
 Ext.define('PoupaNiquel.controller.Transactions', {
     extend: 'Ext.app.Controller',
 
-    models: ['Account', 'Generic', 'Transaction'],
+    models: ['Account', 'Category', 'Payee', 'Transaction'],
     stores: ['Accounts', 'Categories', 'Payees', 'Transactions'],
     views: ['transactions.FilterPanel', 'transactions.FilterComboBox', 'transactions.Grid', 'transactions.Edit', 'common.MdiWindow'],
     
@@ -133,7 +133,11 @@ Ext.define('PoupaNiquel.controller.Transactions', {
             grid = this.getTransactionGrid(),
             store = grid.getStore();
         
-		if (values.id > 0){
+        console.log(record);
+		if (values.id > 0) {
+			var category = Ext.create('PoupaNiquel.model.Category');
+			category.id = values.categoryId;
+			values.category = category;
 			record.set(values);
 		}
 		else {

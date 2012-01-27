@@ -1,6 +1,6 @@
 Ext.define('PoupaNiquel.store.Payees', {
     extend: 'Ext.data.Store',
-    model: 'PoupaNiquel.model.Generic',
+    model: 'PoupaNiquel.model.Payee',
     
     storeId: 'Payees',
     autoLoad: true,

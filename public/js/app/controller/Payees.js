@@ -5,7 +5,7 @@ var editing = Ext.create('Ext.grid.plugin.CellEditing', {
 Ext.define('PoupaNiquel.controller.Payees', {
     extend: 'Ext.app.Controller',
 
-    models: ['Generic'],
+    models: ['Payee'],
     stores: ['Payees'],
     views:  ['payees.Grid', 'common.MdiWindow'],
     
@@ -51,7 +51,7 @@ Ext.define('PoupaNiquel.controller.Payees', {
     },
     
     add: function(button) {
-    	this.getPayeesGrid().getStore().insert(0, this.getGenericModel().create());
+    	this.getPayeesGrid().getStore().insert(0, this.getPayeeModel().create());
     },
     
     delete: function() {

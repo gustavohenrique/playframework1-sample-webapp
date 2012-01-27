@@ -1,6 +1,6 @@
 Ext.define('PoupaNiquel.store.Categories', {
     extend: 'Ext.data.Store',
-    model: 'PoupaNiquel.model.Generic',
+    model: 'PoupaNiquel.model.Category',
     
     storeId: 'Categories',
     autoLoad: true,
