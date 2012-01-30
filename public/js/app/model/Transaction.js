@@ -12,6 +12,8 @@ function getId(object) {
     return null;
 };
 
+var balance = 0;
+
 Ext.define('PoupaNiquel.model.Transaction', {
     extend: 'Ext.data.Model',
     fields: [
@@ -28,6 +30,10 @@ Ext.define('PoupaNiquel.model.Transaction', {
     			return value;
 		    }
 		},
+		{ name: 'balance', mapping: function(transaction) {
+			balance = balance + transaction.amount;
+			return balance;
+		}}
     ],
     
     associations: [

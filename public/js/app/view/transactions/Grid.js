@@ -5,8 +5,9 @@ var onCellRender = function(value) {
     return '<span style="color:red;">' + formated + '</span>';
 };
 
-Ext.define('PoupaNiquel.view.transactions.Grid' ,{
+Ext.define('PoupaNiquel.view.transactions.Grid',{
 	extend: 'Ext.grid.Panel',
+    //extend: 'Ext.ux.LiveSearchGridPanel',
     alias: 'widget.transactionGrid',
     
     border: true,
@@ -39,6 +40,11 @@ Ext.define('PoupaNiquel.view.transactions.Grid' ,{
     	text     : 'Amount',
         sortable : false,
         dataIndex: 'amount',
+        renderer : onCellRender,
+    }, {
+    	text     : 'Balance',
+        sortable : false,
+        dataIndex: 'balance',
         renderer : onCellRender,
     }, {
     	text     : 'Category Object',
