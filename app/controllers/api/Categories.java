@@ -30,8 +30,10 @@ public class Categories extends Users {
 			ExtJS.success(category, 1l);
 		}
 		else {
-			List<Category> categories = Category.find("user_id=? order by name", Secure.user.id).fetch();
-			ExtJS.success(categories, ConverterUtil.toLong(categories.size()));
+		    int start = ConverterUtil.toInteger(params.get("start"));
+		    int limit = ConverterUtil.toInteger(params.get("limit"));
+			List<Category> categories = Category.find("user_id=? order by name", Secure.user.id).from(start).fetch(limit);
+			ExtJS.success(categories, Category.count());
 		}
 	}
 	

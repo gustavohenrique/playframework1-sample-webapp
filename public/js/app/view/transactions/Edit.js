@@ -52,12 +52,12 @@ Ext.define('PoupaNiquel.view.transactions.Edit', {
         	fieldLabel: 'Payment',
         }, {
         	xtype: 'filterComboBox',
-        	name:'categoryId',
+        	name:'category_id',
         	fieldLabel: 'Category',
         	store:'Categories',
         }, {
         	xtype: 'filterComboBox',
-        	name:'payeeId',
+        	name:'payee',
         	fieldLabel: 'Payee',
         	store:'Payees'
         }]

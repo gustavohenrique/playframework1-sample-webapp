@@ -32,4 +32,13 @@ public class ConverterUtil {
 			return null;
 		}
 	}
+
+    public static int toInteger(String value) {
+        try {
+            return Integer.valueOf(value);
+        }
+        catch (Exception e) {
+            return 0;
+        }
+    }
 }

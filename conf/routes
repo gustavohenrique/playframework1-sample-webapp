@@ -28,10 +28,8 @@ DELETE  /payees/delete/{<[0-9]+>id}             api.Payees.delete
 PUT     /payees/update/{<[0-9]+>id}             api.Payees.update
 
 # Transactions
-#GET     /transactions/read/account/{<[0-9]+>accountId}                  api.Transactions.read
-#GET     /transactions/read/{<[0-9]+>id}/account/{<[0-9]+>accountId}     api.Transactions.read
 POST    /transactions/create                                            api.Transactions.create
-DELETE  /transactions/delete/{<[0-9]+>id}/account/{<[0-9]+>accountId}   api.Transactions.delete
+DELETE  /transactions/delete/{<[0-9]+>id}                               api.Transactions.delete
 PUT     /transactions/update/{<[0-9]+>id}                               api.Transactions.update
 
 # Home Page

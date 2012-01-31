@@ -51,10 +51,9 @@ public class Transactions extends Controller {
 		}
     }
 	
-	public static void delete(Long id, Long accountId) {
+	public static void delete(Long id) {
 		try {
-			Account account = Account.findById(accountId);
-			Transaction transaction = Transaction.find("byUserAndIdAndAccount", Secure.user, id, account).first();
+			Transaction transaction = Transaction.find("byUserAndId", Secure.user, id).first();
 			transaction.delete();
 			ExtJS.success(transaction, 1l);
 		}

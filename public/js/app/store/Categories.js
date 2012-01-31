@@ -5,7 +5,7 @@ Ext.define('PoupaNiquel.store.Categories', {
     storeId: 'Categories',
     autoLoad: true,
     autoSync: true,
-    pageSize: 1000,
+    pageSize: 30,
     
     proxy: {
         type: 'rest',

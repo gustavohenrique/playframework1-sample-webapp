@@ -36,7 +36,6 @@ Ext.define('PoupaNiquel.controller.Categories', {
 	            	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
 	            }]
 	    	});
-       	    console.debug(store);
        	    viewport.add(panel);
     	}
     	

@@ -1,9 +1,13 @@
-var onCellRender = function(value) {
+var renderMoney = function(value) {
 	var formated = Ext.util.Format.currency(Math.abs(value), "R$ ", 2, false);
     if (value > 0)
         return '<span style="color:green;">' + formated + '</span>';
     return '<span style="color:red;">' + formated + '</span>';
 };
+
+var renderName = function(value) {
+	if (value) return value.name;
+}
 
 Ext.define('PoupaNiquel.view.transactions.Grid',{
 	extend: 'Ext.grid.Panel',
@@ -35,36 +39,28 @@ Ext.define('PoupaNiquel.view.transactions.Grid',{
         sortable : false,
         dataIndex: 'account',
         width    : 120,
-        renderer : function(value) {
-        	if (value) return value.name;
-        }
+        renderer : renderName
     }, {
     	text     : 'Category',
     	flex     : 0,
         sortable : true,
         dataIndex: 'category',
         width    : 120,
-        renderer : function(value) {
-        	if (value) return value.name;
-        },
+
+        renderer: renderName,
+        /*renderer: function(value, meta, record, row, col, store, view) {
+        	//if (record.data.category != null) return record.data.category.name;
+        	if (store.data.items[row].data.category != null)
+        		return store.data.items[row].data.category.name;
+        },*/
         editor: {
         	xtype: 'filterComboBox',
-        	id: 'editCategory',
-        	store: 'Categories',
-        	listeners: {
-        		'afterrender': function () {
-	        		var grid = Ext.ComponentManager.get('transactionGrid'),
-	        			id = grid.getSelectionModel().getSelection()[0].data.category.id,
-	        		    me = this;
-	        		
-	        		setTimeout(function() { me.setValue(id) }, 500);
-        		}
-        	},
+        	id: 'categoryCombo',
+        	store: 'combobox.Categories',
         	getValue: function() {
         		var name = this.rawToValue(this.processRawValue(this.getRawValue()));
-        		var category = {'id': this.value, 'name': name};
-                return category;
-        	}
+        		return {'id': this.value, 'name': name};
+        	},
         }
     }, {
     	text     : 'Payee',
@@ -72,19 +68,17 @@ Ext.define('PoupaNiquel.view.transactions.Grid',{
         sortable : false,
         dataIndex: 'payee',
         width    : 120,
-        renderer : function(value) {
-        	if (value) return value.name;
-        },
+        renderer : renderName
     }, {
     	text     : 'Amount',
         sortable : false,
         dataIndex: 'amount',
-        renderer : onCellRender,
+        renderer : renderMoney,
     }, {
     	text     : 'Balance',
         sortable : false,
         dataIndex: 'balance',
-        renderer : onCellRender,
+        renderer : renderMoney,
     }],
     
     tbar: [{

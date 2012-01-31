@@ -4,7 +4,7 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     extend: 'Ext.app.Controller',
 
     models: ['Account', 'Category', 'Payee', 'Transaction'],
-    stores: ['Accounts', 'Categories', 'Payees', 'Transactions'],
+    stores: ['Accounts', 'combobox.Categories', 'Payees', 'Transactions'],
     views: ['transactions.FilterPanel', 'transactions.FilterComboBox', 'transactions.Grid', 'transactions.Edit', 'common.MdiWindow'],
     
     refs: [{
@@ -20,21 +20,12 @@ Ext.define('PoupaNiquel.controller.Transactions', {
   	        'filterPanel button[action=clear]': {
 	    	    click: this.clear
 	        },
-	        'transactionEdit button[action=save]': {
-                click: this.save
-            },
 	        'transactionGrid button[action=add]': {
             	click: this.edit
-            },
-            'transactionGrid button[action=edit]': {
-            	click: this.editTransaction
             },
             'transactionGrid button[action=delete]': {
             	click: this.delete
             },
-//            'transactionGrid dataview': {
-//                itemdblclick: this.edit
-//            },
       	})
     },
     
@@ -84,55 +75,12 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	store.load();
     },
     
-    edit: function(grid, record) {
-        var edit = Ext.widget('transactionEdit').show();
-        
-        if (record) {
-        	edit.down('form').loadRecord(record);
-        }
-    },
-    
-    editTransaction: function(button) {
-    	var grid = button.up('transactionGrid'),
-	        record = grid.getSelectionModel().getSelection()[0];
-    	
-    	this.edit(grid, record);
-        
-    },
-    
-    save: function(button) {
-        var panel = button.up('panel'),
-            form = panel.down('form'),
-            record = form.getRecord(),
-            values = form.getValues(),
-            grid = this.getTransactionGrid(),
-            store = grid.getStore();
-        
-        console.log(record);
-		if (values.id > 0) {
-			var category = Ext.create('PoupaNiquel.model.Category');
-			category.id = values.categoryId;
-			values.category = category;
-			record.set(values);
-		}
-		else {
-			record = Ext.create('PoupaNiquel.model.Transaction');
-			record.set(values);
-			record.setId(0);
-			store.add(record);
-		}
-		panel.close();
-        store.sync();
-    },
-    
     delete: function(button) {
     	var grid = button.up('transactionGrid'),
-	        record = grid.getSelectionModel().getSelection(),
-            store = grid.getStore();
+	        record = grid.getSelectionModel().getSelection();
     	
     	if (record && confirm('Are you sure?')) {
-		    store.remove(record);
-		    store.sync();
+    		grid.getStore().remove(record);
     	}
     },
     
