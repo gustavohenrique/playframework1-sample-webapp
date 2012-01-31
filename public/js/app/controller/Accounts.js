@@ -1,59 +1,44 @@
 Ext.define('PoupaNiquel.controller.Accounts', {
-    extend: 'Ext.app.Controller',
-
-    models: ['Account'],
-    stores: ['Accounts'],
-    views:  ['accounts.Grid', 'common.MdiWindow'],
+	extend        : 'PoupaNiquel.controller.Common',
+    myModelName   : 'Account',
+    myStoreName   : 'Accounts',
+    myPanelName   : 'accountsPanel',
+    myGridSelector: 'accountsGrid',
+    myTitle       : 'Accounts',
     
-    refs: [{
-    	ref: 'accountsGrid',
-    	selector: 'accountsGrid'
-    }],
-    
-    init: function() {
-    	this.control({
-    		'accountsGrid button[action=add]': {
-  	    	    click: this.add
-  	        },
-  	        'accountsGrid button[action=delete]': {
-	    	    click: this.delete
-	        },
-    	})
-    },
-    
-    showPanel: function() {
-    	var viewport = Ext.ComponentManager.get('viewportCenter'),
-    	    panel = Ext.ComponentManager.get('accountsPanel');
+    myGridPanel: Ext.create('PoupaNiquel.view.common.DataGrid', {
+    	alias  : 'widget.' + this.myGridSelector,
+    	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
+    	store  : Ext.create('PoupaNiquel.store.Accounts'),
     	
-    	if (panel == null) {
-       	    panel = Ext.create('widget.mdiWindow', {
-	    		id: 'accountsPanel',
-	            title: 'Accounts',
-	            items: [{
-	            	xtype: 'accountsGrid',
-	            	store: this.getAccountsStore(),
-	            	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
-	            }]
-	    	});
-       	    viewport.add(panel);
-    	}
-    	panel.show();
-    },
-    
-    add: function(button) {
-    	//var account = Ext.create('PoupaNiquel.model.Account');
-    	this.getAccountsGrid().getStore().insert(0, this.getAccountModel().create());
-    },
-    
-    delete: function(button) {
-    	var grid = this.getAccountsGrid(),
-	        record = grid.getSelectionModel().getSelection()[0],
-            store = grid.getStore();
-        
-        if (record) {
-        	store.remove(record);
-            store.sync();
-        }
-    }
+    	columns: [{
+        	xtype: 'rownumberer',
+        	width: 30,
+        }, {
+            text: 'Name',
+            sortable: true,
+            dataIndex: 'name',
+            field: {
+                xtype: 'textfield'
+            }
+        }, {
+        	text : 'number',
+        	flex : 1,
+            sortable : false,
+            dataIndex: 'number',
+            field: {
+                xtype: 'textfield'
+            }
+        }, {
+        	text: 'Initial',
+        	flex: 0,
+            sortable: false,
+            dataIndex: 'initial',
+            width: 120,
+            field: {
+                xtype: 'textfield'
+            }
+        }],
+    })
     
 });

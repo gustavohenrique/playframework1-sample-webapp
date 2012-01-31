@@ -7,26 +7,26 @@
 Ext.Loader.setConfig({enabled:true});
 
 Ext.application({
-    name: 'PoupaNiquel',
-    appFolder: '/public/js/app',
+    name              : 'PoupaNiquel',
+    appFolder         : '/public/js/app',
     autoCreateViewport: false,
 
-    controllers: ['Main', 'Transactions', 'Accounts', 'Categories', 'Payees'],
+    controllers       : ['Main', 'Transactions', 'Accounts', 'Categories', 'Payees'],
     
     launch: function() {
         viewport = Ext.create('Ext.container.Viewport', {
-            id: 'viewport',
+            id    : 'viewport',
             layout: 'border',
             
             items: [{
-                region: 'north',
-                height: 45,
-                xtype: 'mainToolbar',
-                border: true,
+                xtype     : 'mainToolbar',
+                region    : 'north',
+                height    : 45,
+                border    : true,
             }, {
-                id: 'viewportCenter',
-                region: 'center',
-                border: false,
+                id        : 'viewportCenter',
+                region    : 'center',
+                border    : false,
                 autoScroll: true,
 
             }]

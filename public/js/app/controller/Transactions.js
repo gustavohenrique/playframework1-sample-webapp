@@ -1,57 +1,22 @@
-var editing = Ext.create('Ext.grid.plugin.CellEditing');
-
 Ext.define('PoupaNiquel.controller.Transactions', {
-    extend: 'Ext.app.Controller',
-
-    models: ['Account', 'Category', 'Payee', 'Transaction'],
-    stores: ['Accounts', 'combobox.Categories', 'Payees', 'Transactions'],
-    views: ['transactions.FilterPanel', 'transactions.FilterComboBox', 'transactions.Grid', 'transactions.Edit', 'common.MdiWindow'],
+	extend        : 'PoupaNiquel.controller.Common',
+    myModelName   : 'Transaction',
+    myStoreName   : 'Transactions',
+    myPanelName   : 'transactionsPanel',
+    myGridSelector: 'transactionsGrid',
+    myTitle       : 'Transactions',
     
-    refs: [{
-    	ref: 'transactionGrid',
-    	selector: 'transactionGrid'
-    }],
+    myGridPanel: Ext.create('PoupaNiquel.view.transactions.Grid', {
+    	alias  : 'widget.' + this.myGridSelector,
+    	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
+    	store  : Ext.create('PoupaNiquel.store.Transactions'),
+    }),
     
     init: function() {
-    	this.control({
-  	        'filterPanel button[action=filter]': {
-  	    	    click: this.filter
-  	        },
-  	        'filterPanel button[action=clear]': {
-	    	    click: this.clear
-	        },
-	        'transactionGrid button[action=add]': {
-            	click: this.edit
-            },
-            'transactionGrid button[action=delete]': {
-            	click: this.delete
-            },
-      	})
+    	this.callParent(arguments);
+    	this.views += ', transactions.FilterComboBox, transactions.Grid';
     },
-    
-    showPanel: function() {
-    	var viewport = Ext.ComponentManager.get('viewportCenter'),
-	    	panel = Ext.ComponentManager.get('transactionsPanel'),
-	    	store = this.getTransactionsStore();
-	
-		if (panel == null) {
-			
-	   	    panel = Ext.create('widget.mdiWindow', {
-	    		id: 'transactionsPanel',
-	            title: 'Transactions',
-	            items: [{
-	            	xtype: 'transactionGrid',
-	            	store: store,
-	            	plugins: Ext.create('Ext.grid.plugin.CellEditing')
-	            }]
-	    	});
-	   	    
-	   	    viewport.add(panel);
-		}
-		
-		panel.show();
-    },
-    
+    /*
     filter: function(button) {
     	var store = this.getTransactionGrid().getStore(),
     	    filterPanel = button.ownerCt.ownerCt;
@@ -73,15 +38,6 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	store.proxy.extraParams = {};
     	store.proxy.extraParams.accountId = store.accountId;
     	store.load();
-    },
-    
-    delete: function(button) {
-    	var grid = button.up('transactionGrid'),
-	        record = grid.getSelectionModel().getSelection();
-    	
-    	if (record && confirm('Are you sure?')) {
-    		grid.getStore().remove(record);
-    	}
-    },
+    }, */
     
 });
