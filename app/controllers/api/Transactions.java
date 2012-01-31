@@ -27,12 +27,12 @@ public class Transactions extends Controller {
         Binder.register(JsonObject.class, new GsonBinder());
     }
 	
-	public static void read(Long id, Long accountId) {
+	public static void read(Long id) {
 		try {
 			TransactionFilterOptions options = new TransactionFilterOptions();
 			options.setUserId(Secure.user.id);
 			options.setTransactionId(id);
-			options.setAccountId(accountId);
+			options.setAccountId(ConverterUtil.toLong(params.get("account")));
 			options.setPagination(params.get("start"), params.get("limit"));
 			options.setCategoryId(ConverterUtil.toLong(params.get("category")));
 			options.setPayeeId(ConverterUtil.toLong(params.get("payee")));
@@ -91,23 +91,35 @@ public class Transactions extends Controller {
     }
 	
 	public static void update(JsonObject body) {
-        Transaction submited = getSubmitedTransaction(body);
-        
-        Transaction transaction = Transaction.find("byUserAndIdAndAccount", Secure.user, submited.id, submited.account).first();
-        transaction.description = submited.description;
-        transaction.amount = submited.amount;
-        transaction.transactionDate = submited.transactionDate;
-        transaction.account = submited.account;
-        transaction.category = submited.category;
-        transaction.payee = submited.payee;
-        transaction.payment = submited.payment;
-        
-        validation.valid(transaction);
-        if(validation.hasErrors()) {
-            ExtJS.error("Validation error: "+validation.errors().get(0).toString());
-        }
-        
-        ExtJS.success(Transaction.findById(transaction.id), 1l);
+		try {
+	        Transaction submited = getSubmitedTransaction(body);
+	        
+	        Transaction transaction = Transaction.find("byUserAndId", Secure.user, submited.id).first();
+	        transaction.description = submited.description;
+	        transaction.amount = submited.amount;
+	        transaction.transactionDate = submited.transactionDate;
+	        transaction.account = submited.account;
+	        if (submited.category.id != null && submited.category.id > 0) {
+	        	transaction.category = submited.category;
+	        }
+	        else {
+	        	transaction.category = null;
+	        }
+	        transaction.payee = submited.payee;
+	        transaction.payment = submited.payment;
+	        
+	        validation.valid(transaction);
+	        if(validation.hasErrors()) {
+	            ExtJS.error("Validation error: "+validation.errors().get(0).toString());
+	        }
+	        
+	        transaction.save();
+	        ExtJS.success(Transaction.findById(transaction.id), 1l);
+		}
+		catch (Exception e) {
+			ExtJS.error(e.getMessage());
+		}
+		
     }
 	
 	private static Transaction getSubmitedTransaction(JsonObject body) {

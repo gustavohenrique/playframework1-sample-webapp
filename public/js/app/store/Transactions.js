@@ -2,7 +2,8 @@ Ext.define('PoupaNiquel.store.Transactions', {
     extend: 'Ext.data.Store',
     model: 'PoupaNiquel.model.Transaction',
     
-    autoLoad: false,
+    autoLoad: true,
+    autoSync: true,
     pageSize: 10,
     remoteFilter: false,
     remoteSort: false,
@@ -33,10 +34,7 @@ Ext.define('PoupaNiquel.store.Transactions', {
         
         listeners: {
             exception: function(proxy, response, operation){
-            	var message = Ext.JSON.decode(response.responseText).message,
-            	    accountId = this.extraParams.accountId;
-            	this.extraParams = {};
-            	this.extraParams.accountId = accountId;
+            	var message = Ext.JSON.decode(response.responseText).message;
             	Ext.Msg.alert('Error', message);
             }
         }

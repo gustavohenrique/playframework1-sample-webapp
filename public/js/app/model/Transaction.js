@@ -1,27 +1,9 @@
-function getName(object) {
-	if (object) {
-        return object.name;
-    }
-    return null;
-};
-
-function getId(object) {
-	if (object) {
-        return object.id;
-    }
-    return null;
-};
-
 var balance = 0;
 
 Ext.define('PoupaNiquel.model.Transaction', {
     extend: 'Ext.data.Model',
     fields: [
-    	'id','description', 'amount', 'payment', 'account', 'category', 'payee', 
-    	{ name: 'categoryId', mapping: function(transaction) { return getId(transaction.category); } },
-	    { name: 'categoryName', mapping: function(transaction) { return getName(transaction.category); }	},
-	    { name: 'payeeId', mapping: function(transaction) { return getId(transaction.payee); } },
-	    { name: 'payeeName', mapping: function(transaction) { return getName(transaction.payee); } },
+    	'id','description', 'amount', 'payment', 'account', 'payee', 'category',
 	    { name: 'transactionDate', type: 'date', convert: function(value) {
     			if (value != "") {
 			        var dt = new Date(Date.parse(value));
@@ -36,10 +18,4 @@ Ext.define('PoupaNiquel.model.Transaction', {
 		}}
     ],
     
-    associations: [
-       { type: 'belongsTo', model: 'Account', primaryKey: 'id', foreignKey: 'account' },
-       { type: 'belongsTo', model: 'Category', primaryKey: 'id', foreignKey: 'category' },
-       { type: 'belongsTo', model: 'Payee', primaryKey: 'id', foreignKey: 'payee' }
-    ],
-  
 });

@@ -9,6 +9,8 @@ Ext.define('PoupaNiquel.view.transactions.Grid',{
 	extend: 'Ext.grid.Panel',
     //extend: 'Ext.ux.LiveSearchGridPanel',
     alias: 'widget.transactionGrid',
+
+    id: 'transactionGrid',
     
     border: true,
     
@@ -23,19 +25,56 @@ Ext.define('PoupaNiquel.view.transactions.Grid',{
     	text     : 'Description',
     	flex     : 1,
         sortable : false,
-        dataIndex: 'description'
+        dataIndex: 'description',
+        editor: {
+            xtype: 'textfield'
+        }
+    }, {
+    	text     : 'Account',
+    	flex     : 0,
+        sortable : false,
+        dataIndex: 'account',
+        width    : 120,
+        renderer : function(value) {
+        	if (value) return value.name;
+        }
     }, {
     	text     : 'Category',
     	flex     : 0,
-        sortable : false,
-        dataIndex: 'categoryName',
-        width    : 120
+        sortable : true,
+        dataIndex: 'category',
+        width    : 120,
+        renderer : function(value) {
+        	if (value) return value.name;
+        },
+        editor: {
+        	xtype: 'filterComboBox',
+        	id: 'editCategory',
+        	store: 'Categories',
+        	listeners: {
+        		'afterrender': function () {
+	        		var grid = Ext.ComponentManager.get('transactionGrid'),
+	        			id = grid.getSelectionModel().getSelection()[0].data.category.id,
+	        		    me = this;
+	        		
+	        		setTimeout(function() { me.setValue(id) }, 500);
+        		}
+        	},
+        	getValue: function() {
+        		var name = this.rawToValue(this.processRawValue(this.getRawValue()));
+        		var category = {'id': this.value, 'name': name};
+                return category;
+        	}
+        }
     }, {
     	text     : 'Payee',
     	flex     : 0,
         sortable : false,
-        dataIndex: 'payeeName',
-        width    : 120
+        dataIndex: 'payee',
+        width    : 120,
+        renderer : function(value) {
+        	if (value) return value.name;
+        },
     }, {
     	text     : 'Amount',
         sortable : false,
@@ -46,22 +85,6 @@ Ext.define('PoupaNiquel.view.transactions.Grid',{
         sortable : false,
         dataIndex: 'balance',
         renderer : onCellRender,
-    }, {
-    	text     : 'Category Object',
-        dataIndex: 'category',
-        hidden: true
-    }, {
-    	text     : 'Payee Object',
-        dataIndex: 'payee',
-        hidden: true
-    }, {
-    	text     : 'Category Id',
-        dataIndex: 'categoryId',
-        hidden: true
-    }, {
-    	text     : 'Payee Id',
-        dataIndex: 'payeeId',
-        hidden: true
     }],
     
     tbar: [{

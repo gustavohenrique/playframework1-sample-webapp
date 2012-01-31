@@ -1,7 +1,3 @@
-var editing = Ext.create('Ext.grid.plugin.CellEditing', {
-    clicksToEdit: 2,
-});
-
 Ext.define('PoupaNiquel.controller.Categories', {
     extend: 'Ext.app.Controller',
 
@@ -37,16 +33,13 @@ Ext.define('PoupaNiquel.controller.Categories', {
 	            items: [{
 	            	xtype: 'categoriesGrid',
 	            	store: store,
-	            	plugins: [editing],
+	            	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
 	            }]
 	    	});
-       	    
-       	    editing.on('edit', function(editor, e, eOpts) {
-       	    	store.sync();
-       	    });
-       	    
+       	    console.debug(store);
        	    viewport.add(panel);
     	}
+    	
     	panel.show();
     },
     

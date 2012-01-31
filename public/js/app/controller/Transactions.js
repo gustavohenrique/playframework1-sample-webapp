@@ -1,3 +1,5 @@
+var editing = Ext.create('Ext.grid.plugin.CellEditing');
+
 Ext.define('PoupaNiquel.controller.Transactions', {
     extend: 'Ext.app.Controller',
 
@@ -30,60 +32,33 @@ Ext.define('PoupaNiquel.controller.Transactions', {
             'transactionGrid button[action=delete]': {
             	click: this.delete
             },
-            'transactionGrid dataview': {
-                itemdblclick: this.edit
-            },
+//            'transactionGrid dataview': {
+//                itemdblclick: this.edit
+//            },
       	})
     },
     
     showPanel: function() {
     	var viewport = Ext.ComponentManager.get('viewportCenter'),
 	    	panel = Ext.ComponentManager.get('transactionsPanel'),
-	    	totalAccounts = this.getAccountsStore().data.length;
-    	
-    	if (totalAccounts == 0) {
-    		Ext.Msg.alert('Error', 'No accounts found. Please add an account first.');
-    	}
+	    	store = this.getTransactionsStore();
 	
-    	if (panel == null && totalAccounts > 0) {
-    		var tabs = new Array();
-    		
-    		this.getAccountsStore().each(function(record) {
-	    		store = Ext.create('PoupaNiquel.store.Transactions');
-	    		store.proxy.extraParams.accountId = record.data.id;
-	    		store.accountId = record.data.id;
-	    		store.load();
-	    		
-	    		var tab = Ext.widget('panel', {
-	    		    layout: 'border',
-	    		    title: record.data.name,
-	    		    items: [{
-	    		    	region: 'west', xtype: 'filterPanel', title: 'Filter'
-	    		    }, {
-	    		    	region: 'center', xtype: 'transactionGrid', title: 'Transactions', store: store
-	    		    }]
-	    		});
-	    		
-	    		tabs.push(tab);
-	    	});
-	    	
-	    	var tabPanel = Ext.widget('tabpanel', {
-	    		activeTab: 0,
-	    		frame: false,
-	    		items: tabs,
-	    	});
-
-	    	panel = Ext.create('widget.mdiWindow', {
+		if (panel == null) {
+			
+	   	    panel = Ext.create('widget.mdiWindow', {
 	    		id: 'transactionsPanel',
-	    		title: 'Transactions',
-	            items: tabPanel
+	            title: 'Transactions',
+	            items: [{
+	            	xtype: 'transactionGrid',
+	            	store: store,
+	            	plugins: Ext.create('Ext.grid.plugin.CellEditing')
+	            }]
 	    	});
-	    	
-	    	viewport.add(panel);
+	   	    
+	   	    viewport.add(panel);
 		}
-    	panel.show();
-    	
-    	
+		
+		panel.show();
     },
     
     filter: function(button) {
