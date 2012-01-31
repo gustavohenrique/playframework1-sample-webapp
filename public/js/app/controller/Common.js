@@ -1,9 +1,9 @@
 Ext.define('PoupaNiquel.controller.Common', {
     extend: 'Ext.app.Controller',
 
-    models: ['Payee', 'Category', 'Account', 'Transaction'],
-    stores: ['Payees','Categories', 'Accounts', 'Transactions'],
-    views : ['common.MdiWindow'],
+    models: ['Payee',  'Category',   'Account',  'Transaction'],
+    stores: ['Payees', 'Categories', 'Accounts', 'Transactions', 'combobox.Categories'],
+    views : ['common.MdiWindow', 'transactions.FilterComboBox', 'transactions.Grid'],
     
     refs: [{
     	ref: 'myGrid',
@@ -11,8 +11,8 @@ Ext.define('PoupaNiquel.controller.Common', {
     }],
     
     init: function() {
-    	var addButton = this.myGridSelector + ' button[action=add]',
-    	    delButton = this.myGridSelector + ' button[action=delete]';
+    	var addButton = '#' + this.myGridId + ' button[action=add]',
+    	    delButton = '#' + this.myGridId + ' button[action=delete]';
     	
     	this.control({
     		addButton: {click: this.add},
@@ -33,6 +33,7 @@ Ext.define('PoupaNiquel.controller.Common', {
 	       	    	alias  : 'widget.' + this.myGridSelector,
 	            	store  : store,
 	            	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
+	            	id     : this.myGridId,
     			});
        	    };
     		
@@ -48,7 +49,7 @@ Ext.define('PoupaNiquel.controller.Common', {
     },
     
     add: function(button) {
-    	this.getMyGrid().getStore().insert(0, this.getModel(this.myModelName).create());
+    	alert('dssds');//this.getMyGrid().getStore().insert(0, this.getModel(this.myModelName).create());
     },
     
     delete: function() {

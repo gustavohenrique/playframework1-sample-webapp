@@ -3,19 +3,15 @@ Ext.define('PoupaNiquel.view.common.DataGrid',{
     border : true,
     store  : [],
     
-    tbar: [{
-    	text     : 'New',
-    	iconCls  : 'new-icon',
-    	action   : 'add'
-    }, {
-        text     : 'Edit',
-        iconCls  : 'edit-icon',
-        action   : 'edit'
-    }, {
-        text     : 'Delete',
-        iconCls  : 'delete-icon',
-        action   : 'delete'
-    }],
+//    tbar: [{
+//    	text     : 'New',
+//    	iconCls  : 'new-icon',
+//    	action   : 'add'
+//    }, {
+//        text     : 'Delete',
+//        iconCls  : 'delete-icon',
+//        action   : 'delete'
+//    }],
     
     columns: [{
     	xtype    : 'rownumberer',
@@ -32,6 +28,17 @@ Ext.define('PoupaNiquel.view.common.DataGrid',{
    
     initComponent: function() {
     	this.dockedItems = [{
+    		xtype: 'toolbar',
+    		items: [{
+    			text: 'Add',
+    			iconCls: 'new-icon',
+    			action: 'add'
+    		}, {
+    			text: 'Delete',
+    			iconCls: 'delete-icon',
+    			action: 'delete'
+			}]
+		}, {
     		store          : this.getStore(),
     		displayInfo    : true,
             xtype          : 'pagingtoolbar',

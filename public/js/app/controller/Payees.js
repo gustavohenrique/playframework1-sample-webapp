@@ -5,4 +5,5 @@ Ext.define('PoupaNiquel.controller.Payees', {
     myPanelName   : 'payeesPanel',
     myGridSelector: 'payeesGrid',
     myTitle       : 'Payees',
+    myGridId      : 'payeesGrid',
 });

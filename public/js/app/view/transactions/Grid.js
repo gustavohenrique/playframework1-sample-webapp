@@ -48,7 +48,6 @@ Ext.define('PoupaNiquel.view.transactions.Grid', {
         },*/
         editor: {
         	xtype    : 'filterComboBox',
-        	id       : 'categoryCombo',
         	store    : 'combobox.Categories',
         	getValue : function() {
         		var name = this.rawToValue(this.processRawValue(this.getRawValue()));

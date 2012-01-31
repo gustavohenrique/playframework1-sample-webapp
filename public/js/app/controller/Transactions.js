@@ -12,10 +12,6 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     	store  : Ext.create('PoupaNiquel.store.Transactions'),
     }),
     
-    init: function() {
-    	this.callParent(arguments);
-    	this.views += ', transactions.FilterComboBox, transactions.Grid';
-    },
     /*
     filter: function(button) {
     	var store = this.getTransactionGrid().getStore(),
