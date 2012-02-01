@@ -6,7 +6,6 @@ Ext.define('PoupaNiquel.controller.Payees', {
     myGridSelector: 'payeesGrid',
     myTitle       : 'Payees',
     
-    
     init: function() {
     	this.control({
     		'#payeesGrid button[action=add]': {click: this.add},

@@ -2,7 +2,7 @@ Ext.define('PoupaNiquel.controller.Common', {
     extend: 'Ext.app.Controller',
 
     models: ['Payee',  'Category',   'Account',  'Transaction'],
-    stores: ['Payees', 'Categories', 'Accounts', 'Transactions', 'combobox.Categories'],
+    stores: ['Categories', 'Payees', 'Accounts', 'Transactions', 'combobox.Categories'],
     views : ['common.MdiWindow', 'transactions.FilterComboBox', 'transactions.Grid', 'accounts.Grid'],
     
     refs: [{
@@ -32,7 +32,7 @@ Ext.define('PoupaNiquel.controller.Common', {
 	            	}),
     			});
        	    };
-    		
+       	    
        	    panel = Ext.create('widget.mdiWindow', {
        	    	id   : this.myPanelName,
        	    	title: this.myTitle,

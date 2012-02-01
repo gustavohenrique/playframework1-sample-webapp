@@ -41,11 +41,6 @@ Ext.define('PoupaNiquel.view.transactions.Grid', {
         sortable : true,
         renderer: renderName,
         width    : 120,
-        /*renderer: function(value, meta, record, row, col, store, view) {
-        	//if (record.data.category != null) return record.data.category.name;
-        	if (store.data.items[row].data.category != null)
-        		return store.data.items[row].data.category.name;
-        },*/
         editor: {
         	xtype    : 'filterComboBox',
         	store    : 'combobox.Categories',

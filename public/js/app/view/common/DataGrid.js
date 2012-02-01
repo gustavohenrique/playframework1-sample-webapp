@@ -2,17 +2,7 @@ Ext.define('PoupaNiquel.view.common.DataGrid',{
 	extend : 'Ext.grid.Panel',
     border : true,
     store  : [],
-    
-//    tbar: [{
-//    	text     : 'New',
-//    	iconCls  : 'new-icon',
-//    	action   : 'add'
-//    }, {
-//        text     : 'Delete',
-//        iconCls  : 'delete-icon',
-//        action   : 'delete'
-//    }],
-    
+
     columns: [{
     	xtype    : 'rownumberer',
     	width    : 30,

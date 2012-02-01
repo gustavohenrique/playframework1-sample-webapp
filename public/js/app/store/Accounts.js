@@ -5,24 +5,15 @@ Ext.define('PoupaNiquel.store.Accounts', {
     storeId: 'Accounts',
     autoLoad: true,
     autoSync: false,
-    pageSize: 35,
+    pageSize: 30,
     
-    proxy: {
-        type: 'rest',
+    proxy: Ext.create('PoupaNiquel.store.CommonProxy', {
+    	model: 'Account',
         api: {
         	read : '/accounts/read',
         	create : '/accounts/create',
             update: '/accounts/update',
             destroy: '/accounts/delete'
-        },
-        reader: {
-            type: 'json',
-            root: 'data',
-            successProperty: 'success'
-        },
-        writer: {
-            type: 'json',
-            root: 'data',
-        },
-    }
+        }
+    }),
 });

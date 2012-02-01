@@ -1,3 +1,5 @@
+var store = Ext.create('PoupaNiquel.store.Transactions');
+
 Ext.define('PoupaNiquel.controller.Transactions', {
 	extend        : 'PoupaNiquel.controller.Common',
     myModelName   : 'Transaction',
@@ -14,10 +16,16 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     },
     
     myGridPanel: Ext.create('PoupaNiquel.view.transactions.Grid', {
-    	alias  : 'widget.' + this.myGridSelector,
-    	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
-    	store  : Ext.create('PoupaNiquel.store.Transactions'),
     	id     : 'transactionsGrid',
+    	alias  : 'widget.' + this.myGridSelector,
+    	store  : store,
+    	plugins: Ext.create('Ext.grid.plugin.RowEditing', {
+    		listeners: {
+    			'edit': function() {
+    				store.sync();
+    			}
+    		}
+    	}),
     }),
     
     /*
