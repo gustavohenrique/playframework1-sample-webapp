@@ -6,39 +6,18 @@ Ext.define('PoupaNiquel.controller.Accounts', {
     myGridSelector: 'accountsGrid',
     myTitle       : 'Accounts',
     
-    myGridPanel: Ext.create('PoupaNiquel.view.common.DataGrid', {
+    init: function() {
+    	this.control({
+    		'#accountsGrid button[action=add]': {click: this.add},
+    		'#accountsGrid button[action=delete]': {click: this.delete},
+    	});
+    },
+    
+    myGridPanel: Ext.create('PoupaNiquel.view.accounts.Grid', {
     	alias  : 'widget.' + this.myGridSelector,
     	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
     	store  : Ext.create('PoupaNiquel.store.Accounts'),
-    	
-    	columns: [{
-        	xtype: 'rownumberer',
-        	width: 30,
-        }, {
-            text: 'Name',
-            sortable: true,
-            dataIndex: 'name',
-            field: {
-                xtype: 'textfield'
-            }
-        }, {
-        	text : 'number',
-        	flex : 1,
-            sortable : false,
-            dataIndex: 'number',
-            field: {
-                xtype: 'textfield'
-            }
-        }, {
-        	text: 'Initial',
-        	flex: 0,
-            sortable: false,
-            dataIndex: 'initial',
-            width: 120,
-            field: {
-                xtype: 'textfield'
-            }
-        }],
-    })
+    	id     : 'accountsGrid',
+    }),
     
 });

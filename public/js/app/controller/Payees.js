@@ -5,5 +5,12 @@ Ext.define('PoupaNiquel.controller.Payees', {
     myPanelName   : 'payeesPanel',
     myGridSelector: 'payeesGrid',
     myTitle       : 'Payees',
-    myGridId      : 'payeesGrid',
+    
+    
+    init: function() {
+    	this.control({
+    		'#payeesGrid button[action=add]': {click: this.add},
+    		'#payeesGrid button[action=delete]': {click: this.delete},
+    	});
+    },
 });

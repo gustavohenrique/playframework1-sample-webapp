@@ -6,10 +6,18 @@ Ext.define('PoupaNiquel.controller.Transactions', {
     myGridSelector: 'transactionsGrid',
     myTitle       : 'Transactions',
     
+    init: function() {
+    	this.control({
+    		'#transactionsGrid button[action=add]': {click: this.add},
+    		'#transactionsGrid button[action=delete]': {click: this.delete},
+    	});
+    },
+    
     myGridPanel: Ext.create('PoupaNiquel.view.transactions.Grid', {
     	alias  : 'widget.' + this.myGridSelector,
     	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
     	store  : Ext.create('PoupaNiquel.store.Transactions'),
+    	id     : 'transactionsGrid',
     }),
     
     /*
