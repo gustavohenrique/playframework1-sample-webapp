@@ -2,7 +2,7 @@ Ext.define('PoupaNiquel.controller.Common', {
     extend: 'Ext.app.Controller',
 
     models: ['Payee',  'Category',   'Account',  'Transaction'],
-    stores: ['Categories', 'Payees', 'Accounts', 'Transactions', 'combobox.Categories'],
+    stores: ['Payees', 'Categories', 'Accounts', 'Transactions', 'combobox.Payees', 'combobox.Categories', 'combobox.Accounts'],
     views : ['common.MdiWindow', 'transactions.FilterComboBox', 'transactions.Grid', 'accounts.Grid'],
     
     refs: [{

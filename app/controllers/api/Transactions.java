@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import models.Account;
+import models.Category;
+import models.Payee;
 import models.Transaction;
 import play.data.binding.Binder;
 import play.mvc.Controller;
@@ -70,10 +72,11 @@ public class Transactions extends Controller {
         transaction.description = submited.description;
         transaction.amount = submited.amount;
         transaction.transactionDate = submited.transactionDate;
-        transaction.account = submited.account;
-        transaction.category = submited.category;
-        transaction.payee = submited.payee;
         transaction.payment = submited.payment;
+        
+        transaction.category = Category.findById(submited.category.id);
+        transaction.account = Account.findById(submited.account.id);
+        transaction.payee = Payee.findById(submited.payee.id);
         
         validation.valid(transaction);
         if(validation.hasErrors()) {
@@ -128,5 +131,9 @@ public class Transactions extends Controller {
             .create();
 
        return gson.fromJson(body.get("data"), Transaction.class);
+    }
+	
+	private static boolean hasId(Long id) {
+        return (id != null && id > 0);
     }
 }

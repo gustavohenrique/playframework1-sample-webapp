@@ -19,13 +19,18 @@ Ext.define('PoupaNiquel.view.transactions.Grid', {
         text     : 'Date',
         dataIndex: 'transactionDate',
         sortable : true,
+        editor: {
+            xtype: 'datefield',
+            format: 'Y-m-d',
+            submitFormat: 'Y-m-d',
+        }
     }, {
     	text     : 'Description',
     	dataIndex: 'description',
     	flex     : 1,
         sortable : false,
         editor: {
-            xtype: 'textfield'
+            xtype: 'textfield',
         }
     }, {
     	text     : 'Account',
@@ -34,6 +39,14 @@ Ext.define('PoupaNiquel.view.transactions.Grid', {
         sortable : false,
         renderer : renderName,
         width    : 120,
+        editor: {
+        	xtype    : 'filterComboBox',
+        	store    : 'combobox.Accounts',
+        	getValue : function() {
+        		var name = this.rawToValue(this.processRawValue(this.getRawValue()));
+        		return {'id': this.value, 'name': name};
+        	},
+        }
     }, {
     	text     : 'Category',
     	dataIndex: 'category',
@@ -56,11 +69,23 @@ Ext.define('PoupaNiquel.view.transactions.Grid', {
         sortable : false,
         renderer : renderName,
         width    : 120,
+        editor: {
+        	xtype    : 'filterComboBox',
+        	store    : 'combobox.Payees',
+        	getValue : function() {
+        		var name = this.rawToValue(this.processRawValue(this.getRawValue()));
+        		return {'id': this.value, 'name': name};
+        	},
+        }
     }, {
     	text     : 'Amount',
     	dataIndex: 'amount',
         sortable : false,
         renderer : renderMoney,
+        editor: {
+            xtype: 'numberfield',
+            decimalPrecision: 2,
+        }
     }, {
     	text     : 'Balance',
     	dataIndex: 'balance',
