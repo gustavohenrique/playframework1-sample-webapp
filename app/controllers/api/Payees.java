@@ -28,8 +28,10 @@ public class Payees extends Users {
 			ExtJS.success(payee, 1l);
 		}
 		else {
-			List<Payee> payees = Payee.find("byUser", Secure.user).fetch();
-			ExtJS.success(payees, ConverterUtil.toLong(payees.size()));
+		    int start = ConverterUtil.toInteger(params.get("start"));
+            int limit = ConverterUtil.toInteger(params.get("limit"));
+			List<Payee> payees = Payee.find("user_id=? order by name", Secure.user.id).from(start).fetch(limit);
+			ExtJS.success(payees, Payee.count());
 		}
 	}
 	

@@ -20,10 +20,16 @@ Ext.define('PoupaNiquel.controller.Common', {
     		
     		if (grid == undefined) {
     			grid = Ext.create('PoupaNiquel.view.common.DataGrid', {
+    				id     : this.myGridSelector,
 	       	    	alias  : 'widget.' + this.myGridSelector,
 	            	store  : store,
-	            	plugins: Ext.create('Ext.grid.plugin.CellEditing'),
-	            	id     : this.myGridSelector,
+	            	plugins: Ext.create('Ext.grid.plugin.CellEditing', {
+	            		listeners: {
+	            			'edit': function() {
+	            				store.sync();
+	            			}
+	            		}
+	            	}),
     			});
        	    };
     		
@@ -39,16 +45,19 @@ Ext.define('PoupaNiquel.controller.Common', {
     },
     
     add: function(button) {
-    	this.getMyGrid().getStore().insert(0, this.getModel(this.myModelName).create());
+    	button.up('grid').getStore().insert(0, this.getModel(this.myModelName).create());
     },
     
-    delete: function() {
-    	var grid = this.getMyGrid(),
-	        record = grid.getSelectionModel().getSelection()[0],
-            store = grid.getStore();
+    delete: function(button) {
+    	var grid = button.up('grid'),
+    	    store = grid.getStore(),
+	        record = grid.getSelectionModel().getSelection()[0];
         
         if (record) {
-        	store.remove(record);
+        	if (confirm('Are you sure?')) {
+        		store.remove(record);
+        		store.sync();
+        	}
         }
     }
      

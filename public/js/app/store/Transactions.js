@@ -1,35 +1,35 @@
 Ext.define('PoupaNiquel.store.Transactions', {
     extend: 'Ext.data.Store',
-    model: 'PoupaNiquel.model.Transaction',
+    model : 'PoupaNiquel.model.Transaction',
     
-    autoLoad: true,
-    autoSync: true,
-    pageSize: 10,
+    autoLoad    : true,
+    autoSync    : false,
+    pageSize    : 10,
     remoteFilter: false,
-    remoteSort: false,
+    remoteSort  : false,
     
     proxy: {
         type: 'rest',
     	
         api: {
-        	read : '/transactions/read',
+        	read   : '/transactions/read',
         	create : '/transactions/create',
-            update: '/transactions/update',
+            update : '/transactions/update',
             destroy: '/transactions/delete'
         },
         
         reader: {
-            type: 'json',
-            root: 'data',
+            type           : 'json',
+            root           : 'data',
             successProperty: 'success',
-            totalProperty: 'total'
+            totalProperty  : 'total'
         },
         
         writer: {
-            type: 'json',
-            root: 'data',
-            writeAllFields: true,
-            encode: false,
+            type           : 'json',
+            root           : 'data',
+            writeAllFields : true,
+            encode         : false,
         },
         
         listeners: {

@@ -4,7 +4,7 @@ Ext.define('PoupaNiquel.store.Payees', {
     
     storeId: 'Payees',
     autoLoad: true,
-    autoSync: true,
+    autoSync: false,
     pageSize: 1000,
     
     proxy: {
